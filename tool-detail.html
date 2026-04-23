@@ -1,0 +1,1690 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tool Detail — BAT Library</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/lucide-react@latest/dist/umd/lucide-react.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --bg: #1a1714;
+        --bg2: #211c18;
+        --bg3: #2a2420;
+        --border: #3d3028;
+        --text: #d4ccc4;
+        --text2: #8a7f76;
+        --text-head: #ede8e2;
+        --accent: #cf7b4b;
+        --danger: #d64949;
+        --font: "Lora", Georgia, serif;
+        --mono: "Geist Mono", monospace;
+      }
+      html {
+        font-family: var(--font);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.75;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font-family: inherit;
+        cursor: pointer;
+      }
+      code {
+        background: var(--bg2);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: var(--mono);
+        color: var(--accent);
+      }
+      pre {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px;
+        overflow-x: auto;
+        margin: 16px 0;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--bg3);
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const { useState, useEffect } = React;
+
+      const Icons = window.lucideReact || {};
+      function Icon({ name, size = 24, style, color }) {
+        const C = Icons[name];
+        if (!C) return null;
+        return <C size={size} style={style} color={color} />;
+      }
+
+      const TOOL_DATA = {
+        CleanWindows_MASTER: {
+          name: "CleanWindows MASTER",
+          icon: "Eraser",
+          cat: "cleaning",
+          admin: true,
+          explanation:
+            "Complete Windows debloat, optimization & privacy tool. Removes bloatware, disables unnecessary services, locks down telemetry, optimizes performance, cleans temporary files, and improves disk health in 10 phases.",
+          whatItDoes: [
+            "Removes Xbox, games, Cortana, Bing apps, Weather, and mixed reality apps",
+            "Disables 15+ unnecessary services (search index, print spooler, fax, telemetry relays)",
+            "Blocks 20+ Microsoft telemetry domains in HOSTS file",
+            "Disables location, camera, microphone, advertising ID access",
+            "Activates Ultimate Performance power plan",
+            "Disables CPU core parking and visual effects",
+            "Sets DNS to Cloudflare 1.1.1.1",
+            "Removes startup junk (OneDrive, Skype, Teams, Edge)",
+            "Clears temp files, browser caches, prefetch",
+            "Runs disk optimization and system file checks",
+          ],
+          howToUse: [
+            "Right-click the file and select 'Run as administrator' (required)",
+            "Press any key when prompted to start",
+            "The script will run 10 phases automatically (takes ~20-30 minutes)",
+            "Do NOT close the window while running",
+            "When finished, the PC will restart in 30 seconds (press Ctrl+C to cancel)",
+            "After restart, your system will be clean and optimized",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES — will not run without them",
+            "⚠️ DESTRUCTIVE — removes apps, disables services, modifies registry. Back up important data first",
+            "⚠️ PC WILL RESTART — 30 seconds after completion",
+            "⚠️ Some disabled services may break specific workflows (Remote Desktop, Bluetooth, etc.) — use FixBluetooth.bat etc. if needed",
+            "⚠️ Not recommended for work/corporate PCs — only for personal gaming/optimization use",
+            "💡 Run RegistryBackup.bat and CreateRestorePoint.bat before this",
+          ],
+        },
+        BackupFolders: {
+          name: "Backup Folders",
+          icon: "HardDrive",
+          cat: "backup",
+          admin: true,
+          explanation:
+            "Backs up your important personal folders (Desktop, Documents, Pictures, Downloads) to an external drive or network location. Uses Windows robocopy for efficient, resumable backups.",
+          whatItDoes: [
+            "Backs up Desktop folder with all contents",
+            "Backs up Documents folder",
+            "Backs up Pictures folder",
+            "Backs up Downloads folder",
+            "Creates timestamped backup folder (WindowsBackup_YYYY-MM-DD)",
+            "Uses robocopy for resumable transfers — can pause and resume",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "When prompted, enter the backup destination (e.g., D:\\Backup or \\\\NAS\\backup)",
+            "Press Enter to start",
+            "Script will create a folder with today's date and backup all 4 folders",
+            "Backup can be resumed if interrupted",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "⚠️ Destination must have enough free space — check before running",
+            "⚠️ USB drives recommended for portability; external drives for capacity",
+            "💡 Run this weekly or monthly for regular backups",
+            "💡 Use ScheduleDailyBackup.bat to automate this",
+          ],
+        },
+        BlockDistractingSites: {
+          name: "Block Distracting Sites",
+          icon: "Ban",
+          cat: "fun",
+          admin: true,
+          explanation:
+            "Blocks or unblocks distracting websites (YouTube, Facebook, Instagram, Twitter/X, TikTok, Reddit, Twitch, Netflix) via your HOSTS file. Toggle on/off as needed.",
+          whatItDoes: [
+            "First run: Blocks YouTube, Facebook, Instagram, Twitter/X, TikTok, Reddit, Twitch, Netflix",
+            "Second run: Unblocks all sites",
+            "Works by redirecting domain names to 0.0.0.0 in HOSTS file",
+            "Flushes DNS cache so changes take effect immediately",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "First run blocks all sites",
+            "Sites will show 'This site can't be reached'",
+            "Run again to unblock them",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "⚠️ Blocks at OS level — VPNs can bypass this",
+            "💡 Run once to block, once to unblock",
+            "💡 Perfect for focus work or productivity sessions",
+          ],
+        },
+        BulkRenamer: {
+          name: "Bulk Renamer",
+          icon: "Pencil",
+          cat: "organizing",
+          admin: true,
+          explanation:
+            "Renames multiple files in a folder at once. Supports adding a prefix, suffix, sequential numbers, or replacing part of the filename. Saves hours of manual renaming.",
+          whatItDoes: [
+            "Adds a custom prefix to every filename in a folder",
+            "Adds a custom suffix before the file extension",
+            "Adds sequential numbers (001, 002, 003...) to filenames",
+            "Replaces any text string in filenames with another string",
+            "Shows a preview of changes before applying",
+            "Works on all file types — images, documents, videos, etc.",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Enter the folder path containing files to rename",
+            "Choose the rename mode: prefix, suffix, number, or replace",
+            "Enter the text to add or the old/new text to replace",
+            "Preview the changes, then confirm to apply",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "⚠️ IRREVERSIBLE — renames cannot be undone automatically",
+            "⚠️ Only renames files in the target folder — subfolders are not touched",
+            "💡 Do a test run on a copy of your files first",
+            "💡 The script shows a preview before applying — always check it",
+          ],
+        },
+        ClearRecentActivity: {
+          name: "Clear Recent Activity",
+          icon: "Trash2",
+          cat: "cleaning",
+          admin: true,
+          explanation:
+            "Wipes your Windows activity history — recent files in Explorer, jump lists, clipboard contents, search history, thumbnail cache, and browser typed URLs.",
+          whatItDoes: [
+            "Clears Windows jump lists (right-click menu history on taskbar)",
+            "Wipes recent files from File Explorer Quick Access",
+            "Empties clipboard contents",
+            "Deletes Windows search history",
+            "Clears thumbnail cache (forces fresh generation)",
+            "Removes typed URLs from Edge address bar history",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Script runs automatically — no prompts needed",
+            "Takes about 30 seconds to complete",
+            "Activity history will be cleared on next Explorer restart",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "⚠️ Recent files list will be empty — shortcuts to previous documents are gone",
+            "⚠️ Clipboard is wiped — copy anything important before running",
+            "💡 Safe to run regularly for privacy",
+            "💡 Thumbnails will rebuild gradually as you browse folders",
+          ],
+        },
+        ClearUSBHistory: {
+          name: "Clear USB History",
+          icon: "Disc",
+          cat: "cleaning",
+          admin: true,
+          explanation:
+            "Removes all records of USB devices ever connected to your PC from the Windows registry. Useful for privacy, troubleshooting, or before selling a computer.",
+          whatItDoes: [
+            "Reads the Windows registry for all connected USB device history",
+            "Removes device entries from USBSTOR registry key",
+            "Clears Mountpoints2 entries (drive letter assignments)",
+            "Shows how many devices were removed",
+            "Does not affect currently connected devices",
+          ],
+          howToUse: [
+            "Disconnect any USB devices you want to keep registered (built-in mouse/keyboard ports are fine)",
+            "Right-click and select 'Run as administrator'",
+            "Script will scan and remove USB history automatically",
+            "Reconnect your USB devices — they will register as new",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "⚠️ Clears ALL device history — connected devices may need to reinstall drivers on next plug-in",
+            "💡 Safe to run — no system files are deleted",
+            "💡 Useful before selling or passing on a PC",
+            "💡 Does not affect Bluetooth device history (separate registry path)",
+          ],
+        },
+        CreateRestorePoint: {
+          name: "Create Restore Point",
+          icon: "Settings2",
+          cat: "backup",
+          admin: true,
+          explanation:
+            "Creates a Windows System Restore Point instantly. Use this before installing software, running cleanup scripts, or making registry changes — lets you roll back Windows to this exact state if something breaks.",
+          whatItDoes: [
+            "Creates a System Restore Point with today's date and time in the name",
+            "Enables System Restore if it was disabled",
+            "Takes a snapshot of system files, registry, and installed programs",
+            "Finishes in under 2 minutes on most systems",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Script creates the restore point automatically",
+            "You'll see a 'Restore point created successfully' message",
+            "If something breaks later: Control Panel → Recovery → Open System Restore",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ COMPLETELY SAFE — only creates a backup, touches nothing",
+            "💡 Run this BEFORE every CleanWindows or registry script",
+            "💡 Restore points use disk space (usually 2-10 GB) — Windows manages this automatically",
+            "💡 Does NOT back up personal files — only Windows system state",
+          ],
+        },
+        DarkModeToggle: {
+          name: "Dark Mode Toggle",
+          icon: "Moon",
+          cat: "aesthetic",
+          admin: false,
+          explanation:
+            "Simple toggle script that switches between Windows dark mode and light mode. No admin required — just run and it flips your theme preference.",
+          whatItDoes: [
+            "Checks current Windows theme setting in registry",
+            "If dark mode is ON, switches to light mode",
+            "If light mode is ON, switches to dark mode",
+            "Changes apply immediately",
+          ],
+          howToUse: [
+            "Double-click the file (no admin needed)",
+            "Wait 2 seconds for the mode to switch",
+            "Your Windows theme will toggle instantly",
+          ],
+          cautions: [
+            "✅ NO ADMIN REQUIRED — safe to run as regular user",
+            "💡 This is a toggle — run it again to switch back",
+            "💡 Great for binding to a hotkey or putting on desktop",
+          ],
+        },
+        DisableForcedRestarts: {
+          name: "Disable Forced Restarts",
+          icon: "StopCircle",
+          cat: "fast-computer",
+          admin: true,
+          explanation:
+            "Stops Windows from automatically restarting your PC after updates without your permission. Instead, it will notify you and let you choose when to restart.",
+          whatItDoes: [
+            "Modifies Windows Update Group Policy to prevent forced reboots",
+            "Sets Active Hours (7am–11pm) where restarts cannot happen automatically",
+            "Configures notification before any restart",
+            "Updates registry to enforce these settings",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Script applies settings immediately — no restart needed",
+            "Windows will now ask before restarting for updates",
+            "You can still restart manually anytime",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — only changes update restart behavior",
+            "💡 Windows will still download and install updates in the background",
+            "💡 You'll still get notified to restart — you just won't get force-restarted mid-work",
+            "⚠️ Security updates are still applied — this only delays the restart, not the update",
+          ],
+        },
+        DriverBackup: {
+          name: "Driver Backup",
+          icon: "Monitor",
+          cat: "backup",
+          admin: true,
+          explanation:
+            "Exports all currently installed hardware drivers (GPU, network, audio, USB, etc.) to a folder on your Desktop. Useful before reinstalling Windows or as a recovery backup.",
+          whatItDoes: [
+            "Uses DISM to export all third-party drivers from Windows driver store",
+            "Creates a 'DriversBackup' folder on your Desktop",
+            "Each driver is exported as a .inf + .sys file in its own subfolder",
+            "Works on all hardware: GPU, WiFi, Bluetooth, USB controllers, audio",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Script exports all drivers to Desktop\\DriversBackup",
+            "Takes 1-5 minutes depending on how many drivers are installed",
+            "After Windows reinstall: Device Manager → Action → Add legacy hardware → point to the backup folder",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ READ-ONLY — only copies drivers, doesn't change anything",
+            "💡 Run this before a fresh Windows install",
+            "💡 The backup folder can be 500MB–2GB depending on your hardware",
+            "💡 GPU drivers (NVIDIA/AMD) are better reinstalled from manufacturer website",
+          ],
+        },
+        DuplicateFileFinder: {
+          name: "Duplicate File Finder",
+          icon: "Search",
+          cat: "organizing",
+          admin: true,
+          explanation:
+            "Scans a folder for files with identical content (using hash comparison) and saves a report listing all duplicates. Helps you free up space without accidentally deleting originals.",
+          whatItDoes: [
+            "Hashes every file in the target folder using CertUtil MD5",
+            "Groups files with identical hashes — these are exact duplicates",
+            "Saves a DuplicateReport.txt on your Desktop with full file paths",
+            "Shows total number of duplicate files and approximate space wasted",
+            "Does NOT delete anything — report only",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Enter the folder path to scan when prompted",
+            "Wait for the scan (may take several minutes for large folders)",
+            "Open DuplicateReport.txt on your Desktop to review duplicates",
+            "Manually delete the duplicates you don't need",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — read-only scan, no files are deleted",
+            "💡 Good for Downloads, Pictures, and Videos folders",
+            "⚠️ Comparing file content is slow on large folders — expect 5-15 min for 10,000+ files",
+            "💡 Always review the report before deleting — same content ≠ same file purpose",
+          ],
+        },
+        EmptyFolderCleaner: {
+          name: "Empty Folder Cleaner",
+          icon: "Folder",
+          cat: "cleaning",
+          admin: true,
+          explanation:
+            "Scans a folder and automatically deletes all empty subdirectories. Useful for cleaning up after batch operations or old projects.",
+          whatItDoes: [
+            "Recursively finds all empty folders in target directory",
+            "Deletes empty folders automatically",
+            "Runs twice to catch nested empty folders",
+            "Counts and displays how many were deleted",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Enter the folder path when prompted (e.g., C:\\Users\\Me\\Documents)",
+            "Script will find and delete all empty folders",
+            "You'll see a count of deleted folders",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "⚠️ DESTRUCTIVE — folders are permanently deleted",
+            "💡 Use on Downloads, Documents, or Pictures to clean up",
+            "💡 Check the folder count before confirming it's safe",
+          ],
+        },
+        FixBluetooth: {
+          name: "Fix Bluetooth",
+          icon: "Bluetooth",
+          cat: "fast-computer",
+          admin: true,
+          explanation:
+            "Re-enables and restarts Bluetooth services when Bluetooth has stopped working, disappeared from Device Manager, or won't pair with devices.",
+          whatItDoes: [
+            "Sets Bluetooth Support Service to automatic start",
+            "Restarts the Bluetooth Support Service",
+            "Re-enables Bluetooth adapter in Device Manager",
+            "Flushes Bluetooth device cache",
+            "Restarts Bluetooth Audio Gateway and related services",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Let the script run through all steps",
+            "After completion, toggle Bluetooth off and on in Settings",
+            "Try pairing your device again",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — restarts services only, doesn't delete drivers",
+            "💡 If Bluetooth still doesn't appear, check if your adapter is disabled in Device Manager",
+            "💡 If the issue persists, your driver may be corrupt — reinstall from manufacturer website",
+          ],
+        },
+        FixBrokenIcons: {
+          name: "Fix Broken Icons",
+          icon: "Image",
+          cat: "fast-computer",
+          admin: true,
+          explanation:
+            "Rebuilds the Windows icon cache database. Fixes blank icons, wrong icons, missing thumbnails, or icons that never update after file changes.",
+          whatItDoes: [
+            "Stops Windows Explorer process",
+            "Deletes IconCache.db and thumbnail database files",
+            "Clears all cached thumbnails from the icon cache folder",
+            "Restarts Windows Explorer to rebuild the cache from scratch",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Your taskbar and desktop will briefly disappear — Explorer is restarting",
+            "Explorer comes back in 5-10 seconds with fresh icons",
+            "Icons rebuild as you browse — fully repopulated in a few minutes",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — only deletes cache files, not your actual files",
+            "💡 Desktop will flash black for a few seconds — this is normal",
+            "💡 Windows rebuilds the cache automatically after the restart",
+            "💡 Useful after installing software that changed file associations",
+          ],
+        },
+        FixExplorer: {
+          name: "Fix Explorer",
+          icon: "FolderOpen",
+          cat: "aesthetic",
+          admin: true,
+          explanation:
+            "Configures Windows File Explorer to open 'This PC' instead of Quick Access, shows file extensions, shows hidden files, removes ads, and disables recent files cluttering Quick Access.",
+          whatItDoes: [
+            "Sets Explorer to open to 'This PC' instead of Quick Access",
+            "Shows file extensions for all file types (so you can see .exe, .pdf, etc.)",
+            "Shows hidden files and folders",
+            "Disables 'Recent Files' showing in Quick Access",
+            "Disables 'Frequent Folders' in Quick Access",
+            "Removes OneDrive ads and Office file suggestions from Explorer",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Script applies all changes via registry",
+            "Restarts Explorer automatically to apply",
+            "Open File Explorer to see the changes",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — only registry settings, fully reversible",
+            "💡 File extensions will now show — be careful renaming files as changing the extension breaks them",
+            "💡 Hidden files include Windows system files — don't delete things you don't recognize",
+          ],
+        },
+        FixMicrosoftStore: {
+          name: "Fix Microsoft Store",
+          icon: "ShoppingBag",
+          cat: "fast-computer",
+          admin: true,
+          explanation:
+            "Resets the Microsoft Store and its dependencies when apps won't install, update, or launch. Fixes 'Try again later', 0x80070005, and similar Store errors.",
+          whatItDoes: [
+            "Clears Microsoft Store cache (WSReset)",
+            "Re-registers Microsoft Store package",
+            "Resets Windows Update components that Store depends on",
+            "Restarts relevant background services (InstallService, AppXSvc)",
+            "Clears pending downloads queue",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "A blank Store reset window will open briefly — this is normal",
+            "Script completes in 1-2 minutes",
+            "Open Microsoft Store and try your download again",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — only resets Store cache, doesn't remove installed apps",
+            "💡 Your installed apps are not affected — only the Store itself is reset",
+            "💡 Works for Xbox app, Game Pass, and other Store-installed apps too",
+          ],
+        },
+        FixSlowRightClick: {
+          name: "Fix Slow Right-Click",
+          icon: "Zap",
+          cat: "fast-computer",
+          admin: true,
+          explanation:
+            "Diagnoses and removes broken shell extensions that cause Windows right-click menus to hang for 5-15 seconds before appearing. Usually caused by uninstalled software leaving broken context menu handlers.",
+          whatItDoes: [
+            "Scans the registry for shell extension handlers (InprocServer32 entries)",
+            "Identifies handlers pointing to files that no longer exist",
+            "Removes the broken registry entries",
+            "Saves a log of what was removed to Desktop",
+            "Restarts Explorer to apply changes",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Script scans and removes broken handlers automatically",
+            "Takes 30-60 seconds",
+            "Right-click any file to test — it should appear instantly now",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "⚠️ Removes registry entries — run CreateRestorePoint.bat first",
+            "✅ Only removes entries for files that no longer exist — safe for active software",
+            "💡 If right-click is still slow after running, a running application (like antivirus) may be the cause",
+          ],
+        },
+        FixSound: {
+          name: "Fix Sound",
+          icon: "Volume2",
+          cat: "fast-computer",
+          admin: true,
+          explanation:
+            "Resets Windows audio service when sound stops working, speakers aren't detected, or audio is muted. Restarts audio services and fixes driver issues.",
+          whatItDoes: [
+            "Stops and restarts audio services (audiosrv, AudioEndpointBuilder)",
+            "Re-enables audio service auto-start",
+            "Resets audio driver",
+            "Restarts Windows audio engine",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Let it complete (1-2 minutes)",
+            "Unmute or adjust volume in Volume Mixer if needed",
+            "Your audio should now work",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — non-destructive fix",
+            "💡 Try this before reinstalling audio drivers",
+            "💡 Check physical mute buttons on keyboard/speaker too",
+          ],
+        },
+        FixWindowsProblems: {
+          name: "Fix Windows Problems",
+          icon: "Wrench",
+          cat: "fast-computer",
+          admin: true,
+          explanation:
+            "Comprehensive Windows repair script. Resets Windows Update, repairs corrupt system files with SFC and DISM, resets the network stack, clears DNS cache, and re-registers system DLLs.",
+          whatItDoes: [
+            "Runs System File Checker (sfc /scannow) to repair corrupt Windows files",
+            "Runs DISM to repair the Windows component store",
+            "Resets Windows Update service and clears update cache",
+            "Runs netsh winsock reset and netsh int ip reset",
+            "Flushes DNS cache and renews IP address",
+            "Re-registers system DLL files",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "This script takes 15-30 minutes to complete",
+            "Do NOT close the window — let all phases finish",
+            "The script will prompt to restart when complete",
+            "Restart to let repairs finalize",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — repairs files, doesn't delete data",
+            "💡 Run this when Windows is behaving strangely after an update",
+            "💡 SFC phase may require internet access to download replacement files",
+            "⚠️ Takes a long time — don't run if you need your PC in the next 30 minutes",
+          ],
+        },
+        FixWindowsUpdate: {
+          name: "Fix Windows Update",
+          icon: "RefreshCw",
+          cat: "fast-computer",
+          admin: true,
+          explanation:
+            "Fixes stuck, broken, or endlessly-spinning Windows Update by stopping services, clearing the cache, re-registering components, and resetting the update system.",
+          whatItDoes: [
+            "Stops all Windows Update services",
+            "Clears Windows Update cache and temp files",
+            "Re-registers Windows Update components",
+            "Resets cryptography and BITS services",
+            "Restarts services to allow updates to run fresh",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Let it run through all steps (takes 2-3 minutes)",
+            "Your Windows Update system is now reset",
+            "Open Settings → Windows Update and check for updates normally",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — only resets services, doesn't delete system files",
+            "💡 Use when Windows Update is stuck or won't run",
+            "💡 Afterwards, Windows may download updates again (large download)",
+          ],
+        },
+        FolderSizeReport: {
+          name: "Folder Size Report",
+          icon: "BarChart2",
+          cat: "organizing",
+          admin: true,
+          explanation:
+            "Scans a drive or folder and shows you exactly which subfolders are using the most disk space. Outputs a sorted report so you can immediately see where your storage is going.",
+          whatItDoes: [
+            "Calculates the total size of every subfolder in the target directory",
+            "Sorts folders from largest to smallest",
+            "Shows size in MB/GB for easy reading",
+            "Saves a FolderSizeReport.txt to Desktop",
+            "Displays top 20 folders directly in the terminal window",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Enter the path to scan (e.g., C:\\ or C:\\Users\\YourName)",
+            "Wait for the scan — large drives may take 2-10 minutes",
+            "Report saved to Desktop as FolderSizeReport.txt",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — read-only scan",
+            "💡 Scan C:\\ to find what's eating your storage",
+            "💡 Common culprits: Windows\\SoftwareDistribution, Users\\AppData, ProgramData",
+            "💡 For a visual alternative, use WizTree or WinDirStat",
+          ],
+        },
+        GameSavesBackup: {
+          name: "Game Saves Backup",
+          icon: "Gamepad2",
+          cat: "backup",
+          admin: true,
+          explanation:
+            "Backs up save game files from Steam, Epic Games, Ubisoft Connect, GOG Galaxy, and EA App to a backup folder. Never lose your game progress again.",
+          whatItDoes: [
+            "Backs up Steam save files from AppData\\Local\\Steam and userdata folder",
+            "Backs up Epic Games save files from AppData\\Local\\EpicGamesLauncher",
+            "Backs up Ubisoft Connect save data",
+            "Backs up GOG Galaxy save files",
+            "Backs up EA App save files",
+            "Creates timestamped folder so you have multiple restore points",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Enter the backup destination path when prompted (external drive recommended)",
+            "Script copies all found save files to a 'GameSaves_YYYY-MM-DD' folder",
+            "To restore: copy from backup folder back to original location",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — only copies files, never deletes originals",
+            "💡 Some games store saves in Documents instead of AppData — check your game's folder",
+            "💡 Cloud saves (Steam Cloud) are separate — this backs up local saves only",
+            "💡 Run before major Windows updates or reinstalls",
+          ],
+        },
+        GamingModeToggle: {
+          name: "Gaming Mode Toggle",
+          icon: "Target",
+          cat: "fun",
+          admin: true,
+          explanation:
+            "Boosts gaming performance by temporarily killing background services and processes that consume CPU and RAM. Switches to High Performance power plan. Run again to restore normal mode.",
+          whatItDoes: [
+            "Stops non-essential Windows services (Windows Search, SysMain, BITS, etc.)",
+            "Closes background apps (OneDrive, Teams, Discord update daemon, etc.)",
+            "Switches power plan to High Performance",
+            "Disables Xbox Game Bar and background recording",
+            "Second run restores all services and switches back to Balanced power",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator' before gaming",
+            "All background services shut down — launch your game",
+            "When done gaming, run again to restore normal mode",
+            "Services are restored — PC works normally again",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "⚠️ Kills background processes — notifications, sync, etc. stop while in gaming mode",
+            "⚠️ High Performance mode uses more power — not recommended on laptop battery",
+            "✅ Fully reversible — second run restores everything",
+            "💡 Typical improvement: 5-20% more stable frame rates",
+          ],
+        },
+        NetworkSpeedFix: {
+          name: "Network Speed Fix",
+          icon: "Wifi",
+          cat: "fast-computer",
+          admin: true,
+          explanation:
+            "Resets the Windows network stack when your internet feels slow or unstable. Clears DNS cache, resets TCP/IP, resets Winsock, and renews your IP address.",
+          whatItDoes: [
+            "Flushes DNS cache (ipconfig /flushdns)",
+            "Resets Winsock catalog (netsh winsock reset)",
+            "Resets TCP/IP stack (netsh int ip reset)",
+            "Releases and renews IP address",
+            "Resets network adapter settings",
+            "Clears ARP cache",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Script runs all resets automatically",
+            "You will briefly lose internet connection during reset",
+            "Connection restores within 30-60 seconds",
+            "Restart recommended for full effect",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "⚠️ Internet connection drops briefly during reset",
+            "✅ SAFE — only resets network configuration, doesn't change hardware settings",
+            "💡 Use when websites load slowly, DNS lookups fail, or connections keep dropping",
+            "💡 If still slow after reset, the issue may be with your router or ISP",
+          ],
+        },
+        NightModeScheduler: {
+          name: "Night Mode Scheduler",
+          icon: "Sunset",
+          cat: "aesthetic",
+          admin: true,
+          explanation:
+            "Sets up an automatic Windows Task that switches to dark mode at a scheduled time each night and switches back to light mode in the morning.",
+          whatItDoes: [
+            "Creates a Windows Scheduled Task for switching to dark mode",
+            "Creates a Windows Scheduled Task for switching to light mode",
+            "Uses Windows registry to toggle dark/light mode",
+            "Tasks run silently in the background — no popup",
+            "You can customize the times when prompted",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Enter the time to enable dark mode (e.g., 20:00 for 8pm)",
+            "Enter the time to enable light mode (e.g., 07:00 for 7am)",
+            "Tasks are created in Windows Task Scheduler",
+            "To remove: open Task Scheduler and delete 'DarkModeOn' and 'LightModeOn' tasks",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — only creates scheduled tasks and toggles theme settings",
+            "💡 The schedule persists across reboots",
+            "💡 To change times, delete the tasks and re-run the script",
+            "💡 Works alongside Windows Night Light — these are separate settings",
+          ],
+        },
+        NumlockOnStartup: {
+          name: "NumLock on Startup",
+          icon: "Keyboard",
+          cat: "aesthetic",
+          admin: true,
+          explanation:
+            "Forces NumLock to always be ON when Windows starts. Fixes the frustrating issue where NumLock is off every time you boot up.",
+          whatItDoes: [
+            "Modifies the Windows registry key that controls NumLock initial state",
+            "Sets InitialKeyboardIndicators to force NumLock on at login screen",
+            "Applies to all user accounts on the PC",
+            "Change takes effect on next startup",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Script applies the registry change instantly",
+            "Restart your PC",
+            "NumLock will be ON from the login screen onward",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — single registry value change",
+            "💡 Affects the initial state at the login screen — apps that override NumLock may still override it",
+            "💡 To reverse: set HKEY_USERS\\.DEFAULT\\Control Panel\\Keyboard\\InitialKeyboardIndicators back to 0",
+          ],
+        },
+        OldFileArchiver: {
+          name: "Old File Archiver",
+          icon: "Archive",
+          cat: "organizing",
+          admin: true,
+          explanation:
+            "Scans a folder and moves files that haven't been modified in more than X days to an 'Archive' subfolder. Keeps your working directory clean while preserving old files.",
+          whatItDoes: [
+            "Scans target folder for files older than a specified number of days",
+            "Moves old files to a '_Archive_YYYY-MM-DD' subfolder",
+            "Preserves original folder structure inside the archive",
+            "Shows a count of how many files were moved",
+            "Does not delete anything — just moves files",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Enter the folder path to clean up",
+            "Enter the cutoff age in days (e.g., 90 for files older than 3 months)",
+            "Review the count of files to be moved",
+            "Confirm to proceed — files move to _Archive subfolder",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "⚠️ Moves files — software that references old file paths may break",
+            "✅ Does NOT delete — all files preserved in Archive folder",
+            "💡 Good for Downloads, Desktop, and project folders",
+            "💡 Move date is based on last-modified date, not creation date",
+          ],
+        },
+        PowerButtonConfig: {
+          name: "Power Button Config",
+          icon: "Power",
+          cat: "aesthetic",
+          admin: true,
+          explanation:
+            "Configures what happens when you press the physical power button on your PC or laptop, and what happens when you close a laptop lid — sleep, hibernate, shut down, or do nothing.",
+          whatItDoes: [
+            "Sets power button behavior: Sleep, Hibernate, Shut down, or Do nothing",
+            "Sets lid close behavior (laptops): Sleep, Hibernate, Shut down, or Do nothing",
+            "Applies separately for when plugged in vs. on battery",
+            "Changes take effect immediately — no restart needed",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Choose what the power button should do from the menu",
+            "Choose what closing the lid should do (if on a laptop)",
+            "Settings apply instantly",
+            "To revert: run again and choose different options",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — only changes power plan settings",
+            "💡 'Do nothing' for lid close is useful when using an external monitor",
+            "💡 'Hibernate' saves RAM to disk and uses zero power — better than Sleep for long pauses",
+            "⚠️ Setting power button to 'Shut down' means accidental presses will power off your PC",
+          ],
+        },
+        RAMCleaner: {
+          name: "RAM Cleaner",
+          icon: "Cpu",
+          cat: "fast-computer",
+          admin: true,
+          explanation:
+            "Flushes standby memory (RAM that Windows is holding but not actively using) to free up visible RAM. Useful when your PC feels sluggish but isn't actually out of memory.",
+          whatItDoes: [
+            "Shows how much RAM is free before cleanup",
+            "Clears Windows standby memory cache",
+            "Shows how much RAM is free after cleanup",
+            "Takes effect immediately — no restart needed",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Script will show RAM before and after",
+            "You'll immediately see more free RAM",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE TO RUN — doesn't delete data, just clears cache",
+            "💡 Safe to run frequently (even every few hours)",
+            "💡 RAM will gradually fill back up as you use programs",
+          ],
+        },
+        RegistryBackup: {
+          name: "Registry Backup",
+          icon: "ClipboardList",
+          cat: "backup",
+          admin: true,
+          explanation:
+            "Exports your entire Windows registry to a .reg file on your Desktop. Use this before making any registry changes so you can restore to the current state if something breaks.",
+          whatItDoes: [
+            "Exports HKEY_LOCAL_MACHINE (system settings) to a .reg file",
+            "Exports HKEY_CURRENT_USER (user settings) to a .reg file",
+            "Saves files to Desktop as RegistryBackup_YYYY-MM-DD.reg",
+            "File size is typically 200-500 MB",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Export runs automatically — takes 1-3 minutes",
+            "Files saved to Desktop",
+            "To restore: double-click the .reg file and confirm the merge",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ COMPLETELY SAFE — read-only export",
+            "⚠️ The backup file is large (200-500 MB) — make sure you have space on Desktop drive",
+            "💡 Run this before CleanWindows, FixSlowRightClick, or any registry-modifying scripts",
+            "⚠️ Restoring a registry backup reverts ALL registry changes since the backup — use carefully",
+          ],
+        },
+        RestorePhotoViewer: {
+          name: "Restore Photo Viewer",
+          icon: "Image",
+          cat: "aesthetic",
+          admin: true,
+          explanation:
+            "Brings back the classic Windows Photo Viewer from Windows 7/8 that Microsoft removed in Windows 10/11. Much faster than the Photos app for basic image viewing.",
+          whatItDoes: [
+            "Re-registers Windows Photo Viewer (shimgvw.dll) in the registry",
+            "Adds 'Windows Photo Viewer' as an option in 'Open With' for image files",
+            "Makes it the default for .jpg, .jpeg, .png, .bmp, .gif, .tif files",
+            "Does not remove or modify the Photos app",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Script applies registry changes automatically",
+            "Right-click any image → Open With → Windows Photo Viewer",
+            "Or run the script again and choose to set as default for all image types",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — only registry changes, fully reversible",
+            "💡 Windows Photo Viewer doesn't support HEIC/HEIF (iPhone photos) or RAW formats",
+            "💡 To reverse: set Photos as default again via Settings → Default Apps",
+          ],
+        },
+        RestoreRightClickMenu: {
+          name: "Restore Right-Click Menu",
+          icon: "MousePointer2",
+          cat: "aesthetic",
+          admin: true,
+          explanation:
+            "Brings back the full classic right-click context menu in Windows 11 that Microsoft replaced with a simplified 'Show more options' version. Restores instant access to Cut, Copy, Rename, Compress, and all installed extensions.",
+          whatItDoes: [
+            "Adds a registry key to CLSID that disables the Windows 11 simplified menu",
+            "Restores the full Windows 10-style context menu with all options visible",
+            "Works in File Explorer, on the Desktop, and on files/folders",
+            "Change takes effect immediately — no restart needed",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Script adds the registry key automatically",
+            "Right-click any file or folder — full menu appears immediately",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — single registry key addition, fully reversible",
+            "💡 To revert: delete HKCU\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}",
+            "💡 After major Windows 11 updates, this setting may be reset — just run again",
+          ],
+        },
+        ScheduleDailyBackup: {
+          name: "Schedule Daily Backup",
+          icon: "CalendarClock",
+          cat: "backup",
+          admin: true,
+          explanation:
+            "Sets up Windows Task Scheduler to automatically run BackupFolders.bat every day at a time you choose. Set it and forget it — daily backups to an external drive.",
+          whatItDoes: [
+            "Creates a Windows Scheduled Task named 'DailyWindowsBackup'",
+            "Runs BackupFolders.bat automatically at the time you specify",
+            "Backs up Desktop, Documents, Pictures, Downloads daily",
+            "Task persists across reboots",
+            "Runs silently in the background",
+          ],
+          howToUse: [
+            "Make sure BackupFolders.bat is in the same folder as this script",
+            "Right-click and select 'Run as administrator'",
+            "Enter the time you want backups to run (e.g., 22:00 for 10pm)",
+            "Enter the backup destination (external drive recommended)",
+            "Task is created — it will run daily at the specified time",
+            "To remove: Task Scheduler → Task Scheduler Library → delete 'DailyWindowsBackup'",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "✅ SAFE — creates a scheduled task only",
+            "⚠️ External drive must be connected at the scheduled time or backup will fail silently",
+            "💡 Use a drive that stays connected (network drive or always-plugged external)",
+            "💡 Check Task Scheduler History to see if backups are succeeding",
+          ],
+        },
+        SwitchToEnglish: {
+          name: "Switch To English",
+          icon: "Globe",
+          cat: "organizing",
+          admin: true,
+          explanation:
+            "Switches Windows display language to English (United States). Useful after region changes, buying a device in another country, or accidental language changes.",
+          whatItDoes: [
+            "Installs English (United States) language pack if not present",
+            "Sets English as the display language for Windows UI",
+            "Sets keyboard input language to English",
+            "Updates regional formats (date, time, number format)",
+            "Prompts for logout to apply display language change",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Script installs English language pack (requires internet)",
+            "Installation takes 2-5 minutes",
+            "When prompted, log out and log back in",
+            "Windows UI will be in English",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "⚠️ REQUIRES INTERNET — downloads language pack from Microsoft",
+            "✅ Previous language is not deleted — can be switched back",
+            "💡 Log out/log in required for display language to change",
+            "💡 Regional formats (date as MM/DD vs DD/MM) also change to US format",
+          ],
+        },
+        WeeklyClean: {
+          name: "Weekly Clean",
+          icon: "Sparkles",
+          cat: "cleaning",
+          admin: true,
+          explanation:
+            "Fast, silent weekly maintenance script. Cleans temp files, empties the Recycle Bin, flushes DNS, and clears browser caches. Designed to run in the background without interrupting your work.",
+          whatItDoes: [
+            "Deletes contents of %TEMP% and C:\\Windows\\Temp",
+            "Empties the Recycle Bin silently",
+            "Flushes DNS cache",
+            "Clears Windows prefetch folder",
+            "Deletes Windows Update download cache",
+            "Clears browser cache for Chrome, Edge, and Firefox",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Runs silently — no prompts, minimal window",
+            "Finishes in 1-3 minutes",
+            "Can be combined with ScheduleDailyBackup.bat for automated weekly runs",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "⚠️ Clears browser cache — pages may load slightly slower on first visit after running",
+            "⚠️ Empties Recycle Bin permanently — make sure you don't need anything in it",
+            "✅ SAFE — only removes temporary and cache files",
+            "💡 Safe to run weekly or even daily",
+          ],
+        },
+        WiFiPasswords: {
+          name: "WiFi Passwords",
+          icon: "KeyRound",
+          cat: "organizing",
+          admin: true,
+          explanation:
+            "Shows the saved passwords for every WiFi network your PC has ever connected to. Useful when you need to share a password or set up a new device on a network you've forgotten.",
+          whatItDoes: [
+            "Reads all saved WiFi profiles from Windows",
+            "Extracts the stored password (Key Content) for each network",
+            "Displays network name (SSID) and password in a readable list",
+            "Saves results to WiFiPasswords.txt on Desktop",
+            "Works for WPA, WPA2, and WPA3 networks",
+          ],
+          howToUse: [
+            "Right-click and select 'Run as administrator'",
+            "Script immediately displays all saved network names and passwords",
+            "Results also saved to Desktop\\WiFiPasswords.txt",
+            "Delete the .txt file when done for security",
+          ],
+          cautions: [
+            "⚠️ REQUIRES ADMINISTRATOR PRIVILEGES",
+            "⚠️ SENSITIVE — shows actual passwords in plain text",
+            "⚠️ Delete WiFiPasswords.txt after you're done — it contains unencrypted passwords",
+            "⚠️ Only shows networks this PC has connected to before",
+            "💡 This only works on Windows — Linux/Mac store WiFi passwords differently",
+          ],
+        },
+      };
+
+      const ALL_TOOLS = [
+        {
+          id: "CleanWindows_MASTER",
+          name: "CleanWindows MASTER",
+          cat: "cleaning",
+          desc: "Complete Windows debloat, optimization & privacy",
+          admin: true,
+          icon: "Eraser",
+        },
+        {
+          id: "BackupFolders",
+          name: "Backup Folders",
+          cat: "backup",
+          desc: "Backs up Desktop, Documents, Pictures, Downloads",
+          admin: true,
+          icon: "HardDrive",
+        },
+        {
+          id: "BlockDistractingSites",
+          name: "Block Distracting Sites",
+          cat: "fun",
+          desc: "Blocks/unblocks distracting websites via HOSTS",
+          admin: true,
+          icon: "Ban",
+        },
+        {
+          id: "BulkRenamer",
+          name: "Bulk Renamer",
+          cat: "organizing",
+          desc: "Rename all files — add prefix, suffix, number, or replace",
+          admin: true,
+          icon: "Pencil",
+        },
+        {
+          id: "ClearRecentActivity",
+          name: "Clear Recent Activity",
+          cat: "cleaning",
+          desc: "Wipes jump lists, recent files, search history, clipboard",
+          admin: true,
+          icon: "Trash2",
+        },
+        {
+          id: "ClearUSBHistory",
+          name: "Clear USB History",
+          cat: "cleaning",
+          desc: "Clears USB device history from registry",
+          admin: true,
+          icon: "Disc",
+        },
+        {
+          id: "CreateRestorePoint",
+          name: "Create Restore Point",
+          cat: "backup",
+          desc: "Creates a Windows System Restore Point instantly",
+          admin: true,
+          icon: "Settings2",
+        },
+        {
+          id: "DarkModeToggle",
+          name: "Dark Mode Toggle",
+          cat: "aesthetic",
+          desc: "Toggles Windows dark/light mode",
+          admin: false,
+          icon: "Moon",
+        },
+        {
+          id: "DisableForcedRestarts",
+          name: "Disable Forced Restarts",
+          cat: "fast-computer",
+          desc: "Stops Windows from auto-rebooting after updates",
+          admin: true,
+          icon: "StopCircle",
+        },
+        {
+          id: "DriverBackup",
+          name: "Driver Backup",
+          cat: "backup",
+          desc: "Saves all current hardware drivers to a folder",
+          admin: true,
+          icon: "Monitor",
+        },
+        {
+          id: "DuplicateFileFinder",
+          name: "Duplicate File Finder",
+          cat: "organizing",
+          desc: "Scans a folder for duplicate files and saves report",
+          admin: true,
+          icon: "Search",
+        },
+        {
+          id: "EmptyFolderCleaner",
+          name: "Empty Folder Cleaner",
+          cat: "cleaning",
+          desc: "Finds and deletes empty folders recursively",
+          admin: true,
+          icon: "Folder",
+        },
+        {
+          id: "FixBluetooth",
+          name: "Fix Bluetooth",
+          cat: "fast-computer",
+          desc: "Re-enables Bluetooth services",
+          admin: true,
+          icon: "Bluetooth",
+        },
+        {
+          id: "FixBrokenIcons",
+          name: "Fix Broken Icons",
+          cat: "fast-computer",
+          desc: "Rebuilds icon cache — fixes blank or missing icons",
+          admin: true,
+          icon: "Image",
+        },
+        {
+          id: "FixExplorer",
+          name: "Fix Explorer",
+          cat: "aesthetic",
+          desc: "Opens to This PC, shows extensions, hidden files, removes ads",
+          admin: true,
+          icon: "FolderOpen",
+        },
+        {
+          id: "FixMicrosoftStore",
+          name: "Fix Microsoft Store",
+          cat: "fast-computer",
+          desc: "Resets Microsoft Store when apps won't install/update",
+          admin: true,
+          icon: "ShoppingBag",
+        },
+        {
+          id: "FixSlowRightClick",
+          name: "Fix Slow Right-Click",
+          cat: "fast-computer",
+          desc: "Removes broken shell extensions causing right-click lag",
+          admin: true,
+          icon: "Zap",
+        },
+        {
+          id: "FixSound",
+          name: "Fix Sound",
+          cat: "fast-computer",
+          desc: "Resets Windows audio service and fixes sound issues",
+          admin: true,
+          icon: "Volume2",
+        },
+        {
+          id: "FixWindowsProblems",
+          name: "Fix Windows Problems",
+          cat: "fast-computer",
+          desc: "Resets Windows Update, repairs corrupt files, fixes network",
+          admin: true,
+          icon: "Wrench",
+        },
+        {
+          id: "FixWindowsUpdate",
+          name: "Fix Windows Update",
+          cat: "fast-computer",
+          desc: "Fixes stuck, broken, or endlessly-spinning Windows Update",
+          admin: true,
+          icon: "RefreshCw",
+        },
+        {
+          id: "FolderSizeReport",
+          name: "Folder Size Report",
+          cat: "organizing",
+          desc: "Shows which folders are eating the most space",
+          admin: true,
+          icon: "BarChart2",
+        },
+        {
+          id: "GameSavesBackup",
+          name: "Game Saves Backup",
+          cat: "backup",
+          desc: "Backs up save files from Steam, Epic, Ubisoft, GOG, EA",
+          admin: true,
+          icon: "Gamepad2",
+        },
+        {
+          id: "GamingModeToggle",
+          name: "Gaming Mode Toggle",
+          cat: "fun",
+          desc: "Kills background services and sets high performance",
+          admin: true,
+          icon: "Target",
+        },
+        {
+          id: "NetworkSpeedFix",
+          name: "Network Speed Fix",
+          cat: "fast-computer",
+          desc: "Resets network stack when internet feels slow",
+          admin: true,
+          icon: "Wifi",
+        },
+        {
+          id: "NightModeScheduler",
+          name: "Night Mode Scheduler",
+          cat: "aesthetic",
+          desc: "Schedules automatic dark mode at night",
+          admin: true,
+          icon: "Sunset",
+        },
+        {
+          id: "NumlockOnStartup",
+          name: "NumLock on Startup",
+          cat: "aesthetic",
+          desc: "Forces NumLock to always be ON when Windows starts",
+          admin: true,
+          icon: "Keyboard",
+        },
+        {
+          id: "OldFileArchiver",
+          name: "Old File Archiver",
+          cat: "organizing",
+          desc: "Moves files older than X days to an archive folder",
+          admin: true,
+          icon: "Archive",
+        },
+        {
+          id: "PowerButtonConfig",
+          name: "Power Button Config",
+          cat: "aesthetic",
+          desc: "Configure what the power button and lid closing does",
+          admin: true,
+          icon: "Power",
+        },
+        {
+          id: "RAMCleaner",
+          name: "RAM Cleaner",
+          cat: "fast-computer",
+          desc: "Flushes standby memory when your PC feels slow",
+          admin: true,
+          icon: "Cpu",
+        },
+        {
+          id: "RegistryBackup",
+          name: "Registry Backup",
+          cat: "backup",
+          desc: "Exports your full registry to a file on Desktop",
+          admin: true,
+          icon: "ClipboardList",
+        },
+        {
+          id: "RestorePhotoViewer",
+          name: "Restore Photo Viewer",
+          cat: "aesthetic",
+          desc: "Brings back classic Windows Photo Viewer from Windows 7",
+          admin: true,
+          icon: "Image",
+        },
+        {
+          id: "RestoreRightClickMenu",
+          name: "Restore Right-Click Menu",
+          cat: "aesthetic",
+          desc: "Brings back full classic right-click context menu on Windows 11",
+          admin: true,
+          icon: "MousePointer2",
+        },
+        {
+          id: "ScheduleDailyBackup",
+          name: "Schedule Daily Backup",
+          cat: "backup",
+          desc: "Sets up Windows Task for automatic daily backups",
+          admin: true,
+          icon: "CalendarClock",
+        },
+        {
+          id: "SwitchToEnglish",
+          name: "Switch To English",
+          cat: "organizing",
+          desc: "Switches Windows display language to English",
+          admin: true,
+          icon: "Globe",
+        },
+        {
+          id: "WeeklyClean",
+          name: "Weekly Clean",
+          cat: "cleaning",
+          desc: "Silent quick clean — temp files, caches, DNS flush",
+          admin: true,
+          icon: "Sparkles",
+        },
+        {
+          id: "WiFiPasswords",
+          name: "WiFi Passwords",
+          cat: "organizing",
+          desc: "Shows saved passwords for all WiFi networks",
+          admin: true,
+          icon: "KeyRound",
+        },
+      ];
+
+      function App() {
+        const [tool, setTool] = useState(null);
+
+        useEffect(() => {
+          const params = new URLSearchParams(window.location.search);
+          const id = params.get("id");
+          const toolInfo = ALL_TOOLS.find((t) => t.id === id);
+          if (id && toolInfo) {
+            const data = TOOL_DATA[id];
+            setTool({ id, ...toolInfo, ...data });
+          }
+        }, []);
+
+        if (!tool) {
+          return (
+            <div
+              style={{
+                padding: "40px",
+                textAlign: "center",
+                color: "var(--text2)",
+              }}
+            >
+              <p>Loading...</p>
+            </div>
+          );
+        }
+
+        return (
+          <div style={{ minHeight: "100vh" }}>
+            <nav
+              style={{
+                position: "sticky",
+                top: 0,
+                zIndex: 100,
+                background: "rgba(26,23,20,0.9)",
+                backdropFilter: "blur(12px)",
+                borderBottom: "1px solid var(--border)",
+              }}
+            >
+              <div
+                style={{
+                  maxWidth: 900,
+                  margin: "0 auto",
+                  padding: "0 24px",
+                  height: 56,
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <a
+                  href="index.html"
+                  style={{
+                    fontSize: 13,
+                    color: "var(--text2)",
+                    padding: "6px 12px",
+                    borderRadius: 6,
+                    transition: "all .15s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.color = "var(--text)";
+                    e.target.style.background = "var(--bg2)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = "var(--text2)";
+                    e.target.style.background = "transparent";
+                  }}
+                >
+                  ← Back to Tools
+                </a>
+              </div>
+            </nav>
+
+            <main
+              style={{
+                maxWidth: 900,
+                margin: "0 auto",
+                padding: "48px 24px 60px",
+              }}
+            >
+              <div style={{ marginBottom: 40 }}>
+                <div style={{ marginBottom: 16, color: "var(--accent)" }}>
+                  <Icon name={tool.icon} size={48} />
+                </div>
+                <h1
+                  style={{
+                    fontSize: 36,
+                    fontWeight: 700,
+                    color: "var(--text-head)",
+                    letterSpacing: "-0.5px",
+                    marginBottom: 10,
+                  }}
+                >
+                  {tool.name}
+                </h1>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 12,
+                    marginBottom: 20,
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: 12,
+                      padding: "4px 10px",
+                      borderRadius: 16,
+                      background: "var(--bg2)",
+                      border: "1px solid var(--border)",
+                      color: "var(--text2)",
+                    }}
+                  >
+                    {tool.cat}
+                  </span>
+                  {tool.admin && (
+                    <span
+                      style={{
+                        fontSize: 12,
+                        padding: "4px 10px",
+                        borderRadius: 16,
+                        background: "rgba(214,73,73,0.1)",
+                        border: "1px solid var(--danger)",
+                        color: "var(--danger)",
+                      }}
+                    >
+                      Admin Required
+                    </span>
+                  )}
+                </div>
+                <p
+                  style={{
+                    fontSize: 16,
+                    color: "var(--text)",
+                    lineHeight: 1.75,
+                  }}
+                >
+                  {tool.explanation}
+                </p>
+              </div>
+
+              <section style={{ marginBottom: 48 }}>
+                <h2
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 700,
+                    color: "var(--text-head)",
+                    marginBottom: 16,
+                  }}
+                >
+                  What it does
+                </h2>
+                <ul style={{ listStyle: "none", paddingLeft: 0 }}>
+                  {tool.whatItDoes.map((item, i) => (
+                    <li
+                      key={i}
+                      style={{
+                        padding: "10px 0",
+                        paddingLeft: 24,
+                        position: "relative",
+                        borderBottom: "1px solid var(--border)",
+                      }}
+                    >
+                      <span
+                        style={{
+                          position: "absolute",
+                          left: 0,
+                          color: "var(--accent)",
+                        }}
+                      >
+                        ✓
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+
+              <section style={{ marginBottom: 48 }}>
+                <h2
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 700,
+                    color: "var(--text-head)",
+                    marginBottom: 16,
+                  }}
+                >
+                  How to use
+                </h2>
+                <ol style={{ listStyle: "decimal", paddingLeft: 24 }}>
+                  {tool.howToUse.map((step, i) => (
+                    <li
+                      key={i}
+                      style={{ marginBottom: 12, color: "var(--text)" }}
+                    >
+                      {step}
+                    </li>
+                  ))}
+                </ol>
+              </section>
+
+              <section style={{ marginBottom: 48 }}>
+                <h2
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 700,
+                    color: "var(--text-head)",
+                    marginBottom: 16,
+                  }}
+                >
+                  Cautions & Notes
+                </h2>
+                <div
+                  style={{
+                    background: "rgba(214,73,73,0.05)",
+                    border: "1px solid rgba(214,73,73,0.2)",
+                    borderRadius: 8,
+                    padding: 16,
+                  }}
+                >
+                  <ul style={{ listStyle: "none", paddingLeft: 0 }}>
+                    {tool.cautions.map((caution, i) => (
+                      <li
+                        key={i}
+                        style={{
+                          padding: "10px 0",
+                          color: "var(--text)",
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        {caution}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+
+              <section>
+                <h2
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 700,
+                    color: "var(--text-head)",
+                    marginBottom: 16,
+                  }}
+                >
+                  Download
+                </h2>
+                <a
+                  href={`/downloads/${tool.id}.bat`}
+                  download
+                  style={{
+                    display: "inline-block",
+                    padding: "12px 24px",
+                    background: "var(--accent)",
+                    color: "#1A1714",
+                    borderRadius: 8,
+                    fontWeight: 700,
+                    transition: "opacity .2s",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.opacity = "0.85";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.opacity = "1";
+                  }}
+                >
+                  Download {tool.id}.bat
+                </a>
+                <p
+                  style={{ marginTop: 12, fontSize: 13, color: "var(--text2)" }}
+                >
+                  Right-click the downloaded file and select "Run as
+                  administrator" to execute.
+                </p>
+              </section>
+            </main>
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BAT Library — Windows Optimization Scripts</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/lucide-react@latest/dist/umd/lucide-react.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --bg: #1a1714;
+        --bg2: #211c18;
+        --bg3: #2a2420;
+        --border: #3d3028;
+        --text: #d4ccc4;
+        --text2: #8a7f76;
+        --text-head: #ede8e2;
+        --accent: #cf7b4b;
+        --danger: #d64949;
+        --font: "Lora", Georgia, serif;
+        --mono: "Geist Mono", monospace;
+      }
+      html {
+        font-family: var(--font);
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.75;
+        scroll-behavior: smooth;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font-family: inherit;
+        cursor: pointer;
+        border: none;
+        background: none;
+      }
+      input {
+        font-family: inherit;
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--bg3);
+        border-radius: 3px;
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── Page transition overlay ── */
+      #page-veil {
+        position: fixed;
+        inset: 0;
+        background: var(--bg);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 9999;
+        transition: opacity 0.35s ease;
+      }
+      #page-veil.leaving {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      /* ── Scroll-to-top button ── */
+      .scroll-top {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        width: 40px;
+        height: 40px;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text2);
+        z-index: 200;
+        opacity: 0;
+        transform: translateY(12px);
+        transition:
+          opacity 0.2s,
+          transform 0.2s,
+          color 0.15s,
+          border-color 0.15s;
+        pointer-events: none;
+      }
+      .scroll-top.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: all;
+      }
+      .scroll-top:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+
+      /* ── Nav search ── */
+      .nav-search {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 6px 12px;
+        flex: 0 1 260px;
+        margin-left: auto;
+        transition: border-color 0.15s;
+      }
+      .nav-search:focus-within {
+        border-color: var(--accent);
+      }
+      .nav-search input {
+        background: none;
+        border: none;
+        outline: none;
+        color: var(--text);
+        font-size: 13px;
+        width: 100%;
+        font-family: var(--font);
+      }
+      .nav-search input::placeholder {
+        color: var(--text2);
+      }
+
+      /* ── Hero animations ── */
+      @keyframes heroIn {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .hero-h1 {
+        animation: heroIn 0.65s ease both 0.05s;
+      }
+      .hero-p {
+        animation: heroIn 0.65s ease both 0.2s;
+      }
+      .hero-cta {
+        animation: heroIn 0.65s ease both 0.35s;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="page-veil"></div>
+    <div id="root"></div>
+    <script type="text/babel">
+      const { useState, useMemo, useEffect } = React;
+
+      const Icons = window.lucideReact || {};
+      function Icon({ name, size = 24, style, color }) {
+        const C = Icons[name];
+        if (!C) return null;
+        return <C size={size} style={style} color={color} />;
+      }
+
+      function navigate(url) {
+        const veil = document.getElementById("page-veil");
+        if (veil) {
+          veil.classList.add("leaving");
+          setTimeout(() => {
+            window.location.href = url;
+          }, 350);
+        } else {
+          window.location.href = url;
+        }
+      }
+
+      const TOOLS = [
+        {
+          id: "CleanWindows_MASTER",
+          name: "CleanWindows MASTER",
+          cat: "cleaning",
+          desc: "Complete Windows debloat, optimization & privacy",
+          admin: true,
+          icon: "Eraser",
+        },
+        {
+          id: "BackupFolders",
+          name: "Backup Folders",
+          cat: "backup",
+          desc: "Backs up Desktop, Documents, Pictures, Downloads",
+          admin: true,
+          icon: "HardDrive",
+        },
+        {
+          id: "BlockDistractingSites",
+          name: "Block Distracting Sites",
+          cat: "fun",
+          desc: "Blocks/unblocks distracting websites via HOSTS",
+          admin: true,
+          icon: "Ban",
+        },
+        {
+          id: "BulkRenamer",
+          name: "Bulk Renamer",
+          cat: "organizing",
+          desc: "Rename all files — add prefix, suffix, number, or replace",
+          admin: true,
+          icon: "Pencil",
+        },
+        {
+          id: "ClearRecentActivity",
+          name: "Clear Recent Activity",
+          cat: "cleaning",
+          desc: "Wipes jump lists, recent files, search history, clipboard",
+          admin: true,
+          icon: "Trash2",
+        },
+        {
+          id: "ClearUSBHistory",
+          name: "Clear USB History",
+          cat: "cleaning",
+          desc: "Clears USB device history from registry",
+          admin: true,
+          icon: "Disc",
+        },
+        {
+          id: "CreateRestorePoint",
+          name: "Create Restore Point",
+          cat: "backup",
+          desc: "Creates a Windows System Restore Point instantly",
+          admin: true,
+          icon: "Settings2",
+        },
+        {
+          id: "DarkModeToggle",
+          name: "Dark Mode Toggle",
+          cat: "aesthetic",
+          desc: "Toggles Windows dark/light mode",
+          admin: false,
+          icon: "Moon",
+        },
+        {
+          id: "DisableForcedRestarts",
+          name: "Disable Forced Restarts",
+          cat: "fast-computer",
+          desc: "Stops Windows from auto-rebooting after updates",
+          admin: true,
+          icon: "StopCircle",
+        },
+        {
+          id: "DriverBackup",
+          name: "Driver Backup",
+          cat: "backup",
+          desc: "Saves all current hardware drivers to a folder",
+          admin: true,
+          icon: "Monitor",
+        },
+        {
+          id: "DuplicateFileFinder",
+          name: "Duplicate File Finder",
+          cat: "organizing",
+          desc: "Scans a folder for duplicate files and saves report",
+          admin: true,
+          icon: "Search",
+        },
+        {
+          id: "EmptyFolderCleaner",
+          name: "Empty Folder Cleaner",
+          cat: "cleaning",
+          desc: "Finds and deletes empty folders recursively",
+          admin: true,
+          icon: "Folder",
+        },
+        {
+          id: "FixBluetooth",
+          name: "Fix Bluetooth",
+          cat: "fast-computer",
+          desc: "Re-enables Bluetooth services",
+          admin: true,
+          icon: "Bluetooth",
+        },
+        {
+          id: "FixBrokenIcons",
+          name: "Fix Broken Icons",
+          cat: "fast-computer",
+          desc: "Rebuilds icon cache — fixes blank or missing icons",
+          admin: true,
+          icon: "Image",
+        },
+        {
+          id: "FixExplorer",
+          name: "Fix Explorer",
+          cat: "aesthetic",
+          desc: "Opens to This PC, shows extensions, hidden files, removes ads",
+          admin: true,
+          icon: "FolderOpen",
+        },
+        {
+          id: "FixMicrosoftStore",
+          name: "Fix Microsoft Store",
+          cat: "fast-computer",
+          desc: "Resets Microsoft Store when apps won't install/update",
+          admin: true,
+          icon: "ShoppingBag",
+        },
+        {
+          id: "FixSlowRightClick",
+          name: "Fix Slow Right-Click",
+          cat: "fast-computer",
+          desc: "Removes broken shell extensions causing right-click lag",
+          admin: true,
+          icon: "Zap",
+        },
+        {
+          id: "FixSound",
+          name: "Fix Sound",
+          cat: "fast-computer",
+          desc: "Resets Windows audio service and fixes sound issues",
+          admin: true,
+          icon: "Volume2",
+        },
+        {
+          id: "FixWindowsProblems",
+          name: "Fix Windows Problems",
+          cat: "fast-computer",
+          desc: "Resets Windows Update, repairs corrupt files, fixes network",
+          admin: true,
+          icon: "Wrench",
+        },
+        {
+          id: "FixWindowsUpdate",
+          name: "Fix Windows Update",
+          cat: "fast-computer",
+          desc: "Fixes stuck, broken, or endlessly-spinning Windows Update",
+          admin: true,
+          icon: "RefreshCw",
+        },
+        {
+          id: "FolderSizeReport",
+          name: "Folder Size Report",
+          cat: "organizing",
+          desc: "Shows which folders are eating the most space",
+          admin: true,
+          icon: "BarChart2",
+        },
+        {
+          id: "GameSavesBackup",
+          name: "Game Saves Backup",
+          cat: "backup",
+          desc: "Backs up save files from Steam, Epic, Ubisoft, GOG, EA",
+          admin: true,
+          icon: "Gamepad2",
+        },
+        {
+          id: "GamingModeToggle",
+          name: "Gaming Mode Toggle",
+          cat: "fun",
+          desc: "Kills background services and sets high performance",
+          admin: true,
+          icon: "Target",
+        },
+        {
+          id: "NetworkSpeedFix",
+          name: "Network Speed Fix",
+          cat: "fast-computer",
+          desc: "Resets network stack when internet feels slow",
+          admin: true,
+          icon: "Wifi",
+        },
+        {
+          id: "NightModeScheduler",
+          name: "Night Mode Scheduler",
+          cat: "aesthetic",
+          desc: "Schedules automatic dark mode at night",
+          admin: true,
+          icon: "Sunset",
+        },
+        {
+          id: "NumlockOnStartup",
+          name: "NumLock on Startup",
+          cat: "aesthetic",
+          desc: "Forces NumLock to always be ON when Windows starts",
+          admin: true,
+          icon: "Keyboard",
+        },
+        {
+          id: "OldFileArchiver",
+          name: "Old File Archiver",
+          cat: "organizing",
+          desc: "Moves files older than X days to an archive folder",
+          admin: true,
+          icon: "Archive",
+        },
+        {
+          id: "PowerButtonConfig",
+          name: "Power Button Config",
+          cat: "aesthetic",
+          desc: "Configure what the power button and lid closing does",
+          admin: true,
+          icon: "Power",
+        },
+        {
+          id: "RAMCleaner",
+          name: "RAM Cleaner",
+          cat: "fast-computer",
+          desc: "Flushes standby memory when your PC feels slow",
+          admin: true,
+          icon: "Cpu",
+        },
+        {
+          id: "RegistryBackup",
+          name: "Registry Backup",
+          cat: "backup",
+          desc: "Exports your full registry to a file on Desktop",
+          admin: true,
+          icon: "ClipboardList",
+        },
+        {
+          id: "RestorePhotoViewer",
+          name: "Restore Photo Viewer",
+          cat: "aesthetic",
+          desc: "Brings back classic Windows Photo Viewer from Windows 7",
+          admin: true,
+          icon: "Image",
+        },
+        {
+          id: "RestoreRightClickMenu",
+          name: "Restore Right-Click Menu",
+          cat: "aesthetic",
+          desc: "Brings back full classic right-click context menu on Windows 11",
+          admin: true,
+          icon: "MousePointer2",
+        },
+        {
+          id: "ScheduleDailyBackup",
+          name: "Schedule Daily Backup",
+          cat: "backup",
+          desc: "Sets up Windows Task for automatic daily backups",
+          admin: true,
+          icon: "CalendarClock",
+        },
+        {
+          id: "SwitchToEnglish",
+          name: "Switch To English",
+          cat: "organizing",
+          desc: "Switches Windows display language to English",
+          admin: true,
+          icon: "Globe",
+        },
+        {
+          id: "WeeklyClean",
+          name: "Weekly Clean",
+          cat: "cleaning",
+          desc: "Silent quick clean — temp files, caches, DNS flush",
+          admin: true,
+          icon: "Sparkles",
+        },
+        {
+          id: "WiFiPasswords",
+          name: "WiFi Passwords",
+          cat: "organizing",
+          desc: "Shows saved passwords for all WiFi networks",
+          admin: true,
+          icon: "KeyRound",
+        },
+      ];
+
+      const CATEGORIES = [
+        { id: "all", label: "All", icon: "LayoutGrid" },
+        { id: "cleaning", label: "Cleaning", icon: "Eraser" },
+        { id: "backup", label: "Backup", icon: "HardDrive" },
+        { id: "fast-computer", label: "Fast Computer", icon: "Zap" },
+        { id: "organizing", label: "Organizing", icon: "Pencil" },
+        { id: "aesthetic", label: "Aesthetic", icon: "Palette" },
+        { id: "fun", label: "Fun", icon: "Target" },
+      ];
+
+      function ScrollTop() {
+        const [visible, setVisible] = useState(false);
+        useEffect(() => {
+          const onScroll = () => setVisible(window.scrollY > 300);
+          window.addEventListener("scroll", onScroll);
+          return () => window.removeEventListener("scroll", onScroll);
+        }, []);
+        return (
+          <button
+            className={`scroll-top${visible ? " visible" : ""}`}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            aria-label="Back to top"
+          >
+            <Icon name="ArrowUp" size={18} />
+          </button>
+        );
+      }
+
+      function Hero() {
+        return (
+          <section
+            style={{
+              borderBottom: "1px solid var(--border)",
+              padding: "72px 24px 64px",
+            }}
+          >
+            <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+              <h1
+                className="hero-h1"
+                style={{
+                  fontSize: 54,
+                  fontWeight: 700,
+                  color: "var(--text-head)",
+                  letterSpacing: "-1.5px",
+                  lineHeight: 1.1,
+                  marginBottom: 20,
+                }}
+              >
+                BAT Library
+              </h1>
+              <p
+                className="hero-p"
+                style={{
+                  fontSize: 17,
+                  color: "var(--text2)",
+                  maxWidth: 480,
+                  lineHeight: 1.8,
+                  marginBottom: 36,
+                }}
+              >
+                36 Windows batch scripts to clean, optimize, back up, and
+                customize your PC. Source code, step-by-step instructions, and
+                safety notes for every tool.
+              </p>
+              <a
+                href="#tools"
+                className="hero-cta"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "10px 22px",
+                  background: "var(--accent)",
+                  color: "#1A1714",
+                  borderRadius: 8,
+                  fontWeight: 700,
+                  fontSize: 14,
+                  transition: "opacity .15s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = "0.85";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = "1";
+                }}
+              >
+                Browse Tools
+                <Icon name="ArrowDown" size={15} />
+              </a>
+            </div>
+          </section>
+        );
+      }
+
+      function ToolCard({ tool }) {
+        const [hov, setHov] = useState(false);
+        const url = `tool-detail.html?id=${tool.id}`;
+        return (
+          <a
+            href={url}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(url);
+            }}
+            onMouseEnter={() => setHov(true)}
+            onMouseLeave={() => setHov(false)}
+            style={{
+              display: "block",
+              background: hov ? "var(--bg3)" : "var(--bg2)",
+              border: `1px solid ${hov ? "var(--accent)" : "var(--border)"}`,
+              borderRadius: 14,
+              padding: "24px",
+              transition: "all .2s",
+              boxShadow: hov ? "0 4px 24px rgba(207,123,75,0.15)" : "none",
+            }}
+          >
+            <div style={{ marginBottom: 14, color: "var(--accent)" }}>
+              <Icon name={tool.icon} size={40} />
+            </div>
+            <h3
+              style={{
+                fontSize: 19,
+                fontWeight: 700,
+                color: "var(--text-head)",
+                marginBottom: 8,
+              }}
+            >
+              {tool.name}
+            </h3>
+            <p
+              style={{
+                fontSize: 15,
+                color: "var(--text2)",
+                marginBottom: 12,
+                lineHeight: 1.5,
+              }}
+            >
+              {tool.desc}
+            </p>
+            <div
+              style={{
+                marginTop: 12,
+                fontSize: 12,
+                color: "var(--accent)",
+                fontWeight: 500,
+                opacity: hov ? 1 : 0,
+                transition: "opacity .15s",
+              }}
+            >
+              View tool →
+            </div>
+          </a>
+        );
+      }
+
+      function App() {
+        const [cat, setCat] = useState("all");
+        const [search, setSearch] = useState("");
+
+        const filtered = useMemo(() => {
+          let result = TOOLS;
+          if (cat !== "all") result = result.filter((t) => t.cat === cat);
+          if (search) {
+            const q = search.toLowerCase();
+            result = result.filter(
+              (t) =>
+                t.name.toLowerCase().includes(q) ||
+                t.desc.toLowerCase().includes(q),
+            );
+          }
+          return result;
+        }, [cat, search]);
+
+        return (
+          <div style={{ minHeight: "100vh" }}>
+            <nav
+              style={{
+                background: "rgba(26,23,20,0.9)",
+                backdropFilter: "blur(12px)",
+                borderBottom: "1px solid var(--border)",
+                position: "sticky",
+                top: 0,
+                zIndex: 100,
+              }}
+            >
+              <div
+                style={{
+                  maxWidth: 1100,
+                  margin: "0 auto",
+                  padding: "0 24px",
+                  height: 56,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 16,
+                }}
+              >
+                <a
+                  href="index.html"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                    flexShrink: 0,
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 30,
+                      height: 30,
+                      background: "var(--accent)",
+                      borderRadius: 7,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 14,
+                      fontWeight: 800,
+                      color: "#1A1714",
+                    }}
+                  >
+                    W
+                  </div>
+                  <span
+                    style={{
+                      fontWeight: 700,
+                      fontSize: 16,
+                      color: "var(--text-head)",
+                    }}
+                  >
+                    WinTools
+                  </span>
+                </a>
+                <div className="nav-search">
+                  <Icon name="Search" size={14} color="var(--text2)" />
+                  <input
+                    type="text"
+                    placeholder="Search tools..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                </div>
+              </div>
+            </nav>
+
+            <Hero />
+
+            <main
+              id="tools"
+              style={{
+                maxWidth: 1100,
+                margin: "0 auto",
+                padding: "48px 24px 60px",
+                animation: "fadeInUp .35s ease",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  gap: 8,
+                  marginBottom: 28,
+                  flexWrap: "wrap",
+                }}
+              >
+                {CATEGORIES.map((c) => (
+                  <button
+                    key={c.id}
+                    onClick={() => setCat(c.id)}
+                    style={{
+                      padding: "6px 16px",
+                      borderRadius: 20,
+                      fontSize: 13,
+                      fontWeight: 500,
+                      fontFamily: "var(--font)",
+                      background: cat === c.id ? "var(--accent)" : "var(--bg2)",
+                      color: cat === c.id ? "#1A1714" : "var(--text2)",
+                      border: `1px solid ${cat === c.id ? "var(--accent)" : "var(--border)"}`,
+                      transition: "all .15s",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (cat !== c.id) {
+                        e.target.style.color = "var(--text)";
+                        e.target.style.background = "var(--bg3)";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (cat !== c.id) {
+                        e.target.style.color = "var(--text2)";
+                        e.target.style.background = "var(--bg2)";
+                      }
+                    }}
+                  >
+                    <Icon
+                      name={c.icon}
+                      size={13}
+                      style={{
+                        display: "inline",
+                        verticalAlign: "middle",
+                        marginRight: 5,
+                      }}
+                    />
+                    {c.label}
+                  </button>
+                ))}
+              </div>
+
+              {filtered.length === 0 ? (
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "40px",
+                    color: "var(--text2)",
+                  }}
+                >
+                  <p style={{ fontSize: 16, marginBottom: 8 }}>
+                    No tools found
+                  </p>
+                  <p style={{ fontSize: 13 }}>
+                    Try adjusting your search or category filter.
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns:
+                        "repeat(auto-fill,minmax(280px,1fr))",
+                      gap: 16,
+                    }}
+                  >
+                    {filtered.map((tool) => (
+                      <ToolCard key={tool.id} tool={tool} />
+                    ))}
+                  </div>
+                  <div
+                    style={{
+                      marginTop: 40,
+                      textAlign: "center",
+                      color: "var(--text2)",
+                      fontSize: 13,
+                    }}
+                  >
+                    Showing {filtered.length} of {TOOLS.length} tools
+                  </div>
+                </>
+              )}
+            </main>
+
+            <ScrollTop />
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+  </body>
+</html>
