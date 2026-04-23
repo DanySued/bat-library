@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+
+; =============================================
+; Disable Windows Lock Screen
+; Double-click this file to apply.
+; A restart is required for changes to take effect.
+; =============================================
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization]
+"NoLockScreen"=dword:00000001

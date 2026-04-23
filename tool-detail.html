@@ -1651,10 +1651,12 @@
                   Download
                 </h2>
                 <a
-                  href={`/downloads/${tool.id}.bat`}
+                  href={`/files/${tool.id}.bat`}
                   download
                   style={{
-                    display: "inline-block",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
                     padding: "12px 24px",
                     background: "var(--accent)",
                     color: "#1A1714",
@@ -1664,12 +1666,13 @@
                     cursor: "pointer",
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.opacity = "0.85";
+                    e.currentTarget.style.opacity = "0.85";
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.opacity = "1";
+                    e.currentTarget.style.opacity = "1";
                   }}
                 >
+                  <Icon name="Download" size={16} />
                   Download {tool.id}.bat
                 </a>
                 <p
