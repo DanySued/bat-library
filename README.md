@@ -16,47 +16,47 @@ The site shows what each script does, step-by-step instructions, and safety note
 
 ## Scripts
 
-| Script | Category | Admin |
-|---|---|---|
-| [BackupFolders.bat](./files/BackupFolders.bat) | Backup | ✅ |
-| [BlockDistractingSites.bat](./files/BlockDistractingSites.bat) | Fun | ✅ |
-| [BulkRenamer.bat](./files/BulkRenamer.bat) | Organizing | ✅ |
-| [CleanWindows_MASTER.bat](./files/CleanWindows_MASTER.bat) | Cleaning | ✅ |
-| [ClearRecentActivity.bat](./files/ClearRecentActivity.bat) | Cleaning | ✅ |
-| [ClearUSBHistory.bat](./files/ClearUSBHistory.bat) | Cleaning | ✅ |
-| [CreateRestorePoint.bat](./files/CreateRestorePoint.bat) | Backup | ✅ |
-| [DarkModeToggle.bat](./files/DarkModeToggle.bat) | Aesthetic | ❌ |
-| [DisableForcedRestarts.bat](./files/DisableForcedRestarts.bat) | Fast Computer | ✅ |
-| [DisableLockscreen.reg](./files/DisableLockscreen.reg) | Aesthetic | ✅ |
-| [DriverBackup.bat](./files/DriverBackup.bat) | Backup | ✅ |
-| [DuplicateFileFinder.bat](./files/DuplicateFileFinder.bat) | Organizing | ✅ |
-| [EmptyFolderCleaner.bat](./files/EmptyFolderCleaner.bat) | Cleaning | ✅ |
-| [FixBluetooth.bat](./files/FixBluetooth.bat) | Fast Computer | ✅ |
-| [FixBrokenIcons.bat](./files/FixBrokenIcons.bat) | Fast Computer | ✅ |
-| [FixExplorer.bat](./files/FixExplorer.bat) | Aesthetic | ✅ |
-| [FixMicrosoftStore.bat](./files/FixMicrosoftStore.bat) | Fast Computer | ✅ |
-| [FixSlowRightClick.bat](./files/FixSlowRightClick.bat) | Fast Computer | ✅ |
-| [FixSound.bat](./files/FixSound.bat) | Fast Computer | ✅ |
-| [FixWindowsProblems.bat](./files/FixWindowsProblems.bat) | Fast Computer | ✅ |
-| [FixWindowsUpdate.bat](./files/FixWindowsUpdate.bat) | Fast Computer | ✅ |
-| [FolderSizeReport.bat](./files/FolderSizeReport.bat) | Organizing | ✅ |
-| [GameSavesBackup.bat](./files/GameSavesBackup.bat) | Backup | ✅ |
-| [GamingModeToggle.bat](./files/GamingModeToggle.bat) | Fun | ✅ |
-| [NetworkSpeedFix.bat](./files/NetworkSpeedFix.bat) | Fast Computer | ✅ |
-| [NightModeScheduler.bat](./files/NightModeScheduler.bat) | Aesthetic | ✅ |
-| [NumlockOnStartup.bat](./files/NumlockOnStartup.bat) | Aesthetic | ✅ |
-| [OldFileArchiver.bat](./files/OldFileArchiver.bat) | Organizing | ✅ |
-| [PowerButtonConfig.bat](./files/PowerButtonConfig.bat) | Aesthetic | ✅ |
-| [RAMCleaner.bat](./files/RAMCleaner.bat) | Fast Computer | ✅ |
-| [RegistryBackup.bat](./files/RegistryBackup.bat) | Backup | ✅ |
-| [RestorePhotoViewer.bat](./files/RestorePhotoViewer.bat) | Aesthetic | ✅ |
-| [RestoreRightClickMenu.bat](./files/RestoreRightClickMenu.bat) | Aesthetic | ✅ |
-| [RunAsDevButton.bat](./files/RunAsDevButton.bat) | Organizing | ✅ |
-| [ScheduleDailyBackup.bat](./files/ScheduleDailyBackup.bat) | Backup | ✅ |
-| [SetEnglishInput.bat](./files/SetEnglishInput.bat) | Organizing | ✅ |
-| [SwitchToEnglish.bat](./files/SwitchToEnglish.bat) | Organizing | ✅ |
-| [WeeklyClean.bat](./files/WeeklyClean.bat) | Cleaning | ✅ |
-| [WiFiPasswords.bat](./files/WiFiPasswords.bat) | Organizing | ✅ |
+| Script | Description | Category | Admin |
+|---|---|---|---|
+| [BackupFolders.bat](./files/BackupFolders.bat) | Backs up Desktop, Documents, Pictures, Downloads | Backup | ✅ |
+| [BlockDistractingSites.bat](./files/BlockDistractingSites.bat) | Blocks/unblocks distracting websites via HOSTS file | Fun | ✅ |
+| [BulkRenamer.bat](./files/BulkRenamer.bat) | Rename all files in a folder — add prefix, suffix, numbers, or replace text | Organizing | ✅ |
+| [CleanWindows_MASTER.bat](./files/CleanWindows_MASTER.bat) | Complete Windows debloat, optimization & privacy cleanup | Cleaning | ✅ |
+| [ClearRecentActivity.bat](./files/ClearRecentActivity.bat) | Wipes jump lists, recent files, search history, and clipboard | Cleaning | ✅ |
+| [ClearUSBHistory.bat](./files/ClearUSBHistory.bat) | Removes all USB device history from the Windows registry | Cleaning | ✅ |
+| [CreateRestorePoint.bat](./files/CreateRestorePoint.bat) | Creates a Windows System Restore Point instantly | Backup | ✅ |
+| [DarkModeToggle.bat](./files/DarkModeToggle.bat) | Toggles Windows between dark and light mode | Aesthetic | ❌ |
+| [DisableForcedRestarts.bat](./files/DisableForcedRestarts.bat) | Stops Windows from auto-rebooting after updates without your permission | Fast Computer | ✅ |
+| [DisableLockscreen.reg](./files/DisableLockscreen.reg) | Disables the Windows lock screen so you go straight to login | Aesthetic | ✅ |
+| [DriverBackup.bat](./files/DriverBackup.bat) | Exports all installed hardware drivers to a folder on Desktop | Backup | ✅ |
+| [DuplicateFileFinder.bat](./files/DuplicateFileFinder.bat) | Scans a folder for duplicate files and saves a report — doesn't delete anything | Organizing | ✅ |
+| [EmptyFolderCleaner.bat](./files/EmptyFolderCleaner.bat) | Finds and permanently deletes all empty folders in a target directory | Cleaning | ✅ |
+| [FixBluetooth.bat](./files/FixBluetooth.bat) | Re-enables Bluetooth services when Bluetooth has stopped working | Fast Computer | ✅ |
+| [FixBrokenIcons.bat](./files/FixBrokenIcons.bat) | Rebuilds the icon cache — fixes blank or wrong icons on Desktop and taskbar | Fast Computer | ✅ |
+| [FixExplorer.bat](./files/FixExplorer.bat) | Sets Explorer to open This PC, shows extensions and hidden files, removes ads | Aesthetic | ✅ |
+| [FixMicrosoftStore.bat](./files/FixMicrosoftStore.bat) | Resets Microsoft Store cache and services when apps won't install or update | Fast Computer | ✅ |
+| [FixSlowRightClick.bat](./files/FixSlowRightClick.bat) | Removes broken shell extensions causing right-click menus to lag | Fast Computer | ✅ |
+| [FixSound.bat](./files/FixSound.bat) | Restarts Windows audio services and fixes sound issues | Fast Computer | ✅ |
+| [FixWindowsProblems.bat](./files/FixWindowsProblems.bat) | Resets Windows Update, repairs corrupt system files, fixes network stack | Fast Computer | ✅ |
+| [FixWindowsUpdate.bat](./files/FixWindowsUpdate.bat) | Fixes stuck, broken, or endlessly-spinning Windows Update | Fast Computer | ✅ |
+| [FolderSizeReport.bat](./files/FolderSizeReport.bat) | Shows which folders are eating the most disk space | Organizing | ✅ |
+| [GameSavesBackup.bat](./files/GameSavesBackup.bat) | Backs up save files from Steam, Epic, Ubisoft, GOG, and EA | Backup | ✅ |
+| [GamingModeToggle.bat](./files/GamingModeToggle.bat) | Kills background services and sets high performance power plan for gaming | Fun | ✅ |
+| [NetworkSpeedFix.bat](./files/NetworkSpeedFix.bat) | Resets the network stack when internet feels slow or unstable | Fast Computer | ✅ |
+| [NightModeScheduler.bat](./files/NightModeScheduler.bat) | Schedules automatic dark mode switching at night | Aesthetic | ✅ |
+| [NumlockOnStartup.bat](./files/NumlockOnStartup.bat) | Forces NumLock to always be ON when Windows starts | Aesthetic | ✅ |
+| [OldFileArchiver.bat](./files/OldFileArchiver.bat) | Moves files older than X days to an archive folder automatically | Organizing | ✅ |
+| [PowerButtonConfig.bat](./files/PowerButtonConfig.bat) | Configures what the power button and lid closing do | Aesthetic | ✅ |
+| [RAMCleaner.bat](./files/RAMCleaner.bat) | Flushes standby memory when your PC feels sluggish | Fast Computer | ✅ |
+| [RegistryBackup.bat](./files/RegistryBackup.bat) | Exports your full Windows registry to a file on Desktop | Backup | ✅ |
+| [RestorePhotoViewer.bat](./files/RestorePhotoViewer.bat) | Brings back the classic Windows Photo Viewer from Windows 7 | Aesthetic | ✅ |
+| [RestoreRightClickMenu.bat](./files/RestoreRightClickMenu.bat) | Restores the full classic right-click context menu on Windows 11 | Aesthetic | ✅ |
+| [RunAsDevButton.bat](./files/RunAsDevButton.bat) | Adds a "Run as Developer" option to the right-click context menu | Organizing | ✅ |
+| [ScheduleDailyBackup.bat](./files/ScheduleDailyBackup.bat) | Sets up Windows Task Scheduler to run BackupFolders automatically every day | Backup | ✅ |
+| [SetEnglishInput.bat](./files/SetEnglishInput.bat) | Sets keyboard input language to English | Organizing | ✅ |
+| [SwitchToEnglish.bat](./files/SwitchToEnglish.bat) | Switches the Windows display language to English (US) | Organizing | ✅ |
+| [WeeklyClean.bat](./files/WeeklyClean.bat) | Silent quick clean — temp files, Recycle Bin, DNS flush, browser caches | Cleaning | ✅ |
+| [WiFiPasswords.bat](./files/WiFiPasswords.bat) | Shows saved passwords for all WiFi networks this PC has connected to | Organizing | ✅ |
 
 ---
 
