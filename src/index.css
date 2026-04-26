@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: #1A1714;
+    color: #D4CCC4;
+    font-family: 'Lora', Georgia, serif;
+    font-size: 15px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #1A1714; }
+  ::-webkit-scrollbar-thumb { background: #302A25; border-radius: 3px; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-h1  { animation: heroIn 0.65s ease both 0.05s; }
+.hero-p   { animation: heroIn 0.65s ease both 0.2s; }
+.hero-cta { animation: heroIn 0.65s ease both 0.35s; }
+.fade-in  { animation: fadeInUp 0.35s ease; }
