@@ -64,8 +64,8 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
   return (
     <div
       ref={cardRef}
-      onClick={() => navigate(`/tool/${tool.id}`)}
-      className="group flex flex-col bg-bg2 border border-rule rounded-xl p-5 cursor-pointer transition-all duration-200 hover:bg-bg3 hover:border-orange hover:shadow-[0_4px_24px_rgba(207,123,75,0.10)]"
+      onClick={() => navigate(`/bat/${tool.id}`)}
+      className="group flex flex-col bg-bg2 border border-[rgba(255,255,255,0.06)] rounded-xl p-5 cursor-pointer transition-all duration-200 hover:bg-bg3 hover:border-orange/50 hover:shadow-[0_4px_32px_rgba(207,123,75,0.12)] hover:-translate-y-0.5"
     >
       {/* Top row: tool icon + bookmark */}
       <div className="flex items-start justify-between mb-3">
@@ -91,7 +91,7 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
       {/* Code block */}
       <div
         onClick={e => e.stopPropagation()}
-        className="relative bg-code-bg border-l-2 border-orange-dim rounded-md overflow-hidden mb-4 flex-1"
+        className="relative bg-code-bg border border-[rgba(255,255,255,0.04)] border-l-2 border-l-orange-dim rounded-lg overflow-hidden mb-4 flex-1"
       >
         {code === null ? (
           <div className="p-3 text-dim text-[11px] font-mono animate-pulse">Loading...</div>
