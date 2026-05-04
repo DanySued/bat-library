@@ -19,7 +19,7 @@ export function CategoryFilter({ active, onChange, savedCount }: CategoryFilterP
             key={cat.id}
             onClick={() => onChange(cat.id)}
             className={cn(
-              'inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[13px] border transition-all duration-150 font-serif',
+              'inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[13px] border transition-all duration-150 font-medium',
               isActive
                 ? 'bg-orange text-bg border-orange font-bold'
                 : 'bg-bg2 text-dim border-rule hover:text-body hover:bg-bg3'
