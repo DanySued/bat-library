@@ -47,6 +47,7 @@ The site shows what each script does, step-by-step instructions, and safety note
 | [NumlockOnStartup.bat](./files/NumlockOnStartup.bat) | Forces NumLock to always be ON when Windows starts | Aesthetic | ✅ |
 | [OldFileArchiver.bat](./files/OldFileArchiver.bat) | Moves files older than X days to an archive folder automatically | Organizing | ✅ |
 | [PowerButtonConfig.bat](./files/PowerButtonConfig.bat) | Configures what the power button and lid closing do | Aesthetic | ✅ |
+| [PushAndDeploy.bat](./PushAndDeploy.bat) | Automates pushing changes to GitHub to trigger Vercel deployment | Dev | ❌ |
 | [RAMCleaner.bat](./files/RAMCleaner.bat) | Flushes standby memory when your PC feels sluggish | Fast Computer | ✅ |
 | [RegistryBackup.bat](./files/RegistryBackup.bat) | Exports your full Windows registry to a file on Desktop | Backup | ✅ |
 | [RestorePhotoViewer.bat](./files/RestorePhotoViewer.bat) | Brings back the classic Windows Photo Viewer from Windows 7 | Aesthetic | ✅ |
