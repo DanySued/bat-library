@@ -4,7 +4,6 @@ import { toast } from 'sonner'
 import Lottie from 'lottie-react'
 import checkmarkData from '@/animations/checkmark.json'
 import { TOOLS } from '@/data/tools'
-import { Badge } from '@/components/ui/badge'
 import { getIcon } from '@/lib/icons'
 import { useBookmarks } from '@/contexts/BookmarksContext'
 import { useDownloads } from '@/contexts/DownloadsContext'
@@ -68,7 +67,6 @@ export function ToolDetail() {
 
   const IconComp     = getIcon(tool.icon)
   const CopyIcon     = getIcon('Copy')
-  const CheckIcon    = getIcon('Check')
   const DownloadIcon = getIcon('Download')
   const BookmarkIcon = getIcon('Bookmark')
   const ArrowLeft    = getIcon('ArrowLeft')

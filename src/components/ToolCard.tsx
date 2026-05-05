@@ -6,7 +6,6 @@ import Lottie from 'lottie-react'
 import checkmarkData from '@/animations/checkmark.json'
 import { cn } from '@/lib/utils'
 import { getIcon } from '@/lib/icons'
-import { Badge } from '@/components/ui/badge'
 import { useBookmarks } from '@/contexts/BookmarksContext'
 import { useDownloads } from '@/contexts/DownloadsContext'
 import type { Tool } from '@/data/tools'
@@ -38,7 +37,6 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
 
   const IconComp  = getIcon(tool.icon)
   const CopyIcon  = getIcon('Copy')
-  const ShieldIcon   = getIcon('ShieldAlert')
 
   useEffect(() => {
     if (!cardRef.current) return

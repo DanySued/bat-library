@@ -1,13 +1,12 @@
-import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { ChevronDown, ArrowUpDown, SortAsc, ShieldAlert } from 'lucide-react'
 import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
-import { CategoryFilter } from '@/components/CategoryFilter'
 import { ToolCard } from '@/components/ToolCard'
 import { ScrollTop } from '@/components/ScrollTop'
 import { TOOLS, CATEGORIES } from '@/data/tools'
-import { getBookmarks } from '@/lib/bookmarks'
+import { useBookmarks } from '@/contexts/BookmarksContext'
 import { cn } from '@/lib/utils'
 import type { Category } from '@/data/tools'
 
@@ -31,10 +30,10 @@ export function Library() {
     setSearch(searchParams.get('q') ?? '')
   }, [searchParams])
   const [search, setSearch] = useState(() => searchParams.get('q') ?? '')
+  const { bookmarks: bookmarkedIds } = useBookmarks()
   const [sort, setSort] = useState<SortId>('popular')
   const [sortOpen, setSortOpen] = useState(false)
   const sortRef = useRef<HTMLDivElement>(null)
-  const [bookmarkedIds, setBookmarkedIds] = useState<string[]>(() => getBookmarks())
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -42,10 +41,6 @@ export function Library() {
     }
     document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
-  }, [])
-
-  const handleBookmarkChange = useCallback(() => {
-    setBookmarkedIds(getBookmarks())
   }, [])
 
   const filtered = useMemo(() => {
@@ -145,7 +140,6 @@ export function Library() {
                 <ToolCard
                   key={tool.id}
                   tool={tool}
-                  onBookmarkChange={handleBookmarkChange}
                 />
               ))}
             </div>
