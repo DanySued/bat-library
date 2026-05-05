@@ -35,7 +35,7 @@ export function Footer() {
             <h4 className="text-head text-[12px] font-semibold tracking-widest uppercase mb-4">Project</h4>
             <ul className="space-y-2.5 text-[13px] text-dim">
               <li>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-head transition-colors">
+                <a href="https://github.com/DanySued/bat-library" target="_blank" rel="noopener noreferrer" className="hover:text-head transition-colors">
                   GitHub
                 </a>
               </li>

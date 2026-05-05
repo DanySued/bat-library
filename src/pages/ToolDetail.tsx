@@ -6,7 +6,8 @@ import checkmarkData from '@/animations/checkmark.json'
 import { TOOLS } from '@/data/tools'
 import { Badge } from '@/components/ui/badge'
 import { getIcon } from '@/lib/icons'
-import { getBookmarks, toggleBookmark } from '@/lib/bookmarks'
+import { useBookmarks } from '@/contexts/BookmarksContext'
+import { useDownloads } from '@/contexts/DownloadsContext'
 import { cn } from '@/lib/utils'
 import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
@@ -31,9 +32,10 @@ export function ToolDetail() {
   const navigate = useNavigate()
   const tool = TOOLS.find(t => t.id === id)
 
+  const { isBookmarked, toggle } = useBookmarks()
+  const { recordDownload } = useDownloads()
   const [code, setCode]         = useState<string | null>(null)
   const [copied, setCopied]     = useState(false)
-  const [bookmarked, setBookmarked] = useState(() => getBookmarks().includes(id ?? ''))
 
   useEffect(() => {
     if (!id) return
@@ -79,10 +81,8 @@ export function ToolDetail() {
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const handleBookmark = () => {
-    const next = toggleBookmark(tool.id)
-    setBookmarked(next.includes(tool.id))
-  }
+  const bookmarked = isBookmarked(tool.id)
+  const handleBookmark = () => toggle(tool.id)
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -249,6 +249,7 @@ export function ToolDetail() {
           <a
             href={`/files/${tool.id}.bat`}
             download={`${tool.id}.bat`}
+            onClick={() => recordDownload(tool.id)}
             className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full font-semibold text-[14px] hover:bg-white/90 transition-colors duration-150 active:scale-[0.98]"
           >
             {DownloadIcon && <DownloadIcon size={15} className="transition-transform duration-200 group-hover:translate-y-0.5" />}
