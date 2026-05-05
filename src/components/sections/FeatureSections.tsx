@@ -9,7 +9,7 @@ function TerminalMockup() {
     >
       <div className="flex items-center gap-2 px-5 py-3 border-b border-[rgba(255,255,255,0.06)] bg-bg3">
         <span className="w-2.5 h-2.5 rounded-full bg-danger/60" />
-        <span className="w-2.5 h-2.5 rounded-full bg-orange/40" />
+        <span className="w-2.5 h-2.5 rounded-full bg-accent/40" />
         <span className="w-2.5 h-2.5 rounded-full bg-code-fg/40" />
         <span className="ml-3 text-[11px] text-dim font-mono">Administrator: Command Prompt</span>
       </div>
@@ -26,7 +26,7 @@ function TerminalMockup() {
         <div className="text-body">[Phase 4] Clearing browser cache...</div>
         <div className="text-code-fg">  ✓ Chrome cache cleared (1.2 GB freed)</div>
         <div className="text-[rgba(255,255,255,0.3)]">──────────────────────────────</div>
-        <div className="text-orange font-semibold">Done. Total freed: 1.53 GB</div>
+        <div className="text-accent font-semibold">Done. Total freed: 1.53 GB</div>
         <div className="flex items-center gap-1.5 mt-2">
           <span className="w-1.5 h-3 bg-body/70 animate-pulse" />
         </div>
@@ -45,11 +45,11 @@ function SourceMockup() {
       <div className="flex items-center justify-between px-5 py-3 border-b border-[rgba(255,255,255,0.06)] bg-bg3">
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-danger/60" />
-          <span className="w-2.5 h-2.5 rounded-full bg-orange/40" />
+          <span className="w-2.5 h-2.5 rounded-full bg-accent/40" />
           <span className="w-2.5 h-2.5 rounded-full bg-code-fg/40" />
         </div>
         <span className="text-[11px] text-dim font-mono">Source code</span>
-        <button className="text-[11px] text-orange font-mono px-2 py-0.5 rounded border border-orange/30 bg-orange/5">
+        <button className="text-[11px] text-accent font-mono px-2 py-0.5 rounded border border-accent/30 bg-accent/5">
           Copy
         </button>
       </div>
@@ -69,7 +69,7 @@ function SourceMockup() {
           <div key={i} className="flex gap-4">
             <span className="text-[rgba(255,255,255,0.15)] select-none w-5 text-right flex-shrink-0">{num}</span>
             <span>
-              <span className="text-orange">{a}</span>
+              <span className="text-accent">{a}</span>
               <span className="text-body">{b}</span>
             </span>
           </div>
@@ -105,7 +105,7 @@ function CategoryMockup() {
             key={c.label}
             className={`px-3 py-1 rounded-full text-[11px] border transition-colors ${
               c.active
-                ? 'bg-orange text-bg border-orange font-semibold'
+                ? 'bg-white text-black border-accent font-semibold'
                 : 'bg-bg3 text-dim border-[rgba(255,255,255,0.06)]'
             }`}
           >
@@ -129,7 +129,7 @@ function CategoryMockup() {
                   Admin
                 </span>
               )}
-              <span className="text-[11px] px-2.5 py-1 rounded-lg bg-orange text-bg font-semibold">↓</span>
+              <span className="text-[11px] px-2.5 py-1 rounded-lg bg-white text-black font-semibold">↓</span>
             </div>
           </div>
         ))}

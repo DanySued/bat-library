@@ -21,7 +21,7 @@ export function CategoryFilter({ active, onChange, savedCount }: CategoryFilterP
             className={cn(
               'inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[13px] border transition-all duration-150 font-medium',
               isActive
-                ? 'bg-orange text-bg border-orange font-bold'
+                ? 'bg-white text-black border-accent font-bold'
                 : 'bg-bg2 text-dim border-rule hover:text-body hover:bg-bg3'
             )}
           >
@@ -30,7 +30,7 @@ export function CategoryFilter({ active, onChange, savedCount }: CategoryFilterP
             {cat.id === 'saved' && savedCount > 0 && (
               <span className={cn(
                 'ml-0.5 text-[10px] px-1.5 py-0 rounded-full tabular-nums',
-                isActive ? 'bg-bg/20' : 'bg-orange/15 text-orange'
+                isActive ? 'bg-bg/20' : 'bg-accent/15 text-accent'
               )}>
                 {savedCount}
               </span>

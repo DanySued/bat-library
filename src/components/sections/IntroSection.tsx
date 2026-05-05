@@ -2,10 +2,10 @@ const PILLS = ['Open Source', 'No Dependencies', 'No Data Collection', 'Works Of
 
 export function IntroSection() {
   return (
-    <section className="max-w-[1344px] mx-auto px-6 py-24">
+    <section className="max-w-[1344px] mx-auto px-4 sm:px-6 py-14 md:py-24">
       <div className="max-w-[640px]">
         {/* Eyebrow */}
-        <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-orange mb-5">
+        <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-accent mb-5">
           Why Bat Library
         </p>
 

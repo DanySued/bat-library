@@ -8,10 +8,10 @@ export function CategoryShowcase() {
 
   return (
     <section className="border-t border-[rgba(255,255,255,0.06)]">
-      <div className="max-w-[1344px] mx-auto px-6 py-24">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+      <div className="max-w-[1344px] mx-auto px-4 sm:px-6 py-14 md:py-24">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 md:mb-12">
           <div>
-            <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-orange mb-4">
+            <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-accent mb-4">
               Browse by Category
             </p>
             <h2
@@ -24,45 +24,59 @@ export function CategoryShowcase() {
           </div>
           <Link
             to="/bat"
-            className="inline-flex items-center gap-2 text-[13px] text-orange hover:opacity-80 transition-opacity flex-shrink-0"
+            className="group inline-flex items-center gap-2 text-[13px] text-accent hover:opacity-80 transition-opacity flex-shrink-0"
           >
-            View all scripts <ArrowRight size={13} />
+            View all scripts <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[rgba(255,255,255,0.06)]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {cats.map(cat => {
             const IconComp = getIcon(cat.icon)
             const count = TOOLS.filter(t => t.cat === cat.id).length
-            const featured = TOOLS.filter(t => t.cat === cat.id).slice(0, 3)
+            const featured = TOOLS.filter(t => t.cat === cat.id).slice(0, 4)
 
             return (
               <Link
                 key={cat.id}
-                to={`/bat`}
-                className="group bg-bg2 p-7 flex flex-col gap-4 transition-colors duration-200 hover:bg-bg3"
+                to={`/bat?cat=${cat.id}`}
+                className="group relative flex flex-col gap-5 p-6 rounded-xl border border-[rgba(255,255,255,0.07)] bg-bg2 hover:border-[rgba(255,255,255,0.14)] hover:-translate-y-0.5 transition-all duration-200"
               >
-                <div className="flex items-start justify-between">
-                  <div className="w-10 h-10 rounded-xl bg-orange/10 border border-orange/15 flex items-center justify-center text-orange transition-colors group-hover:bg-orange/15">
-                    {IconComp && <IconComp size={18} />}
+                {/* Header */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="text-accent transition-transform duration-200 group-hover:scale-110">
+                      {IconComp && <IconComp size={16} />}
+                    </div>
+                    <h3 className="text-head text-[15px] font-semibold">{cat.label}</h3>
                   </div>
-                  <span className="text-[12px] text-dim tabular-nums">{count} scripts</span>
+                  <span className="text-[11px] font-medium tabular-nums px-2 py-0.5 rounded-full bg-[rgba(255,255,255,0.05)] text-dim">
+                    {count}
+                  </span>
                 </div>
 
-                <div>
-                  <h3 className="text-head text-[16px] font-semibold mb-1">{cat.label}</h3>
-                  <ul className="space-y-0.5">
-                    {featured.map(t => (
-                      <li key={t.id} className="text-[12px] text-dim truncate">{t.name}</li>
-                    ))}
-                    {count > 3 && (
-                      <li className="text-[12px] text-orange/60">+{count - 3} more</li>
-                    )}
-                  </ul>
-                </div>
+                {/* Divider */}
+                <div className="h-px bg-[rgba(255,255,255,0.05)]" />
 
-                <div className="mt-auto flex items-center gap-1 text-[12px] text-dim group-hover:text-orange transition-colors">
-                  Browse <ArrowRight size={11} />
+                {/* Script list */}
+                <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5">
+                  {featured.map(t => (
+                    <li key={t.id} className="flex items-center gap-1.5 min-w-0">
+                      <span className="w-1 h-1 rounded-full bg-accent/40 flex-shrink-0" />
+                      <span className="text-[12px] text-dim truncate">{t.name}</span>
+                    </li>
+                  ))}
+                  {count > 4 && (
+                    <li className="flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-accent/20 flex-shrink-0" />
+                      <span className="text-[12px] text-accent/50">+{count - 4} more</span>
+                    </li>
+                  )}
+                </ul>
+
+                {/* Footer CTA */}
+                <div className="mt-auto flex items-center gap-1.5 text-[12px] font-medium text-dim group-hover:text-accent transition-colors duration-200">
+                  Browse category <ArrowRight size={11} className="transition-transform duration-200 group-hover:translate-x-0.5" />
                 </div>
               </Link>
             )

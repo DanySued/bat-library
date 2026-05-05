@@ -12,13 +12,13 @@ export function FeatureSection({ eyebrow, headline, description, mockup, reverse
   return (
     <section className="border-t border-[rgba(255,255,255,0.06)]">
       <div
-        className={`max-w-[1344px] mx-auto px-6 py-24 flex flex-col gap-16 ${
+        className={`max-w-[1344px] mx-auto px-4 sm:px-6 py-14 md:py-24 flex flex-col gap-10 lg:gap-16 ${
           reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'
         } items-center`}
       >
         {/* Text */}
         <div className="flex-1 max-w-[480px]">
-          <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-orange mb-5">
+          <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-accent mb-5">
             {eyebrow}
           </p>
           <h2

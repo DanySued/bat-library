@@ -10,7 +10,7 @@ export default {
         bg2: '#0f0f12',
         bg3: '#141417',
         bg4: '#1c1c20',
-        orange: { DEFAULT: '#CF7B4B', dim: '#8A5230' },
+        accent: { DEFAULT: '#57B5E7', dim: '#2F7DAD' },
         body: '#d0d6e0',
         dim:  '#8a8f98',
         head: '#f7f8f8',

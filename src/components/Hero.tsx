@@ -20,14 +20,14 @@ export function Hero() {
 
   return (
     <>
-      <div id="progress-bar" className="fixed top-0 left-0 h-[2px] bg-orange z-[999] pointer-events-none w-0" />
+      <div id="progress-bar" className="fixed top-0 left-0 h-[2px] bg-accent z-[999] pointer-events-none w-0" />
 
       <section className="border-b border-rule px-6 py-20 md:py-24">
         <div className="max-w-[1140px] mx-auto">
           {/* Eyebrow */}
           <div className="hero-h1 flex items-center gap-3 mb-6">
-            <div className="h-px w-8 bg-orange-dim" />
-            <span className="text-orange text-[11px] font-mono uppercase tracking-[2.5px]">
+            <div className="h-px w-8 bg-accent-dim" />
+            <span className="text-accent text-[11px] font-mono uppercase tracking-[2.5px]">
               Windows Batch Scripts
             </span>
           </div>
@@ -35,7 +35,7 @@ export function Hero() {
           {/* Headline */}
           <h1 className="hero-h1 font-serif font-bold text-head leading-[1.05] tracking-[-2px] mb-5 text-[50px] md:text-[62px]">
             Every fix.<br />
-            <span className="text-orange">One library.</span>
+            <span className="text-accent">One library.</span>
           </h1>
 
           {/* Subtitle */}
@@ -48,7 +48,7 @@ export function Hero() {
           <div className="hero-cta flex items-center gap-5 flex-wrap">
             <a
               href="#tools"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange text-bg rounded-lg font-bold text-[14px] hover:opacity-85 transition-opacity duration-150"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-lg font-bold text-[14px] hover:opacity-85 transition-opacity duration-150"
             >
               Browse Tools
               <ArrowDown size={14} />
