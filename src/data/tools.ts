@@ -69,7 +69,7 @@ export const TOOLS: Tool[] = [
       '💡 Run RegistryBackup.bat and CreateRestorePoint.bat before this',
     ],
     riskScore: 5,
-    downloads: 4821,
+    downloads: 0,
   },
   {
     id: 'BackupFolders',
@@ -102,7 +102,7 @@ export const TOOLS: Tool[] = [
       '💡 Use ScheduleDailyBackup.bat to automate this',
     ],
     riskScore: 1,
-    downloads: 1340,
+    downloads: 0,
   },
   {
     id: 'BlockDistractingSites',
@@ -131,7 +131,7 @@ export const TOOLS: Tool[] = [
       '💡 Perfect for focus work or productivity sessions',
     ],
     riskScore: 2,
-    downloads: 983,
+    downloads: 0,
   },
   {
     id: 'BulkRenamer',
@@ -164,7 +164,7 @@ export const TOOLS: Tool[] = [
       '💡 The script shows a preview before applying — always check it',
     ],
     riskScore: 3,
-    downloads: 712,
+    downloads: 0,
   },
   {
     id: 'ClearRecentActivity',
@@ -196,7 +196,7 @@ export const TOOLS: Tool[] = [
       '💡 Thumbnails will rebuild gradually as you browse folders',
     ],
     riskScore: 2,
-    downloads: 2104,
+    downloads: 0,
   },
   {
     id: 'ClearUSBHistory',
@@ -227,7 +227,7 @@ export const TOOLS: Tool[] = [
       '💡 Does not affect Bluetooth device history (separate registry path)',
     ],
     riskScore: 2,
-    downloads: 541,
+    downloads: 0,
   },
   {
     id: 'CreateRestorePoint',
@@ -257,7 +257,7 @@ export const TOOLS: Tool[] = [
       '💡 Does NOT back up personal files — only Windows system state',
     ],
     riskScore: 1,
-    downloads: 3267,
+    downloads: 0,
   },
   {
     id: 'DarkModeToggle',
@@ -284,7 +284,7 @@ export const TOOLS: Tool[] = [
       '💡 Great for binding to a hotkey or putting on desktop',
     ],
     riskScore: 1,
-    downloads: 2891,
+    downloads: 0,
   },
   {
     id: 'DisableForcedRestarts',
@@ -314,7 +314,7 @@ export const TOOLS: Tool[] = [
       '⚠️ Security updates are still applied — this only delays the restart, not the update',
     ],
     riskScore: 2,
-    downloads: 1876,
+    downloads: 0,
   },
   {
     id: 'DriverBackup',
@@ -344,7 +344,7 @@ export const TOOLS: Tool[] = [
       '💡 GPU drivers (NVIDIA/AMD) are better reinstalled from manufacturer website',
     ],
     riskScore: 1,
-    downloads: 1203,
+    downloads: 0,
   },
   {
     id: 'DuplicateFileFinder',
@@ -376,7 +376,7 @@ export const TOOLS: Tool[] = [
       '💡 Always review the report before deleting — same content ≠ same file purpose',
     ],
     riskScore: 1,
-    downloads: 889,
+    downloads: 0,
   },
   {
     id: 'EmptyFolderCleaner',
@@ -405,7 +405,7 @@ export const TOOLS: Tool[] = [
       '💡 Check the folder count before confirming it\'s safe',
     ],
     riskScore: 3,
-    downloads: 634,
+    downloads: 0,
   },
   {
     id: 'FixBluetooth',
@@ -435,7 +435,7 @@ export const TOOLS: Tool[] = [
       '💡 If the issue persists, your driver may be corrupt — reinstall from manufacturer website',
     ],
     riskScore: 1,
-    downloads: 2341,
+    downloads: 0,
   },
   {
     id: 'FixBrokenIcons',
@@ -465,7 +465,7 @@ export const TOOLS: Tool[] = [
       '💡 Useful after installing software that changed file associations',
     ],
     riskScore: 1,
-    downloads: 1958,
+    downloads: 0,
   },
   {
     id: 'FixExplorer',
@@ -496,7 +496,7 @@ export const TOOLS: Tool[] = [
       "💡 Hidden files include Windows system files — don't delete things you don't recognize",
     ],
     riskScore: 1,
-    downloads: 3102,
+    downloads: 0,
   },
   {
     id: 'FixMicrosoftStore',
@@ -526,7 +526,7 @@ export const TOOLS: Tool[] = [
       '💡 Works for Xbox app, Game Pass, and other Store-installed apps too',
     ],
     riskScore: 1,
-    downloads: 1677,
+    downloads: 0,
   },
   {
     id: 'FixSlowRightClick',
@@ -556,7 +556,7 @@ export const TOOLS: Tool[] = [
       '💡 If right-click is still slow after running, a running application (like antivirus) may be the cause',
     ],
     riskScore: 2,
-    downloads: 2788,
+    downloads: 0,
   },
   {
     id: 'FixSound',
@@ -585,7 +585,7 @@ export const TOOLS: Tool[] = [
       '💡 Check physical mute buttons on keyboard/speaker too',
     ],
     riskScore: 1,
-    downloads: 3490,
+    downloads: 0,
   },
   {
     id: 'FixWindowsProblems',
@@ -618,7 +618,7 @@ export const TOOLS: Tool[] = [
       "⚠️ Takes a long time — don't run if you need your PC in the next 30 minutes",
     ],
     riskScore: 2,
-    downloads: 2156,
+    downloads: 0,
   },
   {
     id: 'FixWindowsUpdate',
@@ -648,7 +648,7 @@ export const TOOLS: Tool[] = [
       '💡 Afterwards, Windows may download updates again (large download)',
     ],
     riskScore: 2,
-    downloads: 1834,
+    downloads: 0,
   },
   {
     id: 'FolderSizeReport',
@@ -679,7 +679,7 @@ export const TOOLS: Tool[] = [
       '💡 For a visual alternative, use WizTree or WinDirStat',
     ],
     riskScore: 1,
-    downloads: 921,
+    downloads: 0,
   },
   {
     id: 'GameSavesBackup',
@@ -711,7 +711,7 @@ export const TOOLS: Tool[] = [
       '💡 Run before major Windows updates or reinstalls',
     ],
     riskScore: 1,
-    downloads: 1488,
+    downloads: 0,
   },
   {
     id: 'GamingModeToggle',
@@ -742,7 +742,7 @@ export const TOOLS: Tool[] = [
       '💡 Typical improvement: 5-20% more stable frame rates',
     ],
     riskScore: 2,
-    downloads: 3614,
+    downloads: 0,
   },
   {
     id: 'NetworkSpeedFix',
@@ -775,7 +775,7 @@ export const TOOLS: Tool[] = [
       '💡 If still slow after reset, the issue may be with your router or ISP',
     ],
     riskScore: 2,
-    downloads: 2093,
+    downloads: 0,
   },
   {
     id: 'NightModeScheduler',
@@ -807,7 +807,7 @@ export const TOOLS: Tool[] = [
       '💡 Works alongside Windows Night Light — these are separate settings',
     ],
     riskScore: 1,
-    downloads: 744,
+    downloads: 0,
   },
   {
     id: 'NumlockOnStartup',
@@ -836,7 +836,7 @@ export const TOOLS: Tool[] = [
       '💡 To reverse: set HKEY_USERS\\.DEFAULT\\Control Panel\\Keyboard\\InitialKeyboardIndicators back to 0',
     ],
     riskScore: 1,
-    downloads: 1129,
+    downloads: 0,
   },
   {
     id: 'OldFileArchiver',
@@ -868,7 +868,7 @@ export const TOOLS: Tool[] = [
       '💡 Move date is based on last-modified date, not creation date',
     ],
     riskScore: 2,
-    downloads: 567,
+    downloads: 0,
   },
   {
     id: 'PowerButtonConfig',
@@ -899,7 +899,7 @@ export const TOOLS: Tool[] = [
       "⚠️ Setting power button to 'Shut down' means accidental presses will power off your PC",
     ],
     riskScore: 1,
-    downloads: 812,
+    downloads: 0,
   },
   {
     id: 'RAMCleaner',
@@ -927,7 +927,7 @@ export const TOOLS: Tool[] = [
       '💡 RAM will gradually fill back up as you use programs',
     ],
     riskScore: 1,
-    downloads: 2756,
+    downloads: 0,
   },
   {
     id: 'RegistryBackup',
@@ -957,7 +957,7 @@ export const TOOLS: Tool[] = [
       '⚠️ Restoring a registry backup reverts ALL registry changes since the backup — use carefully',
     ],
     riskScore: 1,
-    downloads: 1893,
+    downloads: 0,
   },
   {
     id: 'RestorePhotoViewer',
@@ -986,7 +986,7 @@ export const TOOLS: Tool[] = [
       '💡 To reverse: set Photos as default again via Settings → Default Apps',
     ],
     riskScore: 1,
-    downloads: 1056,
+    downloads: 0,
   },
   {
     id: 'RestoreRightClickMenu',
@@ -1014,7 +1014,7 @@ export const TOOLS: Tool[] = [
       '💡 After major Windows 11 updates, this setting may be reset — just run again',
     ],
     riskScore: 1,
-    downloads: 4217,
+    downloads: 0,
   },
   {
     id: 'ScheduleDailyBackup',
@@ -1047,7 +1047,7 @@ export const TOOLS: Tool[] = [
       '💡 Check Task Scheduler History to see if backups are succeeding',
     ],
     riskScore: 1,
-    downloads: 678,
+    downloads: 0,
   },
   {
     id: 'SwitchToEnglish',
@@ -1079,7 +1079,7 @@ export const TOOLS: Tool[] = [
       '💡 Regional formats (date as MM/DD vs DD/MM) also change to US format',
     ],
     riskScore: 2,
-    downloads: 493,
+    downloads: 0,
   },
   {
     id: 'WeeklyClean',
@@ -1111,7 +1111,7 @@ export const TOOLS: Tool[] = [
       '💡 Safe to run weekly or even daily',
     ],
     riskScore: 2,
-    downloads: 3841,
+    downloads: 0,
   },
   {
     id: 'WiFiPasswords',
@@ -1142,7 +1142,7 @@ export const TOOLS: Tool[] = [
       '💡 This only works on Windows — Linux/Mac store WiFi passwords differently',
     ],
     riskScore: 2,
-    downloads: 2967,
+    downloads: 0,
   },
 
   // ─── CLEANING ────────────────────────────────────────────────────────────
@@ -1167,7 +1167,7 @@ export const TOOLS: Tool[] = [
       '💡 Back up any local OneDrive folder contents first',
     ],
     riskScore: 3,
-    downloads: 2841,
+    downloads: 0,
   },
   {
     id: 'RemoveXbox',
@@ -1189,7 +1189,7 @@ export const TOOLS: Tool[] = [
       '💡 Reversible via Microsoft Store — reinstall Xbox app if needed',
     ],
     riskScore: 2,
-    downloads: 1923,
+    downloads: 0,
   },
   {
     id: 'RemoveCortana',
@@ -1211,7 +1211,7 @@ export const TOOLS: Tool[] = [
       '✅ SAFE — Windows functions normally without Cortana',
     ],
     riskScore: 2,
-    downloads: 1654,
+    downloads: 0,
   },
   {
     id: 'RemoveTeamsAutoStart',
@@ -1231,7 +1231,7 @@ export const TOOLS: Tool[] = [
       '💡 You can still open Teams manually whenever needed',
     ],
     riskScore: 1,
-    downloads: 2103,
+    downloads: 0,
   },
   {
     id: 'RemoveBloatware',
@@ -1254,7 +1254,7 @@ export const TOOLS: Tool[] = [
       '💡 Does not remove third-party OEM bloatware (HP/Dell/Lenovo apps)',
     ],
     riskScore: 2,
-    downloads: 3712,
+    downloads: 0,
   },
   {
     id: 'ClearAllTempFiles',
@@ -1278,7 +1278,7 @@ export const TOOLS: Tool[] = [
       '💡 Some files may be in use and will be skipped — this is normal',
     ],
     riskScore: 1,
-    downloads: 4102,
+    downloads: 0,
   },
   {
     id: 'EmptyRecycleBinSilent',
@@ -1298,7 +1298,7 @@ export const TOOLS: Tool[] = [
       '⚠️ No undo — verify you do not need anything in the bin before running',
     ],
     riskScore: 2,
-    downloads: 1543,
+    downloads: 0,
   },
   {
     id: 'RemoveDesktopIcons',
@@ -1318,7 +1318,7 @@ export const TOOLS: Tool[] = [
       '💡 To restore icons: right-click desktop → View → Show desktop icons',
     ],
     riskScore: 1,
-    downloads: 987,
+    downloads: 0,
   },
   {
     id: 'CleanWindowsUpdateCache',
@@ -1340,7 +1340,7 @@ export const TOOLS: Tool[] = [
       '✅ SAFE — Windows Update will re-download what it needs',
     ],
     riskScore: 1,
-    downloads: 2654,
+    downloads: 0,
   },
   {
     id: 'RemoveWindowsOld',
@@ -1362,7 +1362,7 @@ export const TOOLS: Tool[] = [
       '💡 Only run this if you are satisfied with your current Windows version',
     ],
     riskScore: 2,
-    downloads: 3201,
+    downloads: 0,
   },
   {
     id: 'RemoveHibernationFile',
@@ -1385,7 +1385,7 @@ export const TOOLS: Tool[] = [
       '💡 On laptops, hibernation helps on very low battery — consider keeping it enabled',
     ],
     riskScore: 2,
-    downloads: 1876,
+    downloads: 0,
   },
   {
     id: 'DisableSearchHighlights',
@@ -1406,7 +1406,7 @@ export const TOOLS: Tool[] = [
       '💡 Web search in the Start menu will still work if needed',
     ],
     riskScore: 1,
-    downloads: 1432,
+    downloads: 0,
   },
   {
     id: 'ClearDNSCache',
@@ -1426,7 +1426,7 @@ export const TOOLS: Tool[] = [
       '💡 First few page loads may be slightly slower as DNS re-resolves',
     ],
     riskScore: 1,
-    downloads: 2187,
+    downloads: 0,
   },
   {
     id: 'DisableExplorerAds',
@@ -1447,7 +1447,7 @@ export const TOOLS: Tool[] = [
       '💡 File Explorer functionality is unchanged',
     ],
     riskScore: 1,
-    downloads: 1789,
+    downloads: 0,
   },
   {
     id: 'RemoveNewsTaskbar',
@@ -1467,7 +1467,7 @@ export const TOOLS: Tool[] = [
       '💡 The Widgets button can also be removed from taskbar settings',
     ],
     riskScore: 1,
-    downloads: 1231,
+    downloads: 0,
   },
   {
     id: 'RemoveEdgeCompletely',
@@ -1489,7 +1489,7 @@ export const TOOLS: Tool[] = [
       '💡 Use a third-party tool like "Edge Blocker" for complete removal',
     ],
     riskScore: 3,
-    downloads: 2543,
+    downloads: 0,
   },
   {
     id: 'DisableTelemetryTasks',
@@ -1511,7 +1511,7 @@ export const TOOLS: Tool[] = [
       '💡 Does not guarantee zero data collection — some telemetry is built into the OS',
     ],
     riskScore: 2,
-    downloads: 2098,
+    downloads: 0,
   },
   {
     id: 'DisableSuggestedApps',
@@ -1532,7 +1532,7 @@ export const TOOLS: Tool[] = [
       '✅ Pinned apps and installed apps are unaffected',
     ],
     riskScore: 1,
-    downloads: 1654,
+    downloads: 0,
   },
   {
     id: 'HideOneDriveSidebar',
@@ -1552,7 +1552,7 @@ export const TOOLS: Tool[] = [
       '💡 To access OneDrive files, navigate to the OneDrive folder directly',
     ],
     riskScore: 1,
-    downloads: 1123,
+    downloads: 0,
   },
   {
     id: 'RemovePrintSpoolerJunk',
@@ -1574,7 +1574,7 @@ export const TOOLS: Tool[] = [
       '✅ SAFE — only removes queued jobs, not printer drivers or settings',
     ],
     riskScore: 1,
-    downloads: 987,
+    downloads: 0,
   },
   {
     id: 'RemoveFeedbackHub',
@@ -1593,7 +1593,7 @@ export const TOOLS: Tool[] = [
       '💡 Reinstallable from the Microsoft Store if needed',
     ],
     riskScore: 1,
-    downloads: 876,
+    downloads: 0,
   },
   {
     id: 'ClearEventLogs',
@@ -1614,7 +1614,7 @@ export const TOOLS: Tool[] = [
       '💡 Export logs first if you need them for diagnostics',
     ],
     riskScore: 2,
-    downloads: 1345,
+    downloads: 0,
   },
   {
     id: 'DisableWindowsTips',
@@ -1635,7 +1635,7 @@ export const TOOLS: Tool[] = [
       '💡 Reversible via Settings → System → Notifications',
     ],
     riskScore: 1,
-    downloads: 1098,
+    downloads: 0,
   },
   {
     id: 'CleanBrowserCaches',
@@ -1657,7 +1657,7 @@ export const TOOLS: Tool[] = [
       '💡 Pages may load slightly slower on first visit after clearing',
     ],
     riskScore: 1,
-    downloads: 2341,
+    downloads: 0,
   },
   {
     id: 'RemoveMixedReality',
@@ -1678,7 +1678,7 @@ export const TOOLS: Tool[] = [
       '💡 Reinstallable via Windows Features settings if needed',
     ],
     riskScore: 2,
-    downloads: 1087,
+    downloads: 0,
   },
 
   // ─── FAST PC / PERFORMANCE ───────────────────────────────────────────────
@@ -1702,7 +1702,7 @@ export const TOOLS: Tool[] = [
       '💡 Re-enable in Settings → System → About → Advanced System Settings → Performance',
     ],
     riskScore: 1,
-    downloads: 2876,
+    downloads: 0,
   },
   {
     id: 'SetHighPerformancePower',
@@ -1724,7 +1724,7 @@ export const TOOLS: Tool[] = [
       '💡 Use "Balanced" when on battery and "High Performance" when plugged in',
     ],
     riskScore: 1,
-    downloads: 3241,
+    downloads: 0,
   },
   {
     id: 'DisableStartupPrograms',
@@ -1745,7 +1745,7 @@ export const TOOLS: Tool[] = [
       '💡 Re-enable via Task Manager → Startup tab if something breaks',
     ],
     riskScore: 2,
-    downloads: 2654,
+    downloads: 0,
   },
   {
     id: 'DisableBackgroundApps',
@@ -1767,7 +1767,7 @@ export const TOOLS: Tool[] = [
       '⚠️ Mail app won\'t fetch new email in background',
     ],
     riskScore: 1,
-    downloads: 2341,
+    downloads: 0,
   },
   {
     id: 'DisableSuperfetch',
@@ -1788,7 +1788,7 @@ export const TOOLS: Tool[] = [
       '💡 Re-enable via Services.msc if you notice slower app launches',
     ],
     riskScore: 1,
-    downloads: 1987,
+    downloads: 0,
   },
   {
     id: 'DisableIndexing',
@@ -1810,7 +1810,7 @@ export const TOOLS: Tool[] = [
       '✅ Searching still works — just takes a few extra seconds',
     ],
     riskScore: 1,
-    downloads: 1543,
+    downloads: 0,
   },
   {
     id: 'OptimizeRAMUsage',
@@ -1832,7 +1832,7 @@ export const TOOLS: Tool[] = [
       '✅ These are well-known, safe registry tweaks',
     ],
     riskScore: 2,
-    downloads: 2109,
+    downloads: 0,
   },
   {
     id: 'DisableWindowsDefenderRealtime',
@@ -1854,7 +1854,7 @@ export const TOOLS: Tool[] = [
       '💡 Only use this for specific installation tasks',
     ],
     riskScore: 4,
-    downloads: 1876,
+    downloads: 0,
   },
   {
     id: 'BoostNetworkSpeed',
@@ -1877,7 +1877,7 @@ export const TOOLS: Tool[] = [
       '💡 Effect varies by network hardware and ISP',
     ],
     riskScore: 2,
-    downloads: 2432,
+    downloads: 0,
   },
   {
     id: 'ClearPageFile',
@@ -1897,7 +1897,7 @@ export const TOOLS: Tool[] = [
       '💡 Primarily a privacy/security measure',
     ],
     riskScore: 1,
-    downloads: 987,
+    downloads: 0,
   },
   {
     id: 'DisableNotifications',
@@ -1918,7 +1918,7 @@ export const TOOLS: Tool[] = [
       '✅ Reversible via Settings → System → Notifications',
     ],
     riskScore: 2,
-    downloads: 1654,
+    downloads: 0,
   },
   {
     id: 'DisableRemoteDesktop',
@@ -1938,7 +1938,7 @@ export const TOOLS: Tool[] = [
       '✅ SAFE for home users who do not use Remote Desktop',
     ],
     riskScore: 1,
-    downloads: 1231,
+    downloads: 0,
   },
   {
     id: 'SpeedUpShutdown',
@@ -1959,7 +1959,7 @@ export const TOOLS: Tool[] = [
       '💡 Save all work before shutting down when using this tweak',
     ],
     riskScore: 2,
-    downloads: 1876,
+    downloads: 0,
   },
   {
     id: 'DisableAutoUpdate',
@@ -1981,7 +1981,7 @@ export const TOOLS: Tool[] = [
       '💡 Recommended to unpause during vacations or low-use periods',
     ],
     riskScore: 3,
-    downloads: 2341,
+    downloads: 0,
   },
   {
     id: 'EnableUltimatePerformance',
@@ -2004,7 +2004,7 @@ export const TOOLS: Tool[] = [
       '💡 Best for desktop gaming or workstation use',
     ],
     riskScore: 2,
-    downloads: 3109,
+    downloads: 0,
   },
   {
     id: 'DisablePrinting',
@@ -2023,7 +2023,7 @@ export const TOOLS: Tool[] = [
       '✅ Safe for users without any printers connected',
     ],
     riskScore: 1,
-    downloads: 876,
+    downloads: 0,
   },
   {
     id: 'DisableIPv6',
@@ -2043,7 +2043,7 @@ export const TOOLS: Tool[] = [
       '💡 Re-enable if you experience connectivity issues',
     ],
     riskScore: 2,
-    downloads: 1098,
+    downloads: 0,
   },
 
   // ─── BACKUP ──────────────────────────────────────────────────────────────
@@ -2066,7 +2066,7 @@ export const TOOLS: Tool[] = [
       '💡 Run regularly and keep the USB in a separate location',
     ],
     riskScore: 1,
-    downloads: 2543,
+    downloads: 0,
   },
   {
     id: 'BackupDrivers',
@@ -2088,7 +2088,7 @@ export const TOOLS: Tool[] = [
       '💡 Backup folder can be 200MB–2GB depending on installed drivers',
     ],
     riskScore: 1,
-    downloads: 2109,
+    downloads: 0,
   },
   {
     id: 'BackupBrowserBookmarks',
@@ -2109,7 +2109,7 @@ export const TOOLS: Tool[] = [
       '✅ SAFE — read-only operation, original files are not moved',
     ],
     riskScore: 1,
-    downloads: 1654,
+    downloads: 0,
   },
   {
     id: 'CreateSystemImage',
@@ -2130,7 +2130,7 @@ export const TOOLS: Tool[] = [
       '💡 System images are larger than file backups but enable full system recovery',
     ],
     riskScore: 1,
-    downloads: 1432,
+    downloads: 0,
   },
   {
     id: 'BackupHosts',
@@ -2150,7 +2150,7 @@ export const TOOLS: Tool[] = [
       '💡 Useful before installing ad-blocker host lists',
     ],
     riskScore: 1,
-    downloads: 876,
+    downloads: 0,
   },
   {
     id: 'ExportInstalledApps',
@@ -2171,7 +2171,7 @@ export const TOOLS: Tool[] = [
       '💡 Use this list as a reference when setting up a new PC',
     ],
     riskScore: 1,
-    downloads: 1987,
+    downloads: 0,
   },
   {
     id: 'BackupStartLayout',
@@ -2191,7 +2191,7 @@ export const TOOLS: Tool[] = [
       '💡 On Windows 11, Start menu customization is more limited',
     ],
     riskScore: 1,
-    downloads: 987,
+    downloads: 0,
   },
   {
     id: 'BackupWifiProfiles',
@@ -2212,7 +2212,7 @@ export const TOOLS: Tool[] = [
       '⚠️ Store the backup folder securely — treat it like a password file',
     ],
     riskScore: 3,
-    downloads: 1543,
+    downloads: 0,
   },
   {
     id: 'AutoBackupDocuments',
@@ -2234,7 +2234,7 @@ export const TOOLS: Tool[] = [
       '💡 PC needs to be on (or awake) at 2 AM for backup to run',
     ],
     riskScore: 1,
-    downloads: 2876,
+    downloads: 0,
   },
   {
     id: 'BackupEnvironmentVars',
@@ -2254,7 +2254,7 @@ export const TOOLS: Tool[] = [
       '💡 Essential for developers with custom PATH entries',
     ],
     riskScore: 1,
-    downloads: 876,
+    downloads: 0,
   },
 
   // ─── ORGANIZING ──────────────────────────────────────────────────────────
@@ -2278,7 +2278,7 @@ export const TOOLS: Tool[] = [
       '✅ Only reorganizes within your Downloads folder',
     ],
     riskScore: 2,
-    downloads: 3109,
+    downloads: 0,
   },
   {
     id: 'RenameFilesDate',
@@ -2299,7 +2299,7 @@ export const TOOLS: Tool[] = [
       '💡 Use on photo exports or log files for easy chronological sorting',
     ],
     riskScore: 2,
-    downloads: 1543,
+    downloads: 0,
   },
   {
     id: 'CreateProjectStructure',
@@ -2320,7 +2320,7 @@ export const TOOLS: Tool[] = [
       '💡 Edit the script to customize the folder names to your workflow',
     ],
     riskScore: 1,
-    downloads: 1234,
+    downloads: 0,
   },
   {
     id: 'MoveOldFiles',
@@ -2341,7 +2341,7 @@ export const TOOLS: Tool[] = [
       '💡 The 90-day threshold is editable at the top of the script',
     ],
     riskScore: 2,
-    downloads: 1876,
+    downloads: 0,
   },
   {
     id: 'FindLargeFiles',
@@ -2363,7 +2363,7 @@ export const TOOLS: Tool[] = [
       '💡 The 500 MB threshold is editable at the top of the script',
     ],
     riskScore: 1,
-    downloads: 2341,
+    downloads: 0,
   },
   {
     id: 'CleanDesktop',
@@ -2384,7 +2384,7 @@ export const TOOLS: Tool[] = [
       '✅ Nothing is deleted — everything is in the dated folder',
     ],
     riskScore: 1,
-    downloads: 1654,
+    downloads: 0,
   },
   {
     id: 'SetupDevFolders',
@@ -2404,7 +2404,7 @@ export const TOOLS: Tool[] = [
       '💡 Edit the script to customize paths and folder names',
     ],
     riskScore: 1,
-    downloads: 1098,
+    downloads: 0,
   },
   {
     id: 'MapNetworkDrive',
@@ -2425,7 +2425,7 @@ export const TOOLS: Tool[] = [
       '💡 Drive mapping will fail if the network path is unavailable at boot',
     ],
     riskScore: 1,
-    downloads: 1234,
+    downloads: 0,
   },
   {
     id: 'SortPhotosByDate',
@@ -2448,7 +2448,7 @@ export const TOOLS: Tool[] = [
       '⚠️ EXIF reading uses PowerShell — may not read all RAW formats',
     ],
     riskScore: 2,
-    downloads: 2109,
+    downloads: 0,
   },
   {
     id: 'RemoveEmptyFolders',
@@ -2469,7 +2469,7 @@ export const TOOLS: Tool[] = [
       '💡 Run on Downloads, Projects, or any folder that accumulates empty directories',
     ],
     riskScore: 2,
-    downloads: 1432,
+    downloads: 0,
   },
   {
     id: 'PinFolderToQuickAccess',
@@ -2489,7 +2489,7 @@ export const TOOLS: Tool[] = [
       '💡 Edit the folder list in the script before running',
     ],
     riskScore: 1,
-    downloads: 876,
+    downloads: 0,
   },
 
   // ─── AESTHETIC ───────────────────────────────────────────────────────────
@@ -2511,7 +2511,7 @@ export const TOOLS: Tool[] = [
       '💡 Individual apps may override this with their own theme setting',
     ],
     riskScore: 1,
-    downloads: 3541,
+    downloads: 0,
   },
   {
     id: 'EnableLightMode',
@@ -2530,7 +2530,7 @@ export const TOOLS: Tool[] = [
       '✅ SAFE — appearance only change',
     ],
     riskScore: 1,
-    downloads: 1876,
+    downloads: 0,
   },
   {
     id: 'SetCustomWallpaper',
@@ -2551,7 +2551,7 @@ export const TOOLS: Tool[] = [
       '⚠️ Edit the script with the path to your image before running',
     ],
     riskScore: 1,
-    downloads: 1234,
+    downloads: 0,
   },
   {
     id: 'CleanTaskbar',
@@ -2573,7 +2573,7 @@ export const TOOLS: Tool[] = [
       '💡 Press Win+Tab for Task View, Win+S for search',
     ],
     riskScore: 1,
-    downloads: 2654,
+    downloads: 0,
   },
   {
     id: 'TransparentTaskbar',
@@ -2594,7 +2594,7 @@ export const TOOLS: Tool[] = [
       '💡 Third-party tools like TranslucentTB offer more control',
     ],
     riskScore: 1,
-    downloads: 1543,
+    downloads: 0,
   },
   {
     id: 'ChangeAccentColor',
@@ -2616,7 +2616,7 @@ export const TOOLS: Tool[] = [
       '💡 Use an online hex color picker to find your color code',
     ],
     riskScore: 1,
-    downloads: 1087,
+    downloads: 0,
   },
   {
     id: 'HideTaskbarClock',
@@ -2636,7 +2636,7 @@ export const TOOLS: Tool[] = [
       '💡 Restore by setting ShowClock back to 1 or via Settings → Taskbar',
     ],
     riskScore: 1,
-    downloads: 765,
+    downloads: 0,
   },
   {
     id: 'SetCustomCursor',
@@ -2656,7 +2656,7 @@ export const TOOLS: Tool[] = [
       '💡 Custom cursor packs can be downloaded from DeviantArt or similar sites',
     ],
     riskScore: 1,
-    downloads: 876,
+    downloads: 0,
   },
   {
     id: 'ShowFileExtensions',
@@ -2676,7 +2676,7 @@ export const TOOLS: Tool[] = [
       '💡 Highly recommended for all Windows users',
     ],
     riskScore: 1,
-    downloads: 2341,
+    downloads: 0,
   },
   {
     id: 'ShowHiddenFiles',
@@ -2697,7 +2697,7 @@ export const TOOLS: Tool[] = [
       '⚠️ Be careful not to delete system files that are now visible',
     ],
     riskScore: 1,
-    downloads: 2109,
+    downloads: 0,
   },
   {
     id: 'ChangeLoginScreenBackground',
@@ -2719,7 +2719,7 @@ export const TOOLS: Tool[] = [
       '💡 Supports JPG, PNG; recommended size is 1920×1080 or your screen resolution',
     ],
     riskScore: 2,
-    downloads: 987,
+    downloads: 0,
   },
   {
     id: 'CenterTaskbarIcons',
@@ -2739,7 +2739,7 @@ export const TOOLS: Tool[] = [
       '💡 On Windows 10, third-party tools like TaskbarX offer more control',
     ],
     riskScore: 1,
-    downloads: 1234,
+    downloads: 0,
   },
   {
     id: 'EnableNightLight',
@@ -2759,7 +2759,7 @@ export const TOOLS: Tool[] = [
       '💡 Also available via Quick Settings (Win+A) toggle',
     ],
     riskScore: 1,
-    downloads: 1432,
+    downloads: 0,
   },
   {
     id: 'SetWallpaperSlideshow',
@@ -2780,7 +2780,7 @@ export const TOOLS: Tool[] = [
       '⚠️ Edit the image folder path in the script before running',
     ],
     riskScore: 1,
-    downloads: 1098,
+    downloads: 0,
   },
 
   // ─── FUN ─────────────────────────────────────────────────────────────────
@@ -2802,7 +2802,7 @@ export const TOOLS: Tool[] = [
       '💡 Press Ctrl+C or close the window to stop',
     ],
     riskScore: 1,
-    downloads: 3987,
+    downloads: 0,
   },
   {
     id: 'FireworksCelebration',
@@ -2821,7 +2821,7 @@ export const TOOLS: Tool[] = [
       '✅ SAFE — animation only',
     ],
     riskScore: 1,
-    downloads: 2341,
+    downloads: 0,
   },
   {
     id: 'SnakeGame',
@@ -2842,7 +2842,7 @@ export const TOOLS: Tool[] = [
       '💡 Use arrow keys to play; press Q to quit',
     ],
     riskScore: 1,
-    downloads: 2876,
+    downloads: 0,
   },
   {
     id: 'TypewriterText',
@@ -2862,7 +2862,7 @@ export const TOOLS: Tool[] = [
       '💡 Edit the message and speed at the top of the script',
     ],
     riskScore: 1,
-    downloads: 1654,
+    downloads: 0,
   },
   {
     id: 'FakeHacker',
@@ -2883,7 +2883,7 @@ export const TOOLS: Tool[] = [
       '💡 Great for pranks — but let people know it\'s fake before they panic',
     ],
     riskScore: 1,
-    downloads: 4231,
+    downloads: 0,
   },
   {
     id: 'TetrisGame',
@@ -2905,7 +2905,7 @@ export const TOOLS: Tool[] = [
       '💡 Arrow keys to move, Z/Up to rotate, Esc to quit',
     ],
     riskScore: 1,
-    downloads: 2543,
+    downloads: 0,
   },
   {
     id: 'RainbowText',
@@ -2924,7 +2924,7 @@ export const TOOLS: Tool[] = [
       '✅ SAFE — display only',
     ],
     riskScore: 1,
-    downloads: 1543,
+    downloads: 0,
   },
   {
     id: 'BouncingBall',
@@ -2943,7 +2943,7 @@ export const TOOLS: Tool[] = [
       '✅ SAFE — animation only',
     ],
     riskScore: 1,
-    downloads: 1231,
+    downloads: 0,
   },
   {
     id: 'TerminalClock',
@@ -2963,7 +2963,7 @@ export const TOOLS: Tool[] = [
       '💡 Press Ctrl+C or close the window to stop',
     ],
     riskScore: 1,
-    downloads: 1876,
+    downloads: 0,
   },
   {
     id: 'PongGame',
@@ -2984,7 +2984,7 @@ export const TOOLS: Tool[] = [
       '💡 W/S to move your paddle, Q to quit',
     ],
     riskScore: 1,
-    downloads: 2109,
+    downloads: 0,
   },
   {
     id: 'StopwatchTimer',
@@ -3003,7 +3003,7 @@ export const TOOLS: Tool[] = [
       '✅ SAFE — display only',
     ],
     riskScore: 1,
-    downloads: 987,
+    downloads: 0,
   },
   {
     id: 'CowsayMessage',
@@ -3022,7 +3022,7 @@ export const TOOLS: Tool[] = [
       '✅ SAFE — display only',
     ],
     riskScore: 1,
-    downloads: 1345,
+    downloads: 0,
   },
   {
     id: 'CountdownTimer',
@@ -3043,6 +3043,6 @@ export const TOOLS: Tool[] = [
       '⚠️ Edit the countdown duration at the top of the script',
     ],
     riskScore: 1,
-    downloads: 1654,
+    downloads: 0,
   },
 ]
