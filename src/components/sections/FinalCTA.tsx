@@ -37,7 +37,7 @@ export function FinalCTA() {
             <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
           <a
-            href="https://github.com"
+            href="https://github.com/DanySued/bat-library"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-7 py-3.5 border border-[rgba(255,255,255,0.1)] text-body rounded-full text-[15px] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] hover:bg-white/5"

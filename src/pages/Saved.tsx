@@ -1,4 +1,3 @@
-import { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { Bookmark, ArrowLeft } from 'lucide-react'
 import { Nav } from '@/components/layout/Nav'
@@ -6,16 +5,11 @@ import { Footer } from '@/components/layout/Footer'
 import { ToolCard } from '@/components/ToolCard'
 import { ScrollTop } from '@/components/ScrollTop'
 import { TOOLS } from '@/data/tools'
-import { getBookmarks } from '@/lib/bookmarks'
+import { useBookmarks } from '@/contexts/BookmarksContext'
 
 export function Saved() {
-  const [bookmarkedIds, setBookmarkedIds] = useState<string[]>(() => getBookmarks())
-
-  const handleBookmarkChange = useCallback(() => {
-    setBookmarkedIds(getBookmarks())
-  }, [])
-
-  const saved = TOOLS.filter(t => bookmarkedIds.includes(t.id))
+  const { bookmarks } = useBookmarks()
+  const saved = TOOLS.filter(t => bookmarks.includes(t.id))
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -65,7 +59,6 @@ export function Saved() {
               <ToolCard
                 key={tool.id}
                 tool={tool}
-                onBookmarkChange={handleBookmarkChange}
               />
             ))}
           </div>

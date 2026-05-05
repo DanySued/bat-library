@@ -7,8 +7,8 @@ import checkmarkData from '@/animations/checkmark.json'
 import { cn } from '@/lib/utils'
 import { getIcon } from '@/lib/icons'
 import { Badge } from '@/components/ui/badge'
-import { getBookmarks, toggleBookmark } from '@/lib/bookmarks'
-import { getDownloadCount, recordDownload } from '@/lib/downloads'
+import { useBookmarks } from '@/contexts/BookmarksContext'
+import { useDownloads } from '@/contexts/DownloadsContext'
 import type { Tool } from '@/data/tools'
 
 const RISK_LABEL: Record<1|2|3|4|5, string> = {
@@ -25,20 +25,19 @@ function formatCount(n: number): string {
 
 interface ToolCardProps {
   tool: Tool
-  onBookmarkChange: () => void
+  onBookmarkChange?: () => void
 }
 
 export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
   const navigate = useNavigate()
+  const { isBookmarked, toggle } = useBookmarks()
+  const { getCount, recordDownload } = useDownloads()
   const [code, setCode] = useState<string | null>(null)
-  const [bookmarked, setBookmarked] = useState(() => getBookmarks().includes(tool.id))
   const [copied, setCopied] = useState(false)
-  const [dlCount, setDlCount] = useState(() => getDownloadCount(tool.id, tool.downloads))
   const cardRef = useRef<HTMLDivElement>(null)
 
   const IconComp  = getIcon(tool.icon)
   const CopyIcon  = getIcon('Copy')
-  const CheckIcon = getIcon('Check')
   const ShieldIcon   = getIcon('ShieldAlert')
 
   useEffect(() => {
@@ -71,10 +70,12 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
 
   const handleBookmark = useCallback((e: React.MouseEvent) => {
     e.stopPropagation()
-    const next = toggleBookmark(tool.id)
-    setBookmarked(next.includes(tool.id))
-    onBookmarkChange()
-  }, [tool.id, onBookmarkChange])
+    toggle(tool.id)
+    onBookmarkChange?.()
+  }, [tool.id, toggle, onBookmarkChange])
+
+  const bookmarked = isBookmarked(tool.id)
+  const dlCount = getCount(tool.id, tool.downloads)
 
   return (
     <div
@@ -150,7 +151,6 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
             onClick={e => {
               e.stopPropagation()
               recordDownload(tool.id)
-              setDlCount(getDownloadCount(tool.id, tool.downloads))
             }}
             className="flex items-center justify-center w-11 h-11 -mr-2 text-dim hover:text-accent transition-colors duration-150"
             aria-label="Download"

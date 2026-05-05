@@ -1,13 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useSearchParams, useNavigate } from 'react-router-dom'
-import { Terminal, Github, Bookmark, Search, X } from 'lucide-react'
+import { Terminal, Github, Bookmark, Search, X, LogIn, LogOut } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { CATEGORIES } from '@/data/tools'
 import { getIcon } from '@/lib/icons'
+import { useAuth } from '@/contexts/AuthContext'
 
 const cats = CATEGORIES.filter(c => c.id !== 'all' && c.id !== 'saved')
 
 export function Nav() {
+  const { user, signOut, openAuthModal } = useAuth()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [searchParams] = useSearchParams()
@@ -141,6 +143,33 @@ export function Nav() {
           <Bookmark size={15} />
         </Link>
 
+        {/* Auth — desktop */}
+        {user ? (
+          <div className="hidden md:flex items-center gap-2 flex-shrink-0">
+            <span
+              className="w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center text-accent text-[11px] font-semibold flex-shrink-0 select-none"
+              title={user.email ?? ''}
+            >
+              {(user.email ?? 'U')[0].toUpperCase()}
+            </span>
+            <button
+              onClick={() => signOut()}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[13px] text-dim hover:text-head hover:bg-white/5 transition-colors duration-150"
+              aria-label="Sign out"
+            >
+              <LogOut size={13} />
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={openAuthModal}
+            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] text-dim hover:text-head hover:bg-white/5 transition-colors duration-150 flex-shrink-0"
+          >
+            <LogIn size={14} />
+            Log in
+          </button>
+        )}
+
         {/* GitHub — desktop */}
         <a
           href="https://github.com/DanySued/bat-library"
@@ -221,6 +250,23 @@ export function Nav() {
             <Github size={14} />
             GitHub
           </a>
+          {user ? (
+            <button
+              onClick={() => { signOut(); setMenuOpen(false) }}
+              className="flex items-center gap-2.5 px-3 py-2.5 text-[14px] text-dim hover:text-head rounded-lg hover:bg-white/5 transition-colors w-full text-left"
+            >
+              <LogOut size={14} />
+              Sign out
+            </button>
+          ) : (
+            <button
+              onClick={() => { openAuthModal(); setMenuOpen(false) }}
+              className="flex items-center gap-2.5 px-3 py-2.5 text-[14px] text-dim hover:text-head rounded-lg hover:bg-white/5 transition-colors w-full text-left"
+            >
+              <LogIn size={14} />
+              Log in
+            </button>
+          )}
         </div>
       )}
     </nav>
