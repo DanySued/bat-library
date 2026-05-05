@@ -9,11 +9,11 @@ export function FinalCTA() {
         className="absolute inset-x-0 bottom-0 pointer-events-none"
         style={{
           height: '60%',
-          background: 'radial-gradient(ellipse 60% 50% at 50% 100%, rgba(207,123,75,0.10) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 60% 50% at 50% 100%, rgba(87,181,231,0.08) 0%, transparent 70%)',
         }}
       />
 
-      <div className="relative z-10 max-w-[1344px] mx-auto px-6 py-32 text-center">
+      <div className="relative z-10 max-w-[1344px] mx-auto px-4 sm:px-6 py-16 md:py-32 text-center">
         <h2
           className="font-semibold text-head leading-[1.05] mb-6 mx-auto"
           style={{
@@ -31,10 +31,10 @@ export function FinalCTA() {
         <div className="flex items-center gap-3 flex-wrap justify-center">
           <Link
             to="/bat"
-            className="inline-flex items-center gap-2 px-7 py-3.5 bg-orange text-bg rounded-full font-semibold text-[15px] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] hover:bg-orange/90"
+            className="group inline-flex items-center gap-2 px-7 py-3.5 bg-white text-black rounded-full font-semibold text-[15px] transition-colors duration-200 hover:bg-white/90 active:scale-[0.98]"
           >
             Browse Bat Library
-            <ArrowRight size={16} />
+            <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
           <a
             href="https://github.com"

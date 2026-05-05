@@ -4,12 +4,12 @@ import { Terminal } from 'lucide-react'
 export function Footer() {
   return (
     <footer className="border-t border-[rgba(255,255,255,0.06)] mt-auto">
-      <div className="max-w-[1344px] mx-auto px-6 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
+      <div className="max-w-[1344px] mx-auto px-4 sm:px-6 py-10 md:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 md:gap-10">
           {/* Brand */}
-          <div className="col-span-2">
+          <div className="sm:col-span-2">
             <Link to="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-7 h-7 bg-orange rounded-md flex items-center justify-center flex-shrink-0">
+              <div className="w-7 h-7 bg-accent rounded-md flex items-center justify-center flex-shrink-0">
                 <Terminal size={14} className="text-bg" strokeWidth={2.5} />
               </div>
               <span className="font-semibold text-[15px] text-head">Bat Library</span>
@@ -24,9 +24,8 @@ export function Footer() {
             <h4 className="text-head text-[12px] font-semibold tracking-widest uppercase mb-4">Library</h4>
             <ul className="space-y-2.5 text-[13px] text-dim">
               <li><Link to="/bat" className="hover:text-head transition-colors">All Scripts</Link></li>
-              <li><Link to="/bat?cat=cleaning" className="hover:text-head transition-colors">Cleaning</Link></li>
+              <li><Link to="/bat?cat=strong-pc" className="hover:text-head transition-colors">Strong PC</Link></li>
               <li><Link to="/bat?cat=backup" className="hover:text-head transition-colors">Backup</Link></li>
-              <li><Link to="/bat?cat=fast-computer" className="hover:text-head transition-colors">Fast PC</Link></li>
               <li><Link to="/bat?cat=aesthetic" className="hover:text-head transition-colors">Aesthetic</Link></li>
             </ul>
           </div>

@@ -1,35 +1,57 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { Terminal, ChevronDown, ExternalLink } from 'lucide-react'
+import { Link, useSearchParams, useNavigate } from 'react-router-dom'
+import { Terminal, Github, Bookmark, Search, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { CATEGORIES } from '@/data/tools'
+import { getIcon } from '@/lib/icons'
 
-interface NavProps {
-  /** If provided, shows an inline search input in the nav */
-  search?: string
-  onSearch?: (v: string) => void
-}
+const cats = CATEGORIES.filter(c => c.id !== 'all' && c.id !== 'saved')
 
-export function Nav({ search, onSearch }: NavProps) {
+export function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [libOpen, setLibOpen] = useState(false)
-  const libRef = useRef<HTMLDivElement>(null)
+  const [searchParams] = useSearchParams()
+  const activeCat = searchParams.get('cat')
   const navigate = useNavigate()
+  const searchRef = useRef<HTMLInputElement>(null)
+  const mobileSearchRef = useRef<HTMLInputElement>(null)
+
+  const [query, setQuery] = useState(() => searchParams.get('q') ?? '')
+
+  useEffect(() => {
+    setQuery(searchParams.get('q') ?? '')
+  }, [searchParams])
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        if (menuOpen) mobileSearchRef.current?.focus()
+        else searchRef.current?.focus()
+      }
+      if (e.key === 'Escape') searchRef.current?.blur()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [menuOpen])
+
+  function handleSearch(value: string) {
+    setQuery(value)
+    const params = new URLSearchParams()
+    if (activeCat) params.set('cat', activeCat)
+    if (value) params.set('q', value)
+    navigate(`/bat${params.toString() ? `?${params.toString()}` : ''}`)
+  }
+
+  function clearSearch() {
+    handleSearch('')
+    searchRef.current?.focus()
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (libRef.current && !libRef.current.contains(e.target as Node)) {
-        setLibOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
   }, [])
 
   return (
@@ -42,10 +64,11 @@ export function Nav({ search, onSearch }: NavProps) {
       )}
       style={{ height: 64 }}
     >
-      <div className="max-w-[1344px] mx-auto px-6 h-full flex items-center gap-6">
+      <div className="max-w-[1344px] mx-auto px-6 h-full flex items-center gap-8">
+
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2.5 flex-shrink-0 group">
-          <div className="w-7 h-7 bg-orange rounded-md flex items-center justify-center flex-shrink-0">
+        <Link to="/" className="flex items-center gap-2.5 flex-shrink-0">
+          <div className="w-7 h-7 bg-accent rounded-md flex items-center justify-center flex-shrink-0">
             <Terminal size={14} className="text-bg" strokeWidth={2.5} />
           </div>
           <span className="font-semibold text-[15px] text-head tracking-[-0.3px]">
@@ -53,86 +76,86 @@ export function Nav({ search, onSearch }: NavProps) {
           </span>
         </Link>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-1 ml-2">
-          {/* Libraries dropdown */}
-          <div className="relative" ref={libRef}>
-            <button
-              onClick={() => setLibOpen(v => !v)}
-              className="flex items-center gap-1 px-3 py-1.5 text-[14px] text-dim hover:text-head rounded-lg hover:bg-white/5 transition-colors duration-150"
-            >
-              Libraries
-              <ChevronDown size={13} className={cn('transition-transform duration-200', libOpen && 'rotate-180')} />
-            </button>
-            {libOpen && (
-              <div className="absolute top-full left-0 mt-1.5 w-52 bg-bg2 border border-[rgba(255,255,255,0.08)] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden">
-                <button
-                  onClick={() => { navigate('/bat'); setLibOpen(false) }}
-                  className="w-full flex items-center gap-3 px-4 py-3 text-[13px] hover:bg-bg3 transition-colors text-left"
-                >
-                  <div className="w-6 h-6 bg-orange/10 rounded-md flex items-center justify-center flex-shrink-0">
-                    <Terminal size={11} className="text-orange" />
-                  </div>
-                  <div>
-                    <div className="text-head font-medium leading-none mb-0.5">Bat Library</div>
-                    <div className="text-dim text-[11px]">Windows batch scripts</div>
-                  </div>
-                </button>
-                <div className="px-4 py-2.5 border-t border-[rgba(255,255,255,0.05)]">
-                  <p className="text-[11px] text-dim flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-orange/40 inline-block" />
-                    More libraries coming soon
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 px-3 py-1.5 text-[14px] text-dim hover:text-head rounded-lg hover:bg-white/5 transition-colors duration-150"
-          >
-            GitHub
-          </a>
+        {/* Category links — desktop */}
+        <div className="hidden md:flex items-center gap-1 flex-1">
+          {cats.map(cat => {
+            const IconComp = getIcon(cat.icon)
+            const isActive = activeCat === cat.id
+            return (
+              <Link
+                key={cat.id}
+                to={`/bat?cat=${cat.id}`}
+                className={cn(
+                  'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] transition-colors duration-150',
+                  isActive
+                    ? 'text-accent bg-accent/10'
+                    : 'text-dim hover:text-head hover:bg-white/5'
+                )}
+              >
+                {IconComp && <IconComp size={13} />}
+                {cat.label}
+              </Link>
+            )
+          })}
         </div>
 
-        {/* Search (library page only) */}
-        {onSearch && (
-          <div className="hidden md:flex items-center gap-2 bg-white/5 border border-[rgba(255,255,255,0.08)] rounded-lg px-3 py-1.5 flex-[0_1_240px] ml-auto focus-within:border-orange/50 transition-colors duration-150">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-dim flex-shrink-0">
-              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-            </svg>
-            <input
-              type="text"
-              placeholder="Search tools..."
-              value={search}
-              onChange={e => onSearch(e.target.value)}
-              className="bg-transparent text-[13px] text-body placeholder:text-dim outline-none w-full"
-            />
-            {search && (
-              <button onClick={() => onSearch('')} className="text-dim hover:text-orange text-[11px] flex-shrink-0 transition-colors">✕</button>
+        {/* Search — desktop */}
+        <div className="hidden md:flex items-center relative group flex-shrink-0">
+          <Search size={13} className="absolute left-3 text-dim pointer-events-none transition-colors duration-150 group-focus-within:text-accent" />
+          <input
+            ref={searchRef}
+            type="text"
+            value={query}
+            onChange={e => handleSearch(e.target.value)}
+            placeholder="Search scripts..."
+            className={cn(
+              'h-8 pl-8 pr-8 rounded-lg border text-[13px] bg-bg2 text-body placeholder:text-dim/50',
+              'outline-none transition-all duration-200',
+              'w-44 focus:w-56',
+              query
+                ? 'border-accent/40 bg-accent/5'
+                : 'border-rule hover:border-white/12 focus:border-accent/40 focus:bg-accent/5'
             )}
-          </div>
-        )}
-
-        {/* CTA */}
-        <Link
-          to="/bat"
-          className={cn(
-            'ml-auto hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border text-[13px] font-medium transition-all duration-150 hover:scale-[1.02] active:scale-[0.98]',
-            'bg-orange text-bg border-orange hover:bg-orange/90',
-            onSearch && 'ml-3'
+          />
+          {query ? (
+            <button
+              onClick={clearSearch}
+              className="absolute right-2.5 text-dim hover:text-head transition-colors"
+              aria-label="Clear search"
+            >
+              <X size={12} />
+            </button>
+          ) : (
+            <span className="absolute right-2.5 text-[10px] font-medium text-dim/40 pointer-events-none select-none leading-none bg-white/5 px-1.5 py-1 rounded">
+              ⌘K
+            </span>
           )}
+        </div>
+
+        {/* Saved — desktop */}
+        <Link
+          to="/saved"
+          className="hidden md:flex items-center justify-center w-8 h-8 rounded-lg text-dim hover:text-head hover:bg-white/5 transition-colors duration-150 flex-shrink-0"
+          aria-label="Saved scripts"
         >
-          Browse Library
+          <Bookmark size={15} />
         </Link>
+
+        {/* GitHub — desktop */}
+        <a
+          href="https://github.com/DanySued/bat-library"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg text-[13px] text-dim hover:text-head hover:bg-white/5 transition-colors duration-150 flex-shrink-0"
+        >
+          <Github size={15} />
+          GitHub
+        </a>
 
         {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen(v => !v)}
-          className="md:hidden ml-auto text-dim hover:text-head p-2 -mr-2 transition-colors"
+          className="md:hidden ml-auto text-dim hover:text-head p-3 -mr-3 transition-colors"
           aria-label="Menu"
         >
           <div className="space-y-1.5">
@@ -146,34 +169,58 @@ export function Nav({ search, onSearch }: NavProps) {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden bg-bg2/95 backdrop-blur-lg border-b border-[rgba(255,255,255,0.06)] px-6 py-4 space-y-1">
-          <button
-            onClick={() => { navigate('/bat'); setMenuOpen(false) }}
-            className="block w-full text-left px-3 py-2.5 text-[14px] text-dim hover:text-head rounded-lg hover:bg-white/5 transition-colors"
+          {/* Mobile search */}
+          <div className="relative mb-3">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-dim pointer-events-none" />
+            <input
+              ref={mobileSearchRef}
+              type="text"
+              value={query}
+              onChange={e => { handleSearch(e.target.value); }}
+              placeholder="Search scripts..."
+              className="w-full h-9 pl-9 pr-9 rounded-lg border border-rule bg-bg3 text-[14px] text-body placeholder:text-dim/50 outline-none focus:border-accent/40 focus:bg-accent/5 transition-colors duration-150"
+            />
+            {query && (
+              <button
+                onClick={() => { clearSearch(); mobileSearchRef.current?.focus() }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-dim hover:text-head transition-colors"
+              >
+                <X size={13} />
+              </button>
+            )}
+          </div>
+
+          {cats.map(cat => {
+            const IconComp = getIcon(cat.icon)
+            return (
+              <Link
+                key={cat.id}
+                to={`/bat?cat=${cat.id}`}
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center gap-2.5 px-3 py-2.5 text-[14px] text-dim hover:text-head rounded-lg hover:bg-white/5 transition-colors"
+              >
+                {IconComp && <IconComp size={14} />}
+                {cat.label}
+              </Link>
+            )
+          })}
+          <Link
+            to="/saved"
+            onClick={() => setMenuOpen(false)}
+            className="flex items-center gap-2.5 px-3 py-2.5 text-[14px] text-dim hover:text-head rounded-lg hover:bg-white/5 transition-colors border-t border-[rgba(255,255,255,0.05)] mt-2 pt-4"
           >
-            Bat Library
-          </button>
+            <Bookmark size={14} />
+            Saved
+          </Link>
           <a
-            href="https://github.com"
+            href="https://github.com/DanySued/bat-library"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-3 py-2.5 text-[14px] text-dim hover:text-head rounded-lg hover:bg-white/5 transition-colors"
+            className="flex items-center gap-2.5 px-3 py-2.5 text-[14px] text-dim hover:text-head rounded-lg hover:bg-white/5 transition-colors"
           >
-            GitHub <ExternalLink size={12} />
+            <Github size={14} />
+            GitHub
           </a>
-          {onSearch && (
-            <div className="flex items-center gap-2 bg-white/5 border border-[rgba(255,255,255,0.08)] rounded-lg px-3 py-2 mt-2">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-dim">
-                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-              </svg>
-              <input
-                type="text"
-                placeholder="Search tools..."
-                value={search}
-                onChange={e => onSearch(e.target.value)}
-                className="bg-transparent text-[13px] text-body placeholder:text-dim outline-none w-full"
-              />
-            </div>
-          )}
         </div>
       )}
     </nav>

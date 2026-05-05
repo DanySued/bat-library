@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
+import Lottie from 'lottie-react'
+import checkmarkData from '@/animations/checkmark.json'
 import { TOOLS } from '@/data/tools'
 import { Badge } from '@/components/ui/badge'
 import { getIcon } from '@/lib/icons'
@@ -21,7 +23,7 @@ function parseCaution(text: string): { type: CautionType; text: string } {
 const cautionStyle: Record<CautionType, { iconName: string; color: string }> = {
   warning: { iconName: 'AlertTriangle', color: 'text-danger' },
   safe:    { iconName: 'CheckCircle',   color: 'text-code-fg' },
-  tip:     { iconName: 'Lightbulb',     color: 'text-orange' },
+  tip:     { iconName: 'Lightbulb',     color: 'text-accent' },
 }
 
 export function ToolDetail() {
@@ -53,7 +55,7 @@ export function ToolDetail() {
           <p className="text-[16px] mb-4 text-head">Script not found</p>
           <button
             onClick={() => navigate('/bat')}
-            className="text-orange hover:opacity-80 text-[14px] transition-opacity"
+            className="text-accent hover:opacity-80 text-[14px] transition-opacity"
           >
             ← Back to library
           </button>
@@ -88,7 +90,7 @@ export function ToolDetail() {
 
       {/* Tool nav */}
       <div className="sticky top-16 z-40 bg-bg/80 backdrop-blur-[20px] border-b border-[rgba(255,255,255,0.06)]">
-        <div className="max-w-[900px] mx-auto px-6 h-12 flex items-center justify-between">
+        <div className="max-w-[900px] mx-auto px-4 sm:px-6 h-12 flex items-center justify-between">
           <button
             onClick={() => navigate('/bat')}
             className="inline-flex items-center gap-2 text-[13px] text-dim hover:text-body transition-colors duration-150 px-2 py-1 rounded hover:bg-white/5 -ml-2"
@@ -100,20 +102,20 @@ export function ToolDetail() {
           <button
             onClick={handleBookmark}
             aria-label={bookmarked ? 'Remove bookmark' : 'Bookmark'}
-            className="text-dim hover:text-orange transition-colors duration-150 p-1.5 rounded hover:bg-white/5"
+            className="text-dim hover:text-accent transition-colors duration-150 p-1.5 rounded hover:bg-white/5"
           >
             {bookmarked
-              ? BookmarkIcon && <BookmarkIcon size={16} fill="currentColor" className="text-orange" />
+              ? BookmarkIcon && <BookmarkIcon size={16} fill="currentColor" className="text-accent" />
               : BookmarkIcon && <BookmarkIcon size={16} />
             }
           </button>
         </div>
       </div>
 
-      <main className="max-w-[900px] mx-auto w-full px-6 py-12 pb-20 flex-1">
+      <main className="max-w-[900px] mx-auto w-full px-4 sm:px-6 py-8 md:py-12 pb-16 md:pb-20 flex-1">
         {/* Header */}
-        <div className="mb-10">
-          <div className="text-orange mb-4">
+        <div className="mb-16">
+          <div className="text-accent mb-4">
             {IconComp && <IconComp size={40} />}
           </div>
           <h1
@@ -122,51 +124,11 @@ export function ToolDetail() {
           >
             {tool.name}
           </h1>
-          <div className="flex items-center gap-2 flex-wrap mb-5">
-            <Badge variant="secondary">{tool.cat}</Badge>
-            {tool.admin && <Badge variant="danger">Admin Required</Badge>}
-          </div>
+
           <p className="text-[16px] leading-relaxed max-w-[640px]" style={{ color: '#d0d6e0' }}>
             {tool.explanation}
           </p>
         </div>
-
-        {/* Source code */}
-        <section className="mb-10">
-          <h2
-            className="font-semibold text-head text-[18px] mb-4"
-            style={{ letterSpacing: '-0.022em' }}
-          >
-            Source code
-          </h2>
-          <div className="relative bg-code-bg border border-[rgba(255,255,255,0.06)] border-l-2 border-l-orange-dim rounded-xl overflow-hidden">
-            {code === null ? (
-              <div className="p-4 text-dim text-[12px] font-mono animate-pulse">Loading...</div>
-            ) : code === '' ? (
-              <div className="p-4 text-dim text-[12px] font-mono">Source unavailable</div>
-            ) : (
-              <pre className="text-code-fg text-[12px] font-mono leading-relaxed overflow-x-auto overflow-y-auto max-h-[420px] p-5 whitespace-pre">
-                {code}
-              </pre>
-            )}
-            <button
-              onClick={handleCopy}
-              aria-label="Copy script"
-              className={cn(
-                'absolute top-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-[11px] font-mono transition-all duration-150',
-                copied
-                  ? 'bg-orange/10 border-orange text-orange'
-                  : 'bg-bg3 border-[rgba(255,255,255,0.08)] text-dim hover:border-orange hover:text-orange'
-              )}
-            >
-              {copied
-                ? CheckIcon && <CheckIcon size={11} />
-                : CopyIcon && <CopyIcon size={11} />
-              }
-              {copied ? 'Copied' : 'Copy'}
-            </button>
-          </div>
-        </section>
 
         {/* What it does */}
         <section className="mb-10">
@@ -176,35 +138,59 @@ export function ToolDetail() {
           <ul className="divide-y divide-[rgba(255,255,255,0.04)]">
             {tool.whatItDoes.map((item, i) => (
               <li key={i} className="flex items-start gap-3 py-3">
-                <span className="text-orange mt-0.5 flex-shrink-0 text-[13px] leading-none">✓</span>
+                <span className="text-accent mt-0.5 flex-shrink-0 text-[13px] leading-none">✓</span>
                 <span className="text-[15px]" style={{ color: '#d0d6e0' }}>{item}</span>
               </li>
             ))}
           </ul>
         </section>
 
-        {/* How to use */}
-        <section className="mb-10">
-          <h2 className="font-semibold text-head text-[18px] mb-5" style={{ letterSpacing: '-0.022em' }}>
-            How to use
-          </h2>
-          <ol className="space-y-3.5">
-            {tool.howToUse.map((step, i) => (
-              <li key={i} className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-orange/10 border border-orange/20 text-orange text-[10px] font-mono flex items-center justify-center mt-0.5">
-                  {i + 1}
-                </span>
-                <span className="text-[15px]" style={{ color: '#d0d6e0' }}>{step}</span>
-              </li>
-            ))}
-          </ol>
-        </section>
-
         {/* Cautions */}
         <section className="mb-10">
           <h2 className="font-semibold text-head text-[18px] mb-5" style={{ letterSpacing: '-0.022em' }}>
-            Cautions & notes
+            Risks & notes
           </h2>
+
+          {/* Risk meter */}
+          {(() => {
+            const labels: Record<1|2|3|4|5, string> = {
+              1: 'Safe',
+              2: 'Low',
+              3: 'Moderate',
+              4: 'High',
+              5: 'Destructive',
+            }
+            const colors: Record<1|2|3|4|5, string> = {
+              1: '#4ade80',
+              2: '#a3e635',
+              3: '#facc15',
+              4: '#fb923c',
+              5: '#f87171',
+            }
+            const score = tool.riskScore
+            const color = colors[score]
+            const label = labels[score]
+            return (
+              <div className="flex items-center gap-4 mb-5">
+                <div className="flex items-center gap-1">
+                  {([1,2,3,4,5] as const).map(i => (
+                    <div
+                      key={i}
+                      className="rounded-full transition-all duration-300"
+                      style={{
+                        width: 28,
+                        height: 6,
+                        backgroundColor: i <= score ? color : 'rgba(255,255,255,0.08)',
+                        opacity: i <= score ? (0.5 + (i / score) * 0.5) : 1,
+                      }}
+                    />
+                  ))}
+                </div>
+                <span className="text-[13px] font-medium" style={{ color }}>{label}</span>
+              </div>
+            )
+          })()}
+
           <div className="bg-danger/[0.04] border border-danger/15 rounded-xl p-5 divide-y divide-[rgba(255,255,255,0.04)]">
             {tool.cautions.map((raw, i) => {
               const { type, text } = parseCaution(raw)
@@ -220,22 +206,54 @@ export function ToolDetail() {
           </div>
         </section>
 
-        {/* Download */}
-        <section>
-          <h2 className="font-semibold text-head text-[18px] mb-5" style={{ letterSpacing: '-0.022em' }}>
-            Download
+        {/* Source code */}
+        <section className="mb-10">
+          <h2
+            className="font-semibold text-head text-[18px] mb-4"
+            style={{ letterSpacing: '-0.022em' }}
+          >
+            Source code
           </h2>
+          <div className="relative bg-code-bg border border-[rgba(255,255,255,0.06)] border-l-2 border-l-accent-dim rounded-xl overflow-hidden">
+            {code === null ? (
+              <div className="p-4 text-dim text-[12px] font-mono animate-pulse">Loading...</div>
+            ) : code === '' ? (
+              <div className="p-4 text-dim text-[12px] font-mono">Source unavailable</div>
+            ) : (
+              <pre className="text-code-fg text-[12px] font-mono leading-relaxed overflow-x-auto overflow-y-auto max-h-[420px] p-5 whitespace-pre">
+                {code}
+              </pre>
+            )}
+            <button
+              onClick={handleCopy}
+              aria-label="Copy script"
+              className={cn(
+                'absolute top-3 right-3 inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-[11px] font-mono transition-all duration-150',
+                copied
+                  ? 'bg-accent/10 border-accent text-accent'
+                  : 'bg-bg3 border-[rgba(255,255,255,0.08)] text-dim hover:border-accent hover:text-accent'
+              )}
+            >
+              {copied
+                ? <Lottie animationData={checkmarkData} loop={false} style={{ width: 11, height: 11 }} />
+                : CopyIcon && <CopyIcon size={11} />
+              }
+              {copied ? 'Copied' : 'Copy'}
+            </button>
+          </div>
+        </section>
+
+        {/* Download */}
+        <section className="flex flex-col items-center text-center mt-10">
+
           <a
             href={`/files/${tool.id}.bat`}
             download={`${tool.id}.bat`}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-orange text-bg rounded-full font-semibold text-[14px] hover:bg-orange/90 transition-all duration-150 hover:scale-[1.02] active:scale-[0.98]"
+            className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full font-semibold text-[14px] hover:bg-white/90 transition-colors duration-150 active:scale-[0.98]"
           >
-            {DownloadIcon && <DownloadIcon size={15} />}
+            {DownloadIcon && <DownloadIcon size={15} className="transition-transform duration-200 group-hover:translate-y-0.5" />}
             Download {tool.id}.bat
           </a>
-          <p className="mt-3 text-[13px]" style={{ color: '#8a8f98' }}>
-            Right-click the file → "Run as administrator" to execute.
-          </p>
         </section>
       </main>
 

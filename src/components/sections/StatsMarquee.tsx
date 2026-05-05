@@ -30,7 +30,7 @@ export function StatsMarquee() {
         {duplicated.map((stat, i) => (
           <div key={i} className="flex items-center gap-3 px-6 whitespace-nowrap">
             <span className="text-[13px] text-dim font-medium">{stat}</span>
-            <span className="text-orange/40 text-[10px]">✦</span>
+            <span className="text-accent/40 text-[10px]">✦</span>
           </div>
         ))}
       </div>
