@@ -10,6 +10,7 @@ import { useDownloads } from '@/contexts/DownloadsContext'
 import { cn } from '@/lib/utils'
 import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
+import { FolderTreePreview } from '@/components/FolderTreePreview'
 
 type CautionType = 'warning' | 'safe' | 'tip'
 
@@ -127,6 +128,24 @@ export function ToolDetail() {
             {tool.explanation}
           </p>
         </div>
+
+        {/* Preview */}
+        {tool.preview && tool.preview.type === 'folder-tree' && (
+          <section className="mb-10">
+            <h2
+              className="font-semibold text-head text-[18px] mb-4"
+              style={{ letterSpacing: '-0.022em' }}
+            >
+              Preview
+            </h2>
+            <p className="text-[13px] text-dim mb-4">
+              After running, your folders will look like this:
+            </p>
+            <div className="bg-code-bg border border-[rgba(255,255,255,0.06)] border-l-2 border-l-accent-dim rounded-xl p-5 overflow-x-auto">
+              <FolderTreePreview root={tool.preview.root} tree={tool.preview.tree} />
+            </div>
+          </section>
+        )}
 
         {/* What it does */}
         <section className="mb-10">

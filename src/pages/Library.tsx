@@ -66,9 +66,6 @@ export function Library() {
       {/* Page header */}
       <div className="border-b border-[rgba(255,255,255,0.06)] pt-24 pb-8 px-4 sm:px-6">
         <div className="max-w-[1140px] mx-auto">
-          <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-accent mb-3">
-            Bat Library
-          </p>
           <h1
             className="font-semibold text-head leading-tight mb-2"
             style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', letterSpacing: '-0.022em' }}

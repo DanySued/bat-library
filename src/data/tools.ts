@@ -1,4 +1,12 @@
-export type Category = 'strong-pc' | 'backup' | 'organizing' | 'aesthetic' | 'fun'
+export type Category = 'strong-pc' | 'backup' | 'organizing' | 'aesthetic' | 'fun' | 'claude'
+
+export interface TreeNode {
+  name: string
+  children?: TreeNode[]
+}
+
+export type Preview =
+  | { type: 'folder-tree'; root: string; tree: TreeNode[] }
 
 export interface Tool {
   id: string
@@ -13,6 +21,7 @@ export interface Tool {
   cautions: string[]
   riskScore: 1 | 2 | 3 | 4 | 5
   downloads: number
+  preview?: Preview
 }
 
 export interface CategoryDef {
@@ -28,10 +37,45 @@ export const CATEGORIES: CategoryDef[] = [
   { id: 'organizing',   label: 'Organizing',   icon: 'FolderOpen' },
   { id: 'aesthetic',    label: 'Aesthetic',    icon: 'Palette' },
   { id: 'fun',          label: 'Fun',          icon: 'Target' },
+  { id: 'claude',       label: 'Claude',       icon: 'Bot' },
   { id: 'saved',        label: 'Saved',        icon: 'Bookmark' },
 ]
 
 export const TOOLS: Tool[] = [
+  {
+    id: 'InstallClaudeCode',
+    name: 'Install Claude Code',
+    cat: 'claude',
+    desc: 'Installs Claude Code globally and authenticates with your Anthropic account',
+    admin: false,
+    icon: 'Bot',
+    explanation: 'Checks that Node.js and npm are installed (and offers to download them if not), installs the official @anthropic-ai/claude-code package globally via npm, and then walks you through the Anthropic authentication flow — all in one double-click.',
+    whatItDoes: [
+      'Verifies Node.js is installed — prompts to open the download page if missing',
+      'Verifies npm is available',
+      'Detects an existing Claude Code install and asks whether to reinstall/update',
+      'Installs @anthropic-ai/claude-code globally with npm install -g',
+      'Launches the Anthropic browser authentication flow (claude auth login)',
+      'Confirms Claude Code is ready with usage instructions',
+    ],
+    howToUse: [
+      'Double-click InstallClaudeCode.bat (no admin needed for most setups)',
+      'If Node.js is missing, press Y to open the download page, install it, then re-run',
+      'The script installs Claude Code globally — wait for npm to finish',
+      'Press any key when prompted to launch the browser login',
+      'Log in with your Anthropic account in the browser',
+      'Once authenticated, run claude in any project folder to start',
+    ],
+    cautions: [
+      '✅ NO ADMIN REQUIRED — installs to your user npm prefix by default',
+      '⚠️ Requires Node.js 18+ — the script will tell you if it is missing',
+      '⚠️ Requires an Anthropic account at claude.ai or console.anthropic.com',
+      '💡 If npm global installs need admin on your machine, right-click → Run as administrator',
+      '💡 To update later, just re-run the script and choose to reinstall',
+    ],
+    riskScore: 1,
+    downloads: 0,
+  },
   {
     id: 'CleanWindows_MASTER',
     name: 'CleanWindows MASTER',
@@ -2424,18 +2468,38 @@ export const TOOLS: Tool[] = [
     desc: 'Creates a standard developer folder structure on C: drive',
     admin: false,
     icon: 'FolderCode',
-    explanation: 'Creates a clean, organized development folder structure at C:\\Dev with subfolders for projects, tools, scripts, and sandbox work.',
+    explanation: 'Creates a clean, organized development folder structure at C:\\Dev with subfolders for projects, tools, scripts, sandbox work, and shared resources — then adds C:\\Dev\\tools to your user PATH.',
     whatItDoes: [
-      'Creates C:\\Dev\\Projects, C:\\Dev\\Tools, C:\\Dev\\Scripts, C:\\Dev\\Sandbox',
-      'Adds a README.txt to each folder explaining its purpose',
-      'Creates shortcuts to each folder on the Desktop',
+      'Creates C:\\Dev with projects, tools, scripts, sandbox, and resources subfolders',
+      'Nests fonts, icons, and templates inside resources',
+      'Appends C:\\Dev\\tools to the User PATH so CLIs there are auto-discovered',
+      'Opens C:\\Dev in Explorer once the structure is ready',
     ],
     cautions: [
-      '✅ SAFE — only creates new folders',
-      '💡 Edit the script to customize paths and folder names',
+      '✅ SAFE — only creates new folders, never deletes anything',
+      '💡 Edit the BASE variable at the top of the script to change the location',
+      '⚠️ Modifies your User PATH — open a new terminal afterwards to pick it up',
     ],
     riskScore: 1,
     downloads: 0,
+    preview: {
+      type: 'folder-tree',
+      root: 'C:\\Dev',
+      tree: [
+        { name: 'projects' },
+        { name: 'tools' },
+        { name: 'scripts' },
+        { name: 'sandbox' },
+        {
+          name: 'resources',
+          children: [
+            { name: 'fonts' },
+            { name: 'icons' },
+            { name: 'templates' },
+          ],
+        },
+      ],
+    },
   },
   {
     id: 'MapNetworkDrive',
@@ -3051,27 +3115,6 @@ export const TOOLS: Tool[] = [
     ],
     cautions: [
       '✅ SAFE — display only',
-    ],
-    riskScore: 1,
-    downloads: 0,
-  },
-  {
-    id: 'CountdownTimer',
-    name: 'Countdown Timer',
-    cat: 'fun',
-    desc: 'Terminal countdown timer with visual progress bar',
-    admin: false,
-    icon: 'AlarmClock',
-    explanation: 'A terminal countdown timer that shows a progress bar and plays a sound (system bell) when it reaches zero. Set the duration at the top of the script.',
-    whatItDoes: [
-      'Counts down from a specified number of minutes',
-      'Shows a visual ASCII progress bar',
-      'Plays a system bell when time is up',
-      'Displays a notification-style message at completion',
-    ],
-    cautions: [
-      '✅ SAFE — display only',
-      '⚠️ Edit the countdown duration at the top of the script',
     ],
     riskScore: 1,
     downloads: 0,

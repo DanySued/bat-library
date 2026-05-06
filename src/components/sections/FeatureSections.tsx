@@ -156,12 +156,6 @@ export function FeatureSections() {
         reverse
       />
 
-      <FeatureSection
-        eyebrow="Six Categories"
-        headline="Every use case covered."
-        description="Filter by Cleaning, Backup, Fast PC, Organizing, Aesthetic, or Fun. Each category targets a specific aspect of your Windows experience — find exactly what you need in seconds."
-        mockup={<CategoryMockup />}
-      />
     </>
   )
 }
