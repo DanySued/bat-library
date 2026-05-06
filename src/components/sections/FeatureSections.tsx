@@ -79,65 +79,6 @@ function SourceMockup() {
   )
 }
 
-// Mockup 3: Category filter
-function CategoryMockup() {
-  const cats = [
-    { label: 'All', active: false },
-    { label: 'Cleaning', active: true },
-    { label: 'Backup', active: false },
-    { label: 'Fast PC', active: false },
-    { label: 'Organizing', active: false },
-    { label: 'Aesthetic', active: false },
-  ]
-  const cards = [
-    { name: 'CleanWindows MASTER', desc: 'Complete debloat & optimization', admin: true },
-    { name: 'WeeklyClean', desc: 'Temp files, DNS, browser cache', admin: false },
-    { name: 'EmptyFolderCleaner', desc: 'Recursively removes empty folders', admin: false },
-  ]
-  return (
-    <div
-      className="rounded-2xl border border-[rgba(255,255,255,0.06)] bg-bg2 overflow-hidden p-5 space-y-4"
-      style={{ boxShadow: '0 24px 64px rgba(0,0,0,0.5)' }}
-    >
-      <div className="flex gap-1.5 flex-wrap">
-        {cats.map(c => (
-          <span
-            key={c.label}
-            className={`px-3 py-1 rounded-full text-[11px] border transition-colors ${
-              c.active
-                ? 'bg-white text-black border-accent font-semibold'
-                : 'bg-bg3 text-dim border-[rgba(255,255,255,0.06)]'
-            }`}
-          >
-            {c.label}
-          </span>
-        ))}
-      </div>
-      <div className="space-y-2">
-        {cards.map(card => (
-          <div
-            key={card.name}
-            className="flex items-center justify-between px-4 py-3 rounded-xl bg-bg3 border border-[rgba(255,255,255,0.04)]"
-          >
-            <div>
-              <div className="text-[13px] text-head font-medium">{card.name}</div>
-              <div className="text-[11px] text-dim mt-0.5">{card.desc}</div>
-            </div>
-            <div className="flex items-center gap-2">
-              {card.admin && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-danger/10 text-danger border border-danger/20">
-                  Admin
-                </span>
-              )}
-              <span className="text-[11px] px-2.5 py-1 rounded-lg bg-white text-black font-semibold">↓</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 export function FeatureSections() {
   return (
     <>
