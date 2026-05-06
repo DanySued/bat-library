@@ -1,4 +1,5 @@
 @echo off
+setlocal enabledelayedexpansion
 REM Batch file for pushing and deploying to GitHub
 REM Repository: https://github.com/DanySued/bat-library.git
 
@@ -29,7 +30,7 @@ echo.
 REM Ask for commit message
 set /p commit_message="Enter commit message: "
 
-if "%commit_message%"=="" (
+if "!commit_message!"=="" (
     echo Error: Commit message cannot be empty
     pause
     exit /b 1
@@ -45,9 +46,10 @@ if errorlevel 1 (
     exit /b 1
 )
 
-REM Commit changes
+REM Commit changes with proper escaping
 echo Committing changes...
-git commit -m "%commit_message%"
+echo Commit message: !commit_message!
+git commit -m "!commit_message!"
 if errorlevel 1 (
     echo Error: Failed to commit. You may have no changes to commit.
     pause
@@ -73,7 +75,11 @@ echo ========================================
 echo.
 
 REM Show latest commit
+echo Latest commit on GitHub:
 git log -1 --oneline
+echo.
+REM Also show the full commit details to verify
+git log -1
 echo.
 
 pause
