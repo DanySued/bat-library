@@ -7,6 +7,7 @@ export interface TreeNode {
 
 export type Preview =
   | { type: 'folder-tree'; root: string; tree: TreeNode[] }
+  | { type: 'cmd'; description: string; execution: string; result: string }
 
 export interface Tool {
   id: string
@@ -75,6 +76,67 @@ export const TOOLS: Tool[] = [
     ],
     riskScore: 1,
     downloads: 0,
+    preview: {
+      type: 'cmd',
+      description: 'How the script runs in CMD and what happens',
+      execution: `C:\\Users\\YourName\\Downloads> InstallClaudeCode.bat
+
+ ============================================
+  Claude Code Installer
+ ============================================
+
+ I'm Dany from the Bat Library
+
+ This script is: "Install Claude Code with automatic
+ dependency checking and authentication setup"
+
+ The plan is this:
+
+ 1. Check if Node.js is installed; if not, offer to download it
+ 2. Check if npm is installed; if missing, prompt to reinstall Node.js
+ 3. Check if Claude Code is already installed; if yes, offer to update
+ 4. If not installed, install Claude Code globally via npm
+ 5. Authenticate with your Anthropic account and complete setup
+
+ ============================================
+
+[1/3] Checking Node.js...
+ ✓ Node.js v20.10.0 found.
+
+[2/3] Checking npm...
+ ✓ npm 10.2.3 found.
+
+[3/3] Checking for existing Claude Code install...
+ ✗ Claude Code not found. Installing...
+
+  Installing Claude Code globally via npm...
+  (This may take a minute)
+
+ [npm installation progress...]
+ ✓ Claude Code installed globally.
+
+ ============================================
+  Authenticating with Anthropic
+ ============================================
+
+ This will open your browser to log in with your Anthropic account.
+ (You need an account at https://claude.ai or https://console.anthropic.com)
+
+ [Press any key to continue...]`,
+      result: ` ============================================
+  All done! Claude Code is ready.
+ ============================================
+
+  To start Claude Code, open any project folder in your terminal and run:
+
+      claude
+
+  Example:
+      cd C:\\Users\\YourName\\my-project
+      claude
+
+ [Press any key to continue...]`
+    }
   },
   {
     id: 'CleanWindows_MASTER',

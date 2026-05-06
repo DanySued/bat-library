@@ -147,6 +147,42 @@ export function ToolDetail() {
           </section>
         )}
 
+        {/* CMD Preview */}
+        {tool.preview && tool.preview.type === 'cmd' && (
+          <section className="mb-10">
+            <h2
+              className="font-semibold text-head text-[18px] mb-4"
+              style={{ letterSpacing: '-0.022em' }}
+            >
+              Preview
+            </h2>
+
+            {/* How it runs */}
+            <div className="mb-6">
+              <p className="text-[13px] text-dim mb-3">
+                <span className="text-accent font-semibold">How it runs:</span> See the script in action
+              </p>
+              <div className="bg-code-bg border border-[rgba(255,255,255,0.06)] border-l-2 border-l-accent-dim rounded-xl p-5 overflow-x-auto">
+                <pre className="text-code-fg text-[11px] font-mono leading-relaxed whitespace-pre-wrap break-words">
+                  {tool.preview.execution}
+                </pre>
+              </div>
+            </div>
+
+            {/* Expected result */}
+            <div>
+              <p className="text-[13px] text-dim mb-3">
+                <span className="text-accent font-semibold">Expected result:</span> What happens after completion
+              </p>
+              <div className="bg-code-bg border border-[rgba(255,255,255,0.06)] border-l-2 border-l-accent-dim rounded-xl p-5 overflow-x-auto">
+                <pre className="text-code-fg text-[11px] font-mono leading-relaxed whitespace-pre-wrap break-words">
+                  {tool.preview.result}
+                </pre>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* What it does */}
         <section className="mb-10">
           <h2 className="font-semibold text-head text-[18px] mb-5" style={{ letterSpacing: '-0.022em' }}>
