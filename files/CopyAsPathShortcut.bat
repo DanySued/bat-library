@@ -1,30 +1,64 @@
 @echo off
-title Copy as Path — Right-Click Shortcut Setup
-echo Adding "Copy as Path" to your right-click menu...
+title Copy as Path — Keyboard Shortcut (Ctrl+Shift+C)
+echo Setting up Ctrl+Shift+C to copy file path in Explorer...
 echo.
 
-:: Add for files
-reg add "HKCU\Software\Classes\*\shell\Copy as Path"         /ve /d "Copy as Path"                                              /f >nul
-reg add "HKCU\Software\Classes\*\shell\Copy as Path"         /v "Icon" /d "shell32.dll,259"                                    /f >nul
-reg add "HKCU\Software\Classes\*\shell\Copy as Path\command" /ve /d "cmd /c echo.|set /p=\"%1\"| clip"                         /f >nul
+:: Install AutoHotkey if missing
+where autohotkey >nul 2>&1
+if errorlevel 1 (
+    where winget >nul 2>&1
+    if errorlevel 1 (
+        echo ERROR: winget not found. Install AutoHotkey manually from https://www.autohotkey.com
+        pause
+        exit /b 1
+    )
+    echo AutoHotkey not found. Installing via winget...
+    winget install --id AutoHotkey.AutoHotkey --accept-source-agreements --accept-package-agreements
+    if errorlevel 1 (
+        echo Install failed. Please install AutoHotkey manually from https://www.autohotkey.com
+        pause
+        exit /b 1
+    )
+)
 
-:: Add for folders
-reg add "HKCU\Software\Classes\Directory\shell\Copy as Path"         /ve /d "Copy as Path"                                     /f >nul
-reg add "HKCU\Software\Classes\Directory\shell\Copy as Path"         /v "Icon" /d "shell32.dll,259"                            /f >nul
-reg add "HKCU\Software\Classes\Directory\shell\Copy as Path\command" /ve /d "cmd /c echo.|set /p=\"%1\"| clip"                 /f >nul
+:: Write the AHK script
+set AHK_FILE=%USERPROFILE%\Scripts\CopyAsPath.ahk
+if not exist "%USERPROFILE%\Scripts" mkdir "%USERPROFILE%\Scripts"
 
-:: Add for folder background (right-click inside a folder)
-reg add "HKCU\Software\Classes\Directory\Background\shell\Copy as Path"         /ve /d "Copy as Path"                         /f >nul
-reg add "HKCU\Software\Classes\Directory\Background\shell\Copy as Path"         /v "Icon" /d "shell32.dll,259"                /f >nul
-reg add "HKCU\Software\Classes\Directory\Background\shell\Copy as Path\command" /ve /d "cmd /c echo.|set /p=\"%V\"| clip"     /f >nul
+(
+echo #Requires AutoHotkey v2.0
+echo #SingleInstance Force
+echo.
+echo ; Ctrl+Shift+C — copy path of selected file/folder in Explorer
+echo ^+^c:: {
+echo     for win in ComObject^("Shell.Application"^).Windows {
+echo         try {
+echo             sel := win.Document.SelectedItems
+echo             if sel.Count ^> 0 {
+echo                 A_Clipboard := sel.Item^(0^).Path
+echo                 return
+echo             }
+echo         }
+echo     }
+echo }
+) > "%AHK_FILE%"
+
+:: Add to startup so it runs on every login
+set STARTUP=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
+copy /y "%AHK_FILE%" "%STARTUP%\CopyAsPath.ahk" >nul
+
+:: Launch it now
+start "" "%AHK_FILE%"
 
 echo.
-echo Done! Right-click any file or folder to use "Copy as Path".
-echo No restart needed — open a new File Explorer window to see it.
+echo Done!
+echo   Hotkey : Ctrl+Shift+C
+echo   Script : %AHK_FILE%
+echo   Startup: %STARTUP%\CopyAsPath.ahk
 echo.
-echo To remove it, run this command:
-echo   reg delete "HKCU\Software\Classes\*\shell\Copy as Path" /f
-echo   reg delete "HKCU\Software\Classes\Directory\shell\Copy as Path" /f
-echo   reg delete "HKCU\Software\Classes\Directory\Background\shell\Copy as Path" /f
+echo Click any file or folder in Explorer, then press Ctrl+Shift+C.
+echo The full path is now in your clipboard.
+echo.
+echo To remove: delete CopyAsPath.ahk from your Startup folder.
 echo.
 pause
