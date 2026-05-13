@@ -131,6 +131,7 @@ All scripts in `src/data/tools.ts` and `/files/`. Risk: 1 = safe/read-only → 5
 | `TetrisGame` | Tetris Game | fun | 1 | No |
 | `TerminalClock` | Terminal Clock | fun | 1 | No |
 | `TypewriterText` | Typewriter Effect | fun | 1 | No |
+| `CopyAsPathShortcut` | Copy as Path Shortcut | organizing | 1 | No |
 | `PushToGitHub` | Push to GitHub | claude | 1 | No |
 | `InstallGHCLI` | Install GH for Claude | claude | 1 | No |
 | `SetupYoloMode` | Setup YOLO Mode | claude | 3 | No |

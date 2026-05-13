@@ -3182,6 +3182,32 @@ export const TOOLS: Tool[] = [
     downloads: 0,
   },
   {
+    id: 'CopyAsPathShortcut',
+    name: 'Copy as Path Shortcut',
+    cat: 'organizing',
+    desc: 'Adds "Copy as Path" to your right-click menu — no Shift key needed',
+    admin: false,
+    icon: 'Clipboard',
+    explanation: 'Windows hides "Copy as path" behind Shift+right-click. This script adds it to your normal right-click menu for files, folders, and folder backgrounds using per-user registry keys — no admin required.',
+    whatItDoes: [
+      'Adds "Copy as Path" to the right-click menu for files',
+      'Adds it for folders and folder backgrounds too',
+      'Uses per-user registry (HKCU) — no admin required',
+      'Copies the full path to clipboard without a trailing newline',
+    ],
+    howToUse: [
+      'Double-click to run — takes effect immediately',
+      'Open a new File Explorer window, right-click any file or folder',
+      '"Copy as Path" appears in the context menu without holding Shift',
+    ],
+    cautions: [
+      '✅ NO ADMIN REQUIRED — writes to HKCU only',
+      '💡 To undo, run the reg delete commands printed at the end of the script',
+    ],
+    riskScore: 1,
+    downloads: 0,
+  },
+  {
     id: 'PushToGitHub',
     name: 'Push to GitHub',
     cat: 'claude',
