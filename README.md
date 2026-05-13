@@ -1,8 +1,8 @@
 # BAT Library
 
-**36 Windows batch scripts to clean, optimize, back up, and customize your PC.**
+**132 Windows batch scripts to clean, optimize, back up, and customize your PC.**
 
-[![Live Site](https://img.shields.io/badge/Live-bat--library.vercel.app-cf7b4b?style=flat-square)](https://bat-library.vercel.app) [![Scripts](https://img.shields.io/badge/Scripts-36-4b9fcf?style=flat-square)](./files) [![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-blue?style=flat-square)]()
+[![Live Site](https://img.shields.io/badge/Live-bat--library.vercel.app-57B5E7?style=flat-square)](https://bat-library.vercel.app) [![Scripts](https://img.shields.io/badge/Scripts-132-57B5E7?style=flat-square)](./files) [![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-blue?style=flat-square)]()
 
 ---
 
@@ -14,50 +14,18 @@ The site shows what each script does, step-by-step instructions, and safety note
 
 ---
 
-## Scripts
+## Categories
 
-| Script | Description | Category | Admin |
-|---|---|---|---|
-| [BackupFolders.bat](./files/BackupFolders.bat) | Backs up Desktop, Documents, Pictures, Downloads | Backup | ✅ |
-| [BlockDistractingSites.bat](./files/BlockDistractingSites.bat) | Blocks/unblocks distracting websites via HOSTS file | Fun | ✅ |
-| [BulkRenamer.bat](./files/BulkRenamer.bat) | Rename all files in a folder — add prefix, suffix, numbers, or replace text | Organizing | ✅ |
-| [CleanWindows_MASTER.bat](./files/CleanWindows_MASTER.bat) | Complete Windows debloat, optimization & privacy cleanup | Cleaning | ✅ |
-| [ClearRecentActivity.bat](./files/ClearRecentActivity.bat) | Wipes jump lists, recent files, search history, and clipboard | Cleaning | ✅ |
-| [ClearUSBHistory.bat](./files/ClearUSBHistory.bat) | Removes all USB device history from the Windows registry | Cleaning | ✅ |
-| [CreateRestorePoint.bat](./files/CreateRestorePoint.bat) | Creates a Windows System Restore Point instantly | Backup | ✅ |
-| [DarkModeToggle.bat](./files/DarkModeToggle.bat) | Toggles Windows between dark and light mode | Aesthetic | ❌ |
-| [DisableForcedRestarts.bat](./files/DisableForcedRestarts.bat) | Stops Windows from auto-rebooting after updates without your permission | Fast Computer | ✅ |
-| [DisableLockscreen.reg](./files/DisableLockscreen.reg) | Disables the Windows lock screen so you go straight to login | Aesthetic | ✅ |
-| [DriverBackup.bat](./files/DriverBackup.bat) | Exports all installed hardware drivers to a folder on Desktop | Backup | ✅ |
-| [DuplicateFileFinder.bat](./files/DuplicateFileFinder.bat) | Scans a folder for duplicate files and saves a report — doesn't delete anything | Organizing | ✅ |
-| [EmptyFolderCleaner.bat](./files/EmptyFolderCleaner.bat) | Finds and permanently deletes all empty folders in a target directory | Cleaning | ✅ |
-| [FixBluetooth.bat](./files/FixBluetooth.bat) | Re-enables Bluetooth services when Bluetooth has stopped working | Fast Computer | ✅ |
-| [FixBrokenIcons.bat](./files/FixBrokenIcons.bat) | Rebuilds the icon cache — fixes blank or wrong icons on Desktop and taskbar | Fast Computer | ✅ |
-| [FixExplorer.bat](./files/FixExplorer.bat) | Sets Explorer to open This PC, shows extensions and hidden files, removes ads | Aesthetic | ✅ |
-| [FixMicrosoftStore.bat](./files/FixMicrosoftStore.bat) | Resets Microsoft Store cache and services when apps won't install or update | Fast Computer | ✅ |
-| [FixSlowRightClick.bat](./files/FixSlowRightClick.bat) | Removes broken shell extensions causing right-click menus to lag | Fast Computer | ✅ |
-| [FixSound.bat](./files/FixSound.bat) | Restarts Windows audio services and fixes sound issues | Fast Computer | ✅ |
-| [FixWindowsProblems.bat](./files/FixWindowsProblems.bat) | Resets Windows Update, repairs corrupt system files, fixes network stack | Fast Computer | ✅ |
-| [FixWindowsUpdate.bat](./files/FixWindowsUpdate.bat) | Fixes stuck, broken, or endlessly-spinning Windows Update | Fast Computer | ✅ |
-| [FolderSizeReport.bat](./files/FolderSizeReport.bat) | Shows which folders are eating the most disk space | Organizing | ✅ |
-| [GameSavesBackup.bat](./files/GameSavesBackup.bat) | Backs up save files from Steam, Epic, Ubisoft, GOG, and EA | Backup | ✅ |
-| [GamingModeToggle.bat](./files/GamingModeToggle.bat) | Kills background services and sets high performance power plan for gaming | Fun | ✅ |
-| [NetworkSpeedFix.bat](./files/NetworkSpeedFix.bat) | Resets the network stack when internet feels slow or unstable | Fast Computer | ✅ |
-| [NightModeScheduler.bat](./files/NightModeScheduler.bat) | Schedules automatic dark mode switching at night | Aesthetic | ✅ |
-| [NumlockOnStartup.bat](./files/NumlockOnStartup.bat) | Forces NumLock to always be ON when Windows starts | Aesthetic | ✅ |
-| [OldFileArchiver.bat](./files/OldFileArchiver.bat) | Moves files older than X days to an archive folder automatically | Organizing | ✅ |
-| [PowerButtonConfig.bat](./files/PowerButtonConfig.bat) | Configures what the power button and lid closing do | Aesthetic | ✅ |
-| [PushAndDeploy.bat](./PushAndDeploy.bat) | Automates pushing changes to GitHub to trigger Vercel deployment | Dev | ❌ |
-| [RAMCleaner.bat](./files/RAMCleaner.bat) | Flushes standby memory when your PC feels sluggish | Fast Computer | ✅ |
-| [RegistryBackup.bat](./files/RegistryBackup.bat) | Exports your full Windows registry to a file on Desktop | Backup | ✅ |
-| [RestorePhotoViewer.bat](./files/RestorePhotoViewer.bat) | Brings back the classic Windows Photo Viewer from Windows 7 | Aesthetic | ✅ |
-| [RestoreRightClickMenu.bat](./files/RestoreRightClickMenu.bat) | Restores the full classic right-click context menu on Windows 11 | Aesthetic | ✅ |
-| [RunAsDevButton.bat](./files/RunAsDevButton.bat) | Adds a "Run as Developer" option to the right-click context menu | Organizing | ✅ |
-| [ScheduleDailyBackup.bat](./files/ScheduleDailyBackup.bat) | Sets up Windows Task Scheduler to run BackupFolders automatically every day | Backup | ✅ |
-| [SetEnglishInput.bat](./files/SetEnglishInput.bat) | Sets keyboard input language to English | Organizing | ✅ |
-| [SwitchToEnglish.bat](./files/SwitchToEnglish.bat) | Switches the Windows display language to English (US) | Organizing | ✅ |
-| [WeeklyClean.bat](./files/WeeklyClean.bat) | Silent quick clean — temp files, Recycle Bin, DNS flush, browser caches | Cleaning | ✅ |
-| [WiFiPasswords.bat](./files/WiFiPasswords.bat) | Shows saved passwords for all WiFi networks this PC has connected to | Organizing | ✅ |
+| Category | Scripts |
+|---|---|
+| **Strong PC** | Disable startup programs, clear junk, boost performance, fix common Windows problems |
+| **Backup** | Back up folders, drivers, WiFi profiles, registry, game saves, browser bookmarks |
+| **Organizing** | Rename files in bulk, organize downloads, find duplicates, map network drives |
+| **Aesthetic** | Toggle dark mode, restore Photo Viewer, customize taskbar, set wallpaper slideshows |
+| **Fun** | Matrix rain, Pong, Snake, Tetris, bouncing ball, fake hacker screen |
+| **Claude** | Install Claude Code, set up YOLO mode, push to GitHub, install GitHub CLI |
+
+Full inventory with risk scores: [`SCRIPTS.md`](./SCRIPTS.md)
 
 ---
 
@@ -73,11 +41,11 @@ The site shows what each script does, step-by-step instructions, and safety note
 
 ---
 
-## Danger level
+## Danger levels
 
 - **Safe (read-only):** DriverBackup, DuplicateFileFinder, FolderSizeReport, WiFiPasswords
 - **Low risk (reversible):** DarkModeToggle, FixBluetooth, FixSound, NetworkSpeedFix
-- **Moderate (registry changes):** RestoreRightClickMenu, RestorePhotoViewer, FixExplorer, DisableForcedRestarts
+- **Moderate (registry changes):** RestoreRightClickMenu, RestorePhotoViewer, FixExplorer
 - **Run CreateRestorePoint.bat first:** CleanWindows_MASTER, FixSlowRightClick, RegistryBackup
 - **Destructive (irreversible):** EmptyFolderCleaner, BulkRenamer, ClearUSBHistory
 
@@ -85,8 +53,8 @@ The site shows what each script does, step-by-step instructions, and safety note
 
 ## Tech stack
 
-- Vanilla HTML + React 18 (CDN, no build step)
-- Lucide React icons
+- React 18 + TypeScript + Vite + Tailwind CSS
+- Supabase (download counts, saved scripts)
 - Vercel (static hosting, auto-deploy on push)
 
 ---
@@ -96,8 +64,3 @@ The site shows what each script does, step-by-step instructions, and safety note
 Dany Sue — [bat-library.vercel.app](https://bat-library.vercel.app)
 
 Built with Claude Code (Anthropic).
-
-**Prompts used:**
-- *"deploy this project to github and vercel"*
-- *"i have all the files in Downloads/.bat files. i want to be able to download the files from the website, but i dont want to make it too heavy"*
-- *"i want them to be with no spaces like RunAsDevButton.bat. Also create a readme file for the github containing all of the bat files to download"*

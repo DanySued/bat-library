@@ -3288,7 +3288,7 @@ export const TOOLS: Tool[] = [
     downloads: 0,
   },
   {
-    id: 'redbull',
+    id: 'RedBullMode',
     name: 'Red Bull Mode',
     cat: 'strong-pc',
     desc: 'Disables sleep, monitor timeout, and hibernation so your PC never goes idle',

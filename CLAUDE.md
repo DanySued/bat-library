@@ -51,7 +51,7 @@ Tailwind with custom tokens defined in `tailwind.config.ts`. Key tokens: `bg`, `
 
 ### Adding a new script
 
-Follow the `Tool` interface in `tools.ts`. Required fields: `id` (filename without extension, camelCase), `name`, `cat`, `desc`, `admin`, `icon` (Lucide icon name), `explanation`, `whatItDoes[]`, `cautions[]` (prefix with `⚠️`, `✅`, or `💡`), `riskScore` (1–5), `downloads` (baseline count). Optional: `howToUse[]`, `preview` (either `folder-tree` or `cmd` type). See `BAT_FILE_TEMPLATE.md` for the bat file structure convention.
+Follow the `Tool` interface in `tools.ts`. Required fields: `id` (filename without extension, PascalCase — e.g. `CleanDesktop`, `BackupFolders`), `name`, `cat`, `desc`, `admin`, `icon` (Lucide icon name), `explanation`, `whatItDoes[]`, `cautions[]` (prefix with `⚠️`, `✅`, or `💡`), `riskScore` (1–5), `downloads` (baseline count). Optional: `howToUse[]`, `preview` (either `folder-tree` or `cmd` type). See `BAT_FILE_TEMPLATE.md` for the bat file structure convention.
 
 ### Supabase tables
 
@@ -64,7 +64,7 @@ Env vars needed (see `.env.example`): `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_K
 
 ### Reference files
 
-- **`SCRIPTS.md`** — full inventory of all 128 scripts with category, risk score, and admin requirement. Check here before adding a new script to avoid duplicates.
+- **`SCRIPTS.md`** — full inventory of all 132 scripts with category, risk score, and admin requirement. Check here before adding a new script to avoid duplicates.
 - **`supabase-schema.sql`** — canonical DB schema with tables, RPC, and RLS policies.
 - **`.claude/commands/new-script.md`** — `/new-script` slash command: scaffolds a new `Tool` entry + `.bat` file end-to-end.
 - **`.claude/commands/deploy.md`** — `/deploy` slash command: commits and pushes to trigger Vercel auto-deploy.

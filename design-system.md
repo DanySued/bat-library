@@ -1,4 +1,6 @@
-# Design System Documentation
+> **DEPRECATED** — This file describes the old warm amber palette and Lora serif typography. The live app uses a **cool dark** palette (blues/`#57B5E7` accent, Inter + JetBrains Mono fonts). Refer to `tailwind.config.ts` for current tokens. This file is kept for historical reference only.
+
+# Design System Documentation (OLD)
 
 ## Overview
 

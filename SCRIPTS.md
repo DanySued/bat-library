@@ -135,4 +135,4 @@ All scripts in `src/data/tools.ts` and `/files/`. Risk: 1 = safe/read-only → 5
 | `PushToGitHub` | Push to GitHub | claude | 1 | No |
 | `InstallGHCLI` | Install GH for Claude | claude | 1 | No |
 | `SetupYoloMode` | Setup YOLO Mode | claude | 3 | No |
-| `redbull` | Red Bull Mode | strong-pc | 2 | Yes |
+| `RedBullMode` | Red Bull Mode | strong-pc | 2 | Yes |
