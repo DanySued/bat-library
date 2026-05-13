@@ -3181,4 +3181,25 @@ export const TOOLS: Tool[] = [
     riskScore: 1,
     downloads: 0,
   },
+  {
+    id: 'redbull',
+    name: 'Red Bull Mode',
+    cat: 'strong-pc',
+    desc: 'Disables sleep, monitor timeout, and hibernation so your PC never goes idle',
+    admin: true,
+    icon: 'Zap',
+    explanation: 'Keeps your PC fully awake by disabling all sleep and hibernation settings via powercfg. Useful when running long jobs or presentations.',
+    whatItDoes: [
+      'Disables sleep timeout on battery and AC power',
+      'Disables monitor timeout on battery and AC power',
+      'Disables hibernation completely',
+    ],
+    cautions: [
+      '⚠️ Requires Administrator — uses powercfg',
+      '⚠️ Your PC will never sleep until you re-enable these settings',
+      '💡 Re-enable sleep manually via Power & Sleep settings when done',
+    ],
+    riskScore: 2,
+    downloads: 0,
+  },
 ]
