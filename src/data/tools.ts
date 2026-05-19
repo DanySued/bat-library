@@ -23,6 +23,7 @@ export interface Tool {
   riskScore: 1 | 2 | 3 | 4 | 5
   downloads: number
   preview?: Preview
+  bat_content?: string
 }
 
 export interface CategoryDef {

@@ -4,29 +4,34 @@ import { Library } from './pages/Library'
 import { ToolDetail } from './pages/ToolDetail'
 import { Saved } from './pages/Saved'
 import { Claude } from './pages/Claude'
+import { Admin } from './pages/Admin'
 import { AuthProvider } from './contexts/AuthContext'
 import { DownloadsProvider } from './contexts/DownloadsContext'
 import { BookmarksProvider } from './contexts/BookmarksContext'
+import { ToolsProvider } from './contexts/ToolsContext'
 import { AuthModal } from './components/AuthModal'
 import { ScrollToTop } from './components/ScrollToTop'
 
 export default function App() {
   return (
     <AuthProvider>
-      <DownloadsProvider>
-        <BookmarksProvider>
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/bat" element={<Library />} />
-            <Route path="/bat/:id" element={<ToolDetail />} />
-            <Route path="/saved" element={<Saved />} />
-            <Route path="/claude" element={<Claude />} />
-            <Route path="/tool/:id" element={<LegacyToolRedirect />} />
-          </Routes>
-          <AuthModal />
-        </BookmarksProvider>
-      </DownloadsProvider>
+      <ToolsProvider>
+        <DownloadsProvider>
+          <BookmarksProvider>
+            <ScrollToTop />
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/bat" element={<Library />} />
+              <Route path="/bat/:id" element={<ToolDetail />} />
+              <Route path="/saved" element={<Saved />} />
+              <Route path="/claude" element={<Claude />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/tool/:id" element={<LegacyToolRedirect />} />
+            </Routes>
+            <AuthModal />
+          </BookmarksProvider>
+        </DownloadsProvider>
+      </ToolsProvider>
     </AuthProvider>
   )
 }

@@ -5,7 +5,8 @@ import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
 import { ToolCard } from '@/components/ToolCard'
 import { ScrollTop } from '@/components/ScrollTop'
-import { TOOLS, CATEGORIES } from '@/data/tools'
+import { CATEGORIES } from '@/data/tools'
+import { useTools } from '@/contexts/ToolsContext'
 import { useBookmarks } from '@/contexts/BookmarksContext'
 import { cn } from '@/lib/utils'
 import type { Category } from '@/data/tools'
@@ -20,6 +21,7 @@ const SORT_OPTIONS: { id: SortId; label: string; Icon: typeof ArrowUpDown }[] = 
 ]
 
 export function Library() {
+  const { tools } = useTools()
   const [searchParams] = useSearchParams()
   const [cat, setCat] = useState<FilterId>(() => (searchParams.get('cat') as FilterId) ?? 'all')
   const activeCategoryLabel = CATEGORIES.find(c => c.id === cat)?.label
@@ -44,7 +46,7 @@ export function Library() {
   }, [])
 
   const filtered = useMemo(() => {
-    let result = TOOLS
+    let result = tools
     if (cat === 'saved') result = result.filter(t => bookmarkedIds.includes(t.id))
     else if (cat !== 'all') result = result.filter(t => t.cat === cat)
     if (search) {
@@ -57,7 +59,7 @@ export function Library() {
     else if (sort === 'alpha') result = [...result].sort((a, b) => a.name.localeCompare(b.name))
     else if (sort === 'risk') result = [...result].sort((a, b) => b.riskScore - a.riskScore)
     return result
-  }, [cat, search, sort, bookmarkedIds])
+  }, [cat, search, sort, bookmarkedIds, tools])
 
   return (
     <div className="min-h-screen flex flex-col">

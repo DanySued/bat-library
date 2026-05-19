@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Github } from 'lucide-react'
-import { TOOLS } from '@/data/tools'
+import { useTools } from '@/contexts/ToolsContext'
 import { TypingTerminal } from '@/components/TypingTerminal'
 
 const ROTATING_WORDS = ['Cleaner', 'Faster', 'Organized', 'Protected']
 
 export function LandingHero() {
+  const { tools } = useTools()
   const [wordIndex, setWordIndex] = useState(0)
   const [visible, setVisible] = useState(true)
 
@@ -37,7 +38,7 @@ export function LandingHero() {
         <div className="hero-eyebrow flex items-center gap-2 mb-8">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-[12px] font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            {TOOLS.length} Free Windows Scripts
+            {tools.length} Free Windows Scripts
           </span>
         </div>
 

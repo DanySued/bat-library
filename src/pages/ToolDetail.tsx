@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import Lottie from 'lottie-react'
 import checkmarkData from '@/animations/checkmark.json'
-import { TOOLS } from '@/data/tools'
+import { useTools } from '@/contexts/ToolsContext'
 import { getIcon } from '@/lib/icons'
 import { useBookmarks } from '@/contexts/BookmarksContext'
 import { useDownloads } from '@/contexts/DownloadsContext'
@@ -30,20 +30,33 @@ const cautionStyle: Record<CautionType, { iconName: string; color: string }> = {
 export function ToolDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const tool = TOOLS.find(t => t.id === id)
+  const { tools } = useTools()
+  const tool = tools.find(t => t.id === id)
 
   const { isBookmarked, toggle } = useBookmarks()
   const { recordDownload } = useDownloads()
   const [code, setCode]         = useState<string | null>(null)
   const [copied, setCopied]     = useState(false)
+  const [downloadHref, setDownloadHref] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!tool?.bat_content) { setDownloadHref(null); return }
+    const url = URL.createObjectURL(new Blob([tool.bat_content], { type: 'text/plain' }))
+    setDownloadHref(url)
+    return () => URL.revokeObjectURL(url)
+  }, [tool?.bat_content])
 
   useEffect(() => {
     if (!id) return
+    if (tool?.bat_content) {
+      setCode(tool.bat_content)
+      return
+    }
     fetch(`/files/${id}.bat`)
       .then(r => r.ok ? r.text() : Promise.reject())
       .then(setCode)
       .catch(() => setCode(''))
-  }, [id])
+  }, [id, tool?.bat_content])
 
   useEffect(() => {
     if (tool) document.title = `${tool.name} — BAT Library`
@@ -300,7 +313,7 @@ export function ToolDetail() {
         <section className="flex flex-col items-center text-center mt-10">
 
           <a
-            href={`/files/${tool.id}.bat`}
+            href={downloadHref ?? `/files/${tool.id}.bat`}
             download={`${tool.id}.bat`}
             onClick={() => recordDownload(tool.id)}
             className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full font-semibold text-[14px] hover:bg-white/90 transition-colors duration-150 active:scale-[0.98]"

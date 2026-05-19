@@ -40,6 +40,34 @@ create policy "Users read own saves"   on saved_tools for select using (auth.uid
 create policy "Users insert own saves" on saved_tools for insert with check (auth.uid() = user_id);
 create policy "Users delete own saves" on saved_tools for delete using (auth.uid() = user_id);
 
+-- ─── Tools table (admin-managed script metadata) ────────────────────────────────
+
+create table if not exists tools (
+  id               text primary key,
+  name             text not null,
+  cat              text not null,
+  "desc"           text not null,
+  require_admin    boolean not null default false,
+  icon             text not null default 'Terminal',
+  explanation      text not null default '',
+  what_it_does     text[] not null default '{}',
+  how_to_use       text[],
+  cautions         text[] not null default '{}',
+  risk_score       smallint not null default 1 check (risk_score between 1 and 5),
+  downloads_seed   integer not null default 0,
+  preview          jsonb,
+  bat_content      text,
+  sort_order       integer not null default 0,
+  created_at       timestamptz not null default now()
+);
+
+-- Public read; only admin (danysued@gmail.com) can write
+alter table tools enable row level security;
+create policy "Public read tools"   on tools for select using (true);
+create policy "Admin insert tools"  on tools for insert with check ((auth.jwt() ->> 'email') = 'danysued@gmail.com');
+create policy "Admin update tools"  on tools for update using ((auth.jwt() ->> 'email') = 'danysued@gmail.com');
+create policy "Admin delete tools"  on tools for delete using ((auth.jwt() ->> 'email') = 'danysued@gmail.com');
+
 -- ─── Auth providers (configured in Supabase dashboard) ─────────────────────────
 -- Email/password: enabled
 -- Google OAuth:   enabled  (redirectTo: window.location.origin)

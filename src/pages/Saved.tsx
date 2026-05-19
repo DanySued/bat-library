@@ -4,12 +4,13 @@ import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
 import { ToolCard } from '@/components/ToolCard'
 import { ScrollTop } from '@/components/ScrollTop'
-import { TOOLS } from '@/data/tools'
 import { useBookmarks } from '@/contexts/BookmarksContext'
+import { useTools } from '@/contexts/ToolsContext'
 
 export function Saved() {
+  const { tools } = useTools()
   const { bookmarks } = useBookmarks()
-  const saved = TOOLS.filter(t => bookmarks.includes(t.id))
+  const saved = tools.filter(t => bookmarks.includes(t.id))
 
   return (
     <div className="min-h-screen flex flex-col">

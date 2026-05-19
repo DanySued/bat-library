@@ -4,10 +4,11 @@ import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
 import { ToolCard } from '@/components/ToolCard'
 import { ScrollTop } from '@/components/ScrollTop'
-import { TOOLS } from '@/data/tools'
+import { useTools } from '@/contexts/ToolsContext'
 
 export function Claude() {
-  const tools = TOOLS.filter(t => t.cat === 'claude')
+  const { tools: allTools } = useTools()
+  const tools = allTools.filter(t => t.cat === 'claude')
 
   return (
     <div className="min-h-screen flex flex-col">

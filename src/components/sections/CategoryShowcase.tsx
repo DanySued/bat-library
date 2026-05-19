@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { getIcon } from '@/lib/icons'
-import { TOOLS, CATEGORIES } from '@/data/tools'
+import { CATEGORIES } from '@/data/tools'
+import { useTools } from '@/contexts/ToolsContext'
 
 export function CategoryShowcase() {
+  const { tools } = useTools()
   const cats = CATEGORIES.filter(c => c.id !== 'all' && c.id !== 'saved')
 
   return (
@@ -33,8 +35,9 @@ export function CategoryShowcase() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {cats.map(cat => {
             const IconComp = getIcon(cat.icon)
-            const count = TOOLS.filter(t => t.cat === cat.id).length
-            const featured = TOOLS.filter(t => t.cat === cat.id).slice(0, 4)
+            const catTools = tools.filter(t => t.cat === cat.id)
+            const count = catTools.length
+            const featured = catTools.slice(0, 4)
 
             return (
               <Link
