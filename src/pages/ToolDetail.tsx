@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
-import Lottie from 'lottie-react'
-import checkmarkData from '@/animations/checkmark.json'
+import { AnimatedCheck } from '@/components/AnimatedCheck'
 import { useTools } from '@/contexts/ToolsContext'
 import { getIcon } from '@/lib/icons'
 import { useBookmarks } from '@/contexts/BookmarksContext'
@@ -302,10 +301,7 @@ export function ToolDetail() {
                   : 'bg-bg3 border-[rgba(255,255,255,0.08)] text-dim hover:border-accent hover:text-accent'
               )}
             >
-              {copied
-                ? <Lottie animationData={checkmarkData} loop={false} style={{ width: 11, height: 11 }} />
-                : CopyIcon && <CopyIcon size={11} />
-              }
+              {copied ? <AnimatedCheck size={11} /> : CopyIcon && <CopyIcon size={11} />}
               {copied ? 'Copied' : 'Copy'}
             </button>
           </div>

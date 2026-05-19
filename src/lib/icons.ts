@@ -1,10 +1,66 @@
-import * as LucideIcons from 'lucide-react'
-import type React from 'react'
+import type { LucideIcon } from 'lucide-react'
+import {
+  AlignCenter, AlertTriangle, AppWindow, Archive,
+  ArrowLeft, ArrowRight, ArrowUp, ArrowUpDown,
+  Ban, BarChart2, Battery, BellOff, Bluetooth, Bolt, Bookmark, Bot, Brush,
+  CalendarClock, CalendarDays, CheckCircle, ChevronDown, Circle,
+  Clipboard, ClipboardList, Clock, CloudOff, CloudUpload,
+  Code, Code2, Copy, Cpu,
+  Database, Disc, Download,
+  Eraser, Eye, EyeOff,
+  FileText, FileType, FileX, Flame, Folder, FolderCode, FolderMinus, FolderOpen, FolderTree, FolderX,
+  Gamepad, Gamepad2, Gauge, GitBranch, Github, Glasses, Globe, Grid3x3,
+  HardDrive, HardDriveDownload, HardDriveUpload,
+  Image, Info,
+  Keyboard, KeyRound,
+  Layers, LayoutDashboard, LayoutGrid, LayoutTemplate, Lightbulb, List, Lock, LogIn, LogOut,
+  Mail, MemoryStick, MessageCircle, MessageCircleOff, MessageSquareOff, MicOff,
+  Monitor, MonitorOff, Moon, MousePointer2,
+  Network, Newspaper,
+  Palette, PauseCircle, Pencil, Pin, PlayCircle, Plus, Power, PowerOff, Printer,
+  RefreshCcw, RefreshCw,
+  Search, SearchCode, SearchX, Server, Settings2,
+  Shield, ShieldAlert, ShieldMinus, ShieldOff, ShoppingBag, SidebarClose, SlidersHorizontal,
+  Smile, SortAsc, Sparkles, StopCircle, Sun, Sunset,
+  Target, Terminal, Timer, Trash, Trash2, Type,
+  Usb,
+  Volume2,
+  Wifi, WifiOff, Wrench,
+  X, Zap,
+} from 'lucide-react'
 
-export type IconProps = { size?: number; className?: string; fill?: string }
-export type IconComponent = React.ComponentType<IconProps>
+export type IconComponent = LucideIcon
 
-export function getIcon(name: string): IconComponent | null {
-  const icon = (LucideIcons as unknown as Record<string, IconComponent>)[name]
-  return icon != null ? icon : null
+const ICONS: Record<string, LucideIcon> = {
+  AlignCenter, AlertTriangle, AppWindow, Archive,
+  ArrowLeft, ArrowRight, ArrowUp, ArrowUpDown,
+  Ban, BarChart2, Battery, BatteryOff: Battery, BellOff, Bluetooth, Bolt, Bookmark, Bot, Brush,
+  CalendarClock, CalendarDays, CheckCircle, ChevronDown, Circle,
+  Clipboard, ClipboardList, Clock, ClockOff: Clock, CloudOff, CloudUpload,
+  Code, Code2, Copy, Cpu,
+  Database, Disc, Download,
+  Eraser, Eye, EyeOff,
+  FileText, FileType, FileX, Flame, Folder, FolderCode, FolderMinus, FolderOpen, FolderTree, FolderX,
+  Gamepad, Gamepad2, Gauge, GitBranch, Github, Glasses, Globe, Grid3x3,
+  HardDrive, HardDriveDownload, HardDriveUpload,
+  Image, Info,
+  Keyboard, KeyRound,
+  Layers, LayoutDashboard, LayoutGrid, LayoutTemplate, Lightbulb, List, Lock, LogIn, LogOut,
+  Mail, MemoryStick, MessageCircle, MessageCircleOff, MessageSquareOff, MicOff,
+  Monitor, MonitorOff, Moon, MousePointer2,
+  Network, Newspaper,
+  Palette, PauseCircle, Pencil, Pin, PlayCircle, Plus, Power, PowerOff, Printer, PrinterX: Printer,
+  RefreshCcw, RefreshCw,
+  Search, SearchCode, SearchX, Server, Settings2,
+  Shield, ShieldAlert, ShieldMinus, ShieldOff, ShoppingBag, SidebarClose, SlidersHorizontal,
+  Smile, SortAsc, Sparkles, StopCircle, Sun, Sunset,
+  Target, Terminal, Timer, Trash, Trash2, Type,
+  Usb,
+  Volume2,
+  Wifi, WifiOff, Wrench,
+  X, Zap,
+}
+
+export function getIcon(name: string): LucideIcon | null {
+  return ICONS[name] ?? null
 }

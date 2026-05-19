@@ -1,10 +1,12 @@
+import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate, useParams } from 'react-router-dom'
 import { Landing } from './pages/Landing'
 import { Library } from './pages/Library'
 import { ToolDetail } from './pages/ToolDetail'
 import { Saved } from './pages/Saved'
 import { Claude } from './pages/Claude'
-import { Admin } from './pages/Admin'
+
+const Admin = lazy(() => import('./pages/Admin').then(m => ({ default: m.Admin })))
 import { AuthProvider } from './contexts/AuthContext'
 import { DownloadsProvider } from './contexts/DownloadsContext'
 import { BookmarksProvider } from './contexts/BookmarksContext'
@@ -25,7 +27,7 @@ export default function App() {
               <Route path="/bat/:id" element={<ToolDetail />} />
               <Route path="/saved" element={<Saved />} />
               <Route path="/claude" element={<Claude />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin" element={<Suspense fallback={null}><Admin /></Suspense>} />
               <Route path="/tool/:id" element={<LegacyToolRedirect />} />
             </Routes>
             <AuthModal />

@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { Download, Bookmark, Info } from 'lucide-react'
-import Lottie from 'lottie-react'
-import checkmarkData from '@/animations/checkmark.json'
+import { AnimatedCheck } from '@/components/AnimatedCheck'
 import { cn } from '@/lib/utils'
 import { getIcon } from '@/lib/icons'
 import { useBookmarks } from '@/contexts/BookmarksContext'
@@ -31,40 +30,31 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
   const navigate = useNavigate()
   const { isBookmarked, toggle } = useBookmarks()
   const { getCount, recordDownload } = useDownloads()
-  const [code, setCode] = useState<string | null>(null)
+  const [code, setCode] = useState<string | null | false>(null)
   const [copied, setCopied] = useState(false)
-  const cardRef = useRef<HTMLDivElement>(null)
 
-  const IconComp  = getIcon(tool.icon)
-  const CopyIcon  = getIcon('Copy')
-
-  useEffect(() => {
-    if (!cardRef.current) return
-    const el = cardRef.current
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          observer.disconnect()
-          fetch(`/files/${tool.id}.bat`)
-            .then(r => r.ok ? r.text() : Promise.reject())
-            .then(setCode)
-            .catch(() => setCode(''))
-        }
-      },
-      { rootMargin: '300px' }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [tool.id])
+  const IconComp = getIcon(tool.icon)
+  const CopyIcon = getIcon('Copy')
 
   const handleCopy = useCallback(async (e: React.MouseEvent) => {
     e.stopPropagation()
-    if (code == null) return
-    await navigator.clipboard.writeText(code)
+
+    let src = code
+    if (src === null) {
+      // Fetch on first click
+      const text = await fetch(`/files/${tool.id}.bat`)
+        .then(r => r.ok ? r.text() : Promise.reject())
+        .catch(() => '')
+      setCode(text)
+      src = text
+    }
+    if (!src) return
+
+    await navigator.clipboard.writeText(src as string)
     setCopied(true)
     toast('Copied to clipboard')
     setTimeout(() => setCopied(false), 2000)
-  }, [code])
+  }, [code, tool.id])
 
   const handleBookmark = useCallback((e: React.MouseEvent) => {
     e.stopPropagation()
@@ -77,7 +67,6 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
 
   return (
     <div
-      ref={cardRef}
       onClick={() => navigate(`/bat/${tool.id}`)}
       className="group flex flex-col bg-bg2 border border-[rgba(255,255,255,0.06)] rounded-xl p-5 cursor-pointer transition-all duration-200 hover:bg-bg3 hover:border-accent/40 hover:shadow-[0_8px_40px_rgba(87,181,231,0.16)] hover:-translate-y-1"
     >
@@ -109,10 +98,7 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
       {/* Risk + downloads + admin badge */}
       <div className="flex items-center justify-center gap-3 mb-3 mt-1 flex-wrap">
         <span className="flex items-center gap-1.5 text-[12px]" style={{ color: RISK_COLOR[tool.riskScore] }}>
-          <span
-            className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-            style={{ backgroundColor: RISK_COLOR[tool.riskScore] }}
-          />
+          <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: RISK_COLOR[tool.riskScore] }} />
           {RISK_LABEL[tool.riskScore]}
         </span>
         <span className="w-px h-3 bg-white/10" />
@@ -123,7 +109,7 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
         {tool.admin && (
           <>
             <span className="w-px h-3 bg-white/10" />
-            <span className="text-[11px] font-medium text-amber-400/80 bg-amber-400/8 px-1.5 py-0.5 rounded">Admin</span>
+            <span className="text-[11px] font-medium px-1.5 py-0.5 rounded" style={{ color: 'rgb(251,191,36,0.85)', background: 'rgba(251,191,36,0.08)' }}>Admin</span>
           </>
         )}
       </div>
@@ -146,18 +132,12 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
               copied ? 'text-accent' : 'text-dim hover:text-accent'
             )}
           >
-            {copied
-              ? <Lottie animationData={checkmarkData} loop={false} style={{ width: 16, height: 16 }} />
-              : CopyIcon && <CopyIcon size={14} />
-            }
+            {copied ? <AnimatedCheck size={16} /> : CopyIcon && <CopyIcon size={14} />}
           </button>
           <a
             href={`/files/${tool.id}.bat`}
             download={`${tool.id}.bat`}
-            onClick={e => {
-              e.stopPropagation()
-              recordDownload(tool.id)
-            }}
+            onClick={e => { e.stopPropagation(); recordDownload(tool.id) }}
             className="flex items-center justify-center w-11 h-11 -mr-2 text-dim hover:text-accent transition-colors duration-150"
             aria-label="Download"
           >
