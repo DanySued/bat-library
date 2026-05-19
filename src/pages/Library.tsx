@@ -138,7 +138,7 @@ export function Library() {
               <div
                 key={tool.id}
                 className="card-in"
-                style={{ animationDelay: `${Math.min(i, 15) * 40}ms` }}
+                style={{ animationDelay: `${Math.min(Math.floor(i / 3), 5) * 60}ms` }}
               >
                 <ToolCard tool={tool} />
               </div>
