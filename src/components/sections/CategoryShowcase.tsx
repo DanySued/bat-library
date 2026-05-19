@@ -43,13 +43,16 @@ export function CategoryShowcase() {
               <Link
                 key={cat.id}
                 to={`/bat?cat=${cat.id}`}
-                className="group relative flex flex-col gap-5 p-6 rounded-xl border border-[rgba(255,255,255,0.07)] bg-bg2 hover:border-[rgba(255,255,255,0.14)] hover:-translate-y-0.5 transition-all duration-200"
+                className="group relative flex flex-col gap-5 p-6 rounded-xl border border-[rgba(255,255,255,0.07)] bg-bg2 hover:border-accent/30 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(87,181,231,0.1)] transition-all duration-200"
               >
                 {/* Header */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="text-accent transition-transform duration-200 group-hover:scale-110">
-                      {IconComp && <IconComp size={16} />}
+                    <div
+                      className="p-1.5 rounded-lg text-accent transition-all duration-200 group-hover:scale-110"
+                      style={{ background: 'rgba(87,181,231,0.08)' }}
+                    >
+                      {IconComp && <IconComp size={14} />}
                     </div>
                     <h3 className="text-head text-[15px] font-semibold">{cat.label}</h3>
                   </div>

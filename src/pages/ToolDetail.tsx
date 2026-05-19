@@ -126,10 +126,12 @@ export function ToolDetail() {
 
       <main className="max-w-[900px] mx-auto w-full px-4 sm:px-6 py-8 md:py-12 pb-16 md:pb-20 flex-1">
         {/* Header */}
-        <div className="mb-16">
-          <div className="text-accent mb-4">
-            {IconComp && <IconComp size={40} />}
-          </div>
+        <div className="mb-16 card-in">
+          {IconComp && (
+            <div className="mb-4 p-3 rounded-2xl text-accent inline-block" style={{ background: 'rgba(87,181,231,0.08)' }}>
+              <IconComp size={36} />
+            </div>
+          )}
           <h1
             className="font-semibold text-head leading-tight mb-3"
             style={{ fontSize: 'clamp(1.75rem, 4vw, 2.25rem)', letterSpacing: '-0.022em' }}
@@ -144,7 +146,7 @@ export function ToolDetail() {
 
         {/* Preview */}
         {tool.preview && tool.preview.type === 'folder-tree' && (
-          <section className="mb-10">
+          <section className="mb-10 card-in" style={{ animationDelay: '60ms' }}>
             <h2
               className="font-semibold text-head text-[18px] mb-4"
               style={{ letterSpacing: '-0.022em' }}
@@ -162,7 +164,7 @@ export function ToolDetail() {
 
         {/* CMD Preview */}
         {tool.preview && tool.preview.type === 'cmd' && (
-          <section className="mb-10">
+          <section className="mb-10 card-in" style={{ animationDelay: '60ms' }}>
             <h2
               className="font-semibold text-head text-[18px] mb-4"
               style={{ letterSpacing: '-0.022em' }}
@@ -197,7 +199,7 @@ export function ToolDetail() {
         )}
 
         {/* What it does */}
-        <section className="mb-10">
+        <section className="mb-10 card-in" style={{ animationDelay: '80ms' }}>
           <h2 className="font-semibold text-head text-[18px] mb-5" style={{ letterSpacing: '-0.022em' }}>
             What it does
           </h2>
@@ -212,7 +214,7 @@ export function ToolDetail() {
         </section>
 
         {/* Cautions */}
-        <section className="mb-10">
+        <section className="mb-10 card-in" style={{ animationDelay: '130ms' }}>
           <h2 className="font-semibold text-head text-[18px] mb-5" style={{ letterSpacing: '-0.022em' }}>
             Risks & notes
           </h2>
@@ -273,7 +275,7 @@ export function ToolDetail() {
         </section>
 
         {/* Source code */}
-        <section className="mb-10">
+        <section className="mb-10 card-in" style={{ animationDelay: '180ms' }}>
           <h2
             className="font-semibold text-head text-[18px] mb-4"
             style={{ letterSpacing: '-0.022em' }}
@@ -310,13 +312,13 @@ export function ToolDetail() {
         </section>
 
         {/* Download */}
-        <section className="flex flex-col items-center text-center mt-10">
+        <section className="flex flex-col items-center text-center mt-10 card-in" style={{ animationDelay: '220ms' }}>
 
           <a
             href={downloadHref ?? `/files/${tool.id}.bat`}
             download={`${tool.id}.bat`}
             onClick={() => recordDownload(tool.id)}
-            className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full font-semibold text-[14px] hover:bg-white/90 transition-colors duration-150 active:scale-[0.98]"
+            className="group inline-flex items-center gap-2 px-7 py-3.5 bg-white text-black rounded-full font-semibold text-[14px] hover:bg-white/92 transition-all duration-200 active:scale-[0.97] hover:shadow-[0_4px_24px_rgba(255,255,255,0.18)]"
           >
             {DownloadIcon && <DownloadIcon size={15} className="transition-transform duration-200 group-hover:translate-y-0.5" />}
             Download {tool.id}.bat

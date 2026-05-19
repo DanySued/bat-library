@@ -54,8 +54,9 @@ export function LandingHero() {
             style={{
               display: 'inline-block',
               opacity: visible ? 1 : 0,
-              transform: visible ? 'translateY(0)' : 'translateY(8px)',
-              transition: 'opacity 0.3s ease, transform 0.3s ease',
+              transform: visible ? 'translateY(0)' : 'translateY(10px)',
+              filter: visible ? 'blur(0px)' : 'blur(8px)',
+              transition: 'opacity 0.28s cubic-bezier(0.22,1,0.36,1), transform 0.28s cubic-bezier(0.22,1,0.36,1), filter 0.28s ease',
               minWidth: '6ch',
             }}
           >

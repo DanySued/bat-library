@@ -205,8 +205,15 @@ export function Nav() {
       </div>
 
       {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-bg2/95 backdrop-blur-lg border-b border-[rgba(255,255,255,0.06)] px-6 py-4 space-y-1">
+      <div
+        className="md:hidden overflow-hidden"
+        style={{
+          maxHeight: menuOpen ? 640 : 0,
+          opacity: menuOpen ? 1 : 0,
+          transition: 'max-height 0.3s cubic-bezier(0.22,1,0.36,1), opacity 0.2s ease',
+        }}
+      >
+        <div className="bg-bg2/95 backdrop-blur-lg border-b border-[rgba(255,255,255,0.06)] px-6 py-4 space-y-1">
           {/* Mobile search */}
           <div className="relative mb-3">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-dim pointer-events-none" />
@@ -289,7 +296,7 @@ export function Nav() {
             </button>
           )}
         </div>
-      )}
+      </div>
     </nav>
   )
 }

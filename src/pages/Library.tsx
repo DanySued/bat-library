@@ -96,7 +96,7 @@ export function Library() {
               </button>
 
               {sortOpen && (
-                <div className="absolute right-0 top-full mt-1.5 w-44 bg-bg2 border border-rule rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden z-50">
+                <div className="dropdown-in absolute right-0 top-full mt-1.5 w-44 bg-bg2 border border-rule rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden z-50">
                   {SORT_OPTIONS.map(({ id, label, Icon }) => (
                     <button
                       key={id}
@@ -122,9 +122,9 @@ export function Library() {
         </div>
       </div>
 
-      <main id="tools" className="max-w-[1140px] mx-auto w-full px-4 sm:px-6 py-8 pb-16 md:py-10 md:pb-20 fade-in flex-1">
+      <main id="tools" className="max-w-[1140px] mx-auto w-full px-4 sm:px-6 py-8 pb-16 md:py-10 md:pb-20 flex-1">
         {filtered.length === 0 ? (
-          <div className="text-center py-24 text-dim">
+          <div className="text-center py-24 text-dim card-in">
             <p className="text-[16px] mb-2 text-head">No scripts found</p>
             <p className="text-[14px]">
               {cat === 'saved'
@@ -133,17 +133,17 @@ export function Library() {
             </p>
           </div>
         ) : (
-          <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-              {filtered.map(tool => (
-                <ToolCard
-                  key={tool.id}
-                  tool={tool}
-                />
-              ))}
-            </div>
-
-          </>
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+            {filtered.map((tool, i) => (
+              <div
+                key={tool.id}
+                className="card-in"
+                style={{ animationDelay: `${Math.min(i, 15) * 40}ms` }}
+              >
+                <ToolCard tool={tool} />
+              </div>
+            ))}
+          </div>
         )}
       </main>
 

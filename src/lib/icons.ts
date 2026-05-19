@@ -6,5 +6,5 @@ export type IconComponent = React.ComponentType<IconProps>
 
 export function getIcon(name: string): IconComponent | null {
   const icon = (LucideIcons as unknown as Record<string, IconComponent>)[name]
-  return typeof icon === 'function' ? icon : null
+  return icon != null ? icon : null
 }

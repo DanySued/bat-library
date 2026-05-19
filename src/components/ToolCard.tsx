@@ -79,7 +79,7 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
     <div
       ref={cardRef}
       onClick={() => navigate(`/bat/${tool.id}`)}
-      className="group flex flex-col bg-bg2 border border-[rgba(255,255,255,0.06)] rounded-xl p-5 cursor-pointer transition-all duration-200 hover:bg-bg3 hover:border-accent/50 hover:shadow-[0_4px_32px_rgba(87,181,231,0.12)] hover:-translate-y-0.5"
+      className="group flex flex-col bg-bg2 border border-[rgba(255,255,255,0.06)] rounded-xl p-5 cursor-pointer transition-all duration-200 hover:bg-bg3 hover:border-accent/40 hover:shadow-[0_8px_40px_rgba(87,181,231,0.16)] hover:-translate-y-1"
     >
       {/* Bookmark */}
       <div className="flex justify-end mb-1">
@@ -97,15 +97,17 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
 
       {/* Icon + Title + description */}
       <div className="flex flex-col items-center text-center flex-1 mb-4">
-        <div className="text-accent mb-3">
-          {IconComp && <IconComp size={28} />}
-        </div>
+        {IconComp && (
+          <div className="mb-3 p-2.5 rounded-xl text-accent transition-all duration-200 group-hover:scale-110" style={{ background: 'rgba(87,181,231,0.08)' }}>
+            <IconComp size={24} />
+          </div>
+        )}
         <h3 className="font-bold text-head text-[17px] leading-snug mb-1.5">{tool.name}</h3>
         <p className="text-dim text-[13px] leading-relaxed">{tool.desc}</p>
       </div>
 
-      {/* Risk + downloads */}
-      <div className="flex items-center justify-center gap-4 mb-3 mt-1">
+      {/* Risk + downloads + admin badge */}
+      <div className="flex items-center justify-center gap-3 mb-3 mt-1 flex-wrap">
         <span className="flex items-center gap-1.5 text-[12px]" style={{ color: RISK_COLOR[tool.riskScore] }}>
           <span
             className="w-1.5 h-1.5 rounded-full flex-shrink-0"
@@ -118,6 +120,12 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
           <Download size={11} />
           {formatCount(dlCount)}
         </span>
+        {tool.admin && (
+          <>
+            <span className="w-px h-3 bg-white/10" />
+            <span className="text-[11px] font-medium text-amber-400/80 bg-amber-400/8 px-1.5 py-0.5 rounded">Admin</span>
+          </>
+        )}
       </div>
 
       {/* Footer */}
