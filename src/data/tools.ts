@@ -23,6 +23,7 @@ export interface Tool {
   riskScore: 1 | 2 | 3 | 4 | 5
   downloads: number
   preview?: Preview
+  screenshot?: string
   bat_content?: string
 }
 
@@ -3001,6 +3002,7 @@ export const TOOLS: Tool[] = [
     ],
     riskScore: 1,
     downloads: 0,
+    screenshot: '/screenshots/SnakeGame.png',
   },
   {
     id: 'TypewriterText',

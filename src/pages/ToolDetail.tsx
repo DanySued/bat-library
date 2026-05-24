@@ -197,6 +197,22 @@ export function ToolDetail() {
           </section>
         )}
 
+        {/* Terminal screenshot */}
+        {tool.screenshot && (
+          <section className="mb-10 card-in" style={{ animationDelay: '70ms' }}>
+            <h2 className="font-semibold text-head text-[18px] mb-4" style={{ letterSpacing: '-0.022em' }}>
+              Terminal preview
+            </h2>
+            <div className="rounded-xl overflow-hidden border border-[rgba(255,255,255,0.06)]">
+              <img
+                src={tool.screenshot}
+                alt={`${tool.name} running in terminal`}
+                className="w-full block"
+              />
+            </div>
+          </section>
+        )}
+
         {/* What it does */}
         <section className="mb-10 card-in" style={{ animationDelay: '80ms' }}>
           <h2 className="font-semibold text-head text-[18px] mb-5" style={{ letterSpacing: '-0.022em' }}>
