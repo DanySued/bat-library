@@ -137,7 +137,7 @@ export function Library() {
             {filtered.map((tool, i) => (
               <div
                 key={tool.id}
-                className="card-in"
+                className="card-in h-full"
                 style={{ animationDelay: `${Math.min(Math.floor(i / 3), 5) * 60}ms` }}
               >
                 <ToolCard tool={tool} />

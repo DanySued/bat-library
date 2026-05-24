@@ -68,7 +68,7 @@ export function ToolCard({ tool, onBookmarkChange }: ToolCardProps) {
   return (
     <div
       onClick={() => navigate(`/bat/${tool.id}`)}
-      className="group flex flex-col bg-bg2 border border-[rgba(255,255,255,0.06)] rounded-xl p-5 cursor-pointer transition-all duration-200 hover:bg-bg3 hover:border-accent/40 hover:shadow-[0_8px_40px_rgba(87,181,231,0.16)] hover:-translate-y-1"
+      className="group flex flex-col h-full bg-bg2 border border-[rgba(255,255,255,0.06)] rounded-xl p-5 cursor-pointer transition-all duration-200 hover:bg-bg3 hover:border-accent/40 hover:shadow-[0_8px_40px_rgba(87,181,231,0.16)] hover:-translate-y-1"
     >
       {/* Bookmark */}
       <div className="flex justify-end mb-1">
