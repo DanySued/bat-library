@@ -8,6 +8,7 @@ export interface TreeNode {
 export type Preview =
   | { type: 'folder-tree'; root: string; tree: TreeNode[] }
   | { type: 'cmd'; description: string; execution: string; result: string }
+  | { type: 'terminal'; lines: string[] }
 
 export interface Tool {
   id: string

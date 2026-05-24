@@ -10,6 +10,8 @@ import { cn } from '@/lib/utils'
 import { Nav } from '@/components/layout/Nav'
 import { Footer } from '@/components/layout/Footer'
 import { FolderTreePreview } from '@/components/FolderTreePreview'
+import { TerminalWindow } from '@/components/TerminalWindow'
+import terminalPreviews from '@/data/terminalPreviews'
 
 type CautionType = 'warning' | 'safe' | 'tip'
 
@@ -197,19 +199,23 @@ export function ToolDetail() {
           </section>
         )}
 
-        {/* Terminal screenshot */}
-        {tool.screenshot && (
+        {/* Terminal preview — real screenshot or generated terminal window */}
+        {(tool.screenshot || terminalPreviews[tool.id]) && (
           <section className="mb-10 card-in" style={{ animationDelay: '70ms' }}>
             <h2 className="font-semibold text-head text-[18px] mb-4" style={{ letterSpacing: '-0.022em' }}>
               Terminal preview
             </h2>
-            <div className="rounded-xl overflow-hidden border border-[rgba(255,255,255,0.06)]">
-              <img
-                src={tool.screenshot}
-                alt={`${tool.name} running in terminal`}
-                className="w-full block"
-              />
-            </div>
+            {tool.screenshot ? (
+              <div className="rounded-xl overflow-hidden border border-[rgba(255,255,255,0.06)]">
+                <img
+                  src={tool.screenshot}
+                  alt={`${tool.name} running in terminal`}
+                  className="w-full block"
+                />
+              </div>
+            ) : (
+              <TerminalWindow title={`${tool.id}.bat`} lines={terminalPreviews[tool.id]} />
+            )}
           </section>
         )}
 
